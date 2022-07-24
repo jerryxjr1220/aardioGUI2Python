@@ -423,7 +423,7 @@ class ***/
                 } else {
                     pycode += 'self.pic'++id++ ' = ttk.Label(self.pic'++id++'_frame)\r\n        ';
                 }
-                pycode += 'self.pic'++id++ '.place(x=0, y=0)\r\n';
+                pycode += 'self.pic'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.pic'++id++ '.place_forget()\r\n        '};
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
