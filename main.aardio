@@ -1,0 +1,32 @@
+import win.ui;
+/*DSG{{*/
+mainForm = win.form(text="Window Title";right=1192;bottom=696)
+mainForm.add(
+button={cls="button";text="Button";left=60;top=116;right=218;bottom=151;z=2};
+checkbox={cls="checkbox";text="Checkbox";left=64;top=266;right=177;bottom=289;z=4};
+combobox={cls="combobox";left=382;top=411;right=637;bottom=437;edge=1;items={};mode="dropdown";z=8};
+custom={cls="custom";text="自定义控件";left=900;top=103;right=1152;bottom=285;z=12};
+edit={cls="edit";text="Edit";left=59;top=200;right=206;bottom=227;edge=1;z=3};
+groupbox={cls="groupbox";text="Groupbox";left=329;top=49;right=840;bottom=322;edge=1;z=6};
+listbox={cls="listbox";left=90;top=378;right=322;bottom=457;edge=1;items={};z=7};
+listview={cls="listview";left=418;top=469;right=671;bottom=555;edge=1;z=10};
+picturebox={cls="picturebox";left=921;top=352;right=1094;bottom=436;z=13};
+progress={cls="progress";left=72;top=520;right=250;bottom=550;edge=1;max=100;min=0;z=9};
+radiobutton={cls="radiobutton";text="Radiobutton";left=68;top=314;right=171;bottom=335;z=5};
+static={cls="static";text="Static";left=57;top=71;right=242;bottom=104;transparent=1;z=1};
+tab={cls="tab";left=746;top=461;right=1065;bottom=626;edge=1;z=11}
+)
+/*}}*/
+
+import console;
+console.open();
+
+import GUI2Py;
+g2t = GUI2Py.GUI2Tk(mainForm);
+code = g2t.transfer2assembly();
+mainForm.edit.text = code;
+
+console.log(code);
+
+mainForm.show();
+return win.loopMessage();
