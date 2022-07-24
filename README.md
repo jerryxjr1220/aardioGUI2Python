@@ -7,6 +7,7 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码
 
 >aardio的图形化设计非常便捷，这样在aardio里画好界面自动生成tkinter的python代码就是再好不过的事情了。
 
+* aardio 可以至 [https://www.aardio.com/](https://www.aardio.com/) 下载最新版，可免费下载使用。
 
 ## 目前可以实现的功能：
 
