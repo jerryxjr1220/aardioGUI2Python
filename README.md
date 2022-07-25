@@ -13,7 +13,7 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 - 20220724更新：
 
-1. 基本控件都已经完善
+1. 基本控件都已经完善，包括Label, Button, Text/Entry, RadioButton, CheckBox, PictureBox, Canvas, ListBox, ComboBox, Treeview, ProgressBar, Scale, LabelFrame, Frame, Notebook等，基本满足常规使用。其余Tkinter支持的控件也可以通过手动方式添加使用。
 2. 可以把界面直接转换为主界面
 3. 更新组件化界面功能，这样可以像aardio一样把不同的界面拆成单独的组件，然后在Tabs高级选项卡（python中对应的就是Notebook）进行调用。也可以嵌入到其他Frame、Notebook、LabelFrame等容器中，当然也可以是主窗口Tk容器。
 4. 新增了“隐藏”属性支持和背景色、前景色设置支持（仅对标签、文本框等控件有效）
