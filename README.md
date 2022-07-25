@@ -77,3 +77,49 @@ edit1_frame.place(x=217, y=117)
 root.mainloop()
 ```
 aardioGUI2Python库可以转换大部分的常用控件至Python的Tkinter中，界面可以直接运行。当然“功能逻辑部分”需要自行添加，可以实现预想的功能。
+
+## 进阶应用
+
+把界面组件化，这样可以像aardio一样把不同的界面拆成单独的组件，然后在Tabs高级选项卡（python中对应的就是Notebook）进行调用。也可以嵌入到其他Frame、Notebook、LabelFrame等容器中，当然也可以是主窗口Tk容器。
+```aardio
+import GUI2Py;
+g2t = GUI2Py.GUI2Tk(mainForm);
+code = g2t.transfer2assembly();
+```
+
+生成的python代码
+```python
+import tkinter as tk
+import tkinter.ttk as ttk
+  
+class SubAssembly():
+    ### 界面设计部分 ###
+    
+    def __init__(self, master):
+        self.mainframe = ttk.Frame(master, width=601, height=390)
+        self.label1_frame = ttk.Frame(self.mainframe, width=155, height=29)
+        self.label1 = ttk.Label(self.label1_frame, text="Hello, Python!")
+        self.label1.place(x=0, y=0)
+        self.label1_frame.place(x=218, y=74)
+        self.editVar1 = tk.StringVar(value='Text')
+        self.edit1_frame = ttk.Frame(self.mainframe, width=182, height=117)
+        self.edit1 = tk.Text(self.edit1_frame)
+        self.edit1.insert("end", "Text")
+        self.edit1.place(x=0, y=0)
+        self.edit1_frame.place(x=217, y=117)
+        self.button1_frame = ttk.Frame(self.mainframe, width=127, height=32)
+        self.button1 = ttk.Button(self.button1_frame, text="Button")
+        self.button1.place(x=0, y=0)
+        self.button1_frame.place(x=242, y=261)
+        self.mainframe.pack()
+
+    ### 功能逻辑部分 ###
+```
+
+在python中调用，只需要实例化即可，当然如果需要实现额外功能，需要自行添加功能代码。
+```python
+root = tk.Tk()
+sa = SubAssembly(root)
+root.mainloop()
+```
+        
