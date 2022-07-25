@@ -123,3 +123,46 @@ sa = SubAssembly(root)
 root.mainloop()
 ```
         
+### 应用实例
+- Matplotlib画函数图，内存加载至Tkinter显示
+
+```python
+import tkinter as tk
+import tkinter.ttk as ttk
+from PIL import Image, ImageTk
+import numpy as np
+import matplotlib.pyplot as plt
+from io import BytesIO
+
+class SubAssembly():
+    ### 界面设计部分 ###
+
+    def __init__(self, master):
+        self.SubAssembly = ttk.Frame(master, width=672, height=626)
+        self.frame = ttk.Frame(self.SubAssembly, width=500, height=400)
+        self.label = ttk.Label(self.frame, background='#00AA00')
+        self.label.pack(fill='both')
+        self.frame.pack(fill='both')
+        self.SubAssembly.pack()
+
+    ### 功能逻辑部分 ###
+    def showImg(self):
+        x = np.linspace(2,10,50)
+        y = np.tan(x) / np.log(x)
+        plt.plot(x,y,'b')
+        buff = BytesIO()
+        plt.savefig(buff)
+        buff.seek(0)
+        im = Image.open(buff)
+        img = ImageTk.PhotoImage(im)
+        self.label.img = img
+        self.label.config(image=img)
+
+
+root = tk.Tk()
+root.geometry("800x600+200+100")
+sa = SubAssembly(root)
+sa.showImg()
+root.mainloop()
+```
+
