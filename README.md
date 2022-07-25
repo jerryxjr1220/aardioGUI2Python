@@ -1,5 +1,5 @@
 # aardioGUI2Python
-GUI2Python库 - 用aardio画Tkinter界面并生成Python代码
+GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter Designer*
 
 >TKinter是Python的原生GUI库，用来创建一些简单的GUI界面还是很方便的。但是，缺点是没有提供一套图形化的设计界面，这样创建界面的时候就非常不直观。
 
