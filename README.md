@@ -15,6 +15,8 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 1. 所有可禁用控件，增加禁用属性
 2. 文本框增加密码属性
+3. 增加pack布局
+4. 增加grid布局
 
 - 20220724更新：
 
