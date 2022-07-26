@@ -132,7 +132,8 @@ root.mainloop()
         
 ### 应用实例
 - aardio创建界面，用matplotlib画图，实时动态显示在Tkinter中
-![](https://www.htmlayout.cn/upload/image/20220726/1658814090451434.gif)
+
+![https://www.htmlayout.cn/upload/image/20220726/1658814090451434.gif](https://www.htmlayout.cn/upload/image/20220726/1658814090451434.gif)
 
 ```python
 import tkinter as tk
