@@ -615,7 +615,638 @@ class ***/
         pycode += '\r\n    ### 功能逻辑部分 ###\r\n        \r\n        \r\n        ';
          
         return pycode;
-    }
+    };
+    
+    //转换为组件(pack方式)
+    transfer2pack = function(assembly_name="SubAssembly"){
+        var window_width = this.width - 12;
+        var window_height = this.height - 33;
+        var window_text = this.text;
+        var pycode = /***
+import tkinter as tk
+import tkinter.ttk as ttk
+  
+class ***/
+        pycode += assembly_name++'():\r\n    ### 界面设计部分 ###\r\n    \r\n    def __init__(self, master):\r\n        '
+        pycode += 'self.mainframe = ttk.Frame(master, width='++ window_width ++', height='++ window_height ++')\r\n        ';
+        var ctrlNameList = {
+            'button' = 0;
+            'static' = 0;
+            'edit' = 0;
+            'radio' = 0;
+            'check' = 0;
+            'pic' = 0;
+            'listbox' = 0;
+            'combobox' = 0;
+            'progress' = 0;
+            'trackbar' = 0;
+            'listview' = 0;
+            'treeview' = 0;
+            'canvas' = 0;
+            'groupbox' = 0;
+            'frame' = 0;
+            'tab' = 0;
+               
+        };
+        for ( hwnd,ctrl in this.eachControlEx() ){
+            winctrol = this.getCtrl(hwnd);
+            var width = winctrol.width;
+            var height = winctrol.height;
+            var text = winctrol.text;
+            var hide = ctrl.hide;
+            var disabled = ctrl.disabled;
+            var readonly = ctrl.readonly;
+            var bgcolor = ctrl.bgcolor;
+            var frcolor = ctrl.color;
+            //按钮
+            if winctrol.cls == "button" {
+                var id = ctrlNameList.button + 1;
+                ctrlNameList.button = id;
+                pycode += 'self.button'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.button'++id++ ' = ttk.Button(self.button'++id++'_frame, text="'++ text ++'")\r\n        ';
+                pycode += 'self.button'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.button'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.button'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.button'++id++'_frame.pack()\r\n        ';
+            };
+              
+            //标签
+            if winctrol.cls == "static" {
+                var id = ctrlNameList.static + 1;
+                ctrlNameList.static = id;
+                pycode += 'self.label'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.label'++id++ ' = ttk.Label(self.label'++id++'_frame, text="'++ text ++'")\r\n        ';
+                pycode += 'self.label'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.label'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.label'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    pycode += 'self.label'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    pycode += 'self.label'++id++ '.config(foreground="'++frcolorStr++'")\r\n        ';
+                };
+                pycode += 'self.label'++id++ '_frame.pack()\r\n        ';
+            };
+              
+            //文本框
+            if winctrol.cls == "edit" {
+                var id = ctrlNameList.edit + 1;
+                ctrlNameList.edit = id;
+                pycode += 'self.editVar' ++ id ++ " = tk.StringVar(value='"++ winctrol.text ++"')"++'\r\n        ';
+                pycode += 'self.edit'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                if winctrol.multiline == 1 {
+                    pycode += 'self.edit'++id++ ' = tk.Text(self.edit'++id++'_frame)\r\n        ';
+                    pycode += 'self.edit'++id++ '.insert("end", "'++ winctrol.text ++ '")\r\n        ';
+                } else {
+                    pycode += 'self.edit'++id++ ' = ttk.Entry(self.edit'++id++'_frame, textvariable=self.editVar'++id++')\r\n        ';
+                }
+                pycode += 'self.edit'++id++ '.place(x=0, y=0)\r\n        ';
+                if ctrl.password { pycode += 'self.edit'++id++ '.configure(show="*")\r\n        '; };
+                if hide { pycode += 'self.edit'++id++ '.place_forget()\r\n        '; };
+                if(readonly or disabled) { pycode += 'self.edit'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    pycode += 'self.edit'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    pycode += 'self.edit'++id++ '.config(foreground="'++frcolorStr++'")\r\n        ';
+                };
+                pycode += 'self.edit'++id++ '_frame.pack()\r\n        ';
+            };
+              
+            //单选
+            if winctrol.cls == "radiobutton" {
+                var id = ctrlNameList.radio + 1;
+                ctrlNameList.radio = id;
+                pycode += 'self.radio'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.radio'++id++ ' = ttk.Radiobutton(self.radio'++id++'_frame, text="'++ text ++'")\r\n        ';
+                pycode += 'self.radio'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.radio'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.radio'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.radio'++id++ '_frame.pack()\r\n        ';
+            };
+              
+            //复选
+            if winctrol.cls == "checkbox" {
+                var id = ctrlNameList.check + 1;
+                ctrlNameList.check = id;
+                pycode += 'self.check'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.check'++id++ ' = ttk.Checkbutton(self.check'++id++'_frame, text="'++ text ++'")\r\n        ';
+                pycode += 'self.check'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.check'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.check'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.check'++id++ '_frame.pack()\r\n        ';
+            };
+              
+            //图片框
+            if winctrol.cls == "picturebox" {
+                var id = ctrlNameList.pic + 1;
+                ctrlNameList.pic = id;
+                pycode += 'self.pic'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                var picpath = winctrol.background;
+                if picpath {
+                    pycode += 'self.img' ++ id ++ " = tk.PhotoImage(file=r'"++ picpath.path ++"')"++'\r\n        ';
+                    pycode += 'self.pic' ++ id ++ ' = ttk.Label(self.pic'++id++'_frame, image=self.img'++ id ++')\r\n        ';
+                } else {
+                    pycode += 'self.pic'++id++ ' = ttk.Label(self.pic'++id++'_frame)\r\n        ';
+                }
+                pycode += 'self.pic'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.pic'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.pic'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    pycode += 'self.pic'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    pycode += 'self.pic'++id++ '.config(foreground="'++frcolorStr++'")\r\n        ';
+                };
+                pycode += 'self.pic'++id++ '_frame.pack()\r\n        ';
+            };
+             
+            //画板
+            if winctrol.cls == "plus" {
+                var id = ctrlNameList.canvas + 1;
+                ctrlNameList.canvas = id;
+                var bgcolor = winctrol.backgroundColor;
+                pycode += 'self.canvas'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.canvas'++id++ ' = tk.Canvas(self.canvas'++id++'_frame)\r\n        ';
+                pycode += 'self.canvas'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.canvas'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.canvas'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    bStr = ..string.slice(bgcolorStr,2,3);
+                    gStr = ..string.slice(bgcolorStr,4,5);
+                    rStr = ..string.slice(bgcolorStr,6,7);
+                    pycode += 'self.canvas'++id++ '.config(background="#'++rStr++gStr++bStr++'")\r\n        ';
+                };
+                pycode += 'self.canvas'++id++ '_frame.pack()\r\n        ';
+            };
+             
+            //ListBox
+            if winctrol.cls == "listbox" {
+                var id = ctrlNameList.listbox + 1;
+                ctrlNameList.listbox = id;
+                pycode += 'self.list'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                var items = winctrol.items;
+                if #items>0 {
+                    pycode += 'self.items'++id++' = tk.Variable(value=[';
+                    for i,item in items {
+                        pycode += '"' ++ item ++'", ';
+                    }
+                    pycode += '])\r\n        ';
+                    pycode += 'self.list'++id++ ' = tk.Listbox(self.list'++id++'_frame, listvariable=self.items'++ id ++')\r\n        ';
+                      
+                } else {
+                    pycode += 'self.list'++id++ ' = tk.Listbox(self.list'++id++'_frame)\r\n        ';
+                }
+                pycode += 'self.list'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.list'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.list'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    pycode += 'self.list'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    pycode += 'self.list'++id++ '.config(foreground="'++frcolorStr++'")\r\n        ';
+                };
+                pycode += 'self.list'++id++ '_frame.pack()\r\n        ';
+            };
+              
+            //下拉框
+            if winctrol.cls == "combobox" {
+                var id = ctrlNameList.combobox + 1;
+                ctrlNameList.combobox = id;
+                pycode += 'self.combobox'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                var items = winctrol.items;
+                if #items>0 {
+                    pycode += 'self.combobox'++id++ '= ttk.Combobox(self.combobox'++id++'_frame, value=[';
+                    for i,item in items {
+                        pycode += '"' ++ item ++'", ';
+                    }
+                    pycode += '])\r\n        ';
+                      
+                } else {
+                    pycode += 'self.combobox'++id++ ' = ttk.Combobox(self.combobox'++id++'_frame)\r\n        ';
+                }
+                pycode += 'self.combobox'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.combobox'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.combobox'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    pycode += 'self.combobox'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    pycode += 'self.combobox'++id++ '.config(foreground="'++frcolorStr++'")\r\n        ';
+                };
+                pycode += 'self.combobox'++id++ '_frame.pack()\r\n        ';
+            };
+             
+            //表格
+            if winctrol.cls == "listview" {
+                var id = ctrlNameList.treeview + 1;
+                ctrlNameList.treeview = id;
+                pycode += 'self.tree'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.tree'++id++ ' = ttk.Treeview(self.tree'++id++'_frame)\r\n        ';
+                pycode += 'self.tree'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.tree'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.tree'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.tree'++id++ '_frame.pack()\r\n        ';
+            };
+             
+            //进度条
+            if winctrol.cls == "progress" {
+                var id = ctrlNameList.progress + 1;
+                ctrlNameList.progress = id;
+                pycode += 'self.progress'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                var max = winctrol.max;
+                var value = winctrol.pos;
+                pycode += 'self.progress'++id++ ' = ttk.Progressbar(self.progress'++id++'_frame, value='++ value ++', maximum='++ max ++')\r\n        ';
+                pycode += 'self.progress'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.progress'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.progress'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.progress'++id++ '_frame.pack()\r\n        ';
+            };
+              
+            //Trackbar
+            if winctrol.cls == "trackbar" {
+                var id = ctrlNameList.trackbar + 1;
+                ctrlNameList.trackbar = id;
+                pycode += 'self.scale'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                var min = winctrol.min;
+                var max = winctrol.max;
+                var value = winctrol.pos;
+                pycode += 'self.scale'++id++ ' = ttk.Scale(self.scale'++id++'_frame, from_='++ min ++', to='++ max ++', value='++ value ++ ')\r\n        ';
+                pycode += 'self.scale'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.scale'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.scale'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.scale'++id++ '_frame.pack()\r\n        ';
+            };
+              
+            //GroupBox
+            if winctrol.cls == "groupbox" {
+                var id = ctrlNameList.groupbox + 1;
+                ctrlNameList.groupbox = id;
+                pycode += 'self.labelframe'++id++ ' = ttk.Labelframe(self.mainframe, text="'++ text ++'", width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.labelframe'++id++ '.pack()\r\n        ';
+                if hide { pycode += 'self.labelframe'++id++ '.pack_forget()\r\n        '; };
+            };
+              
+            //Frame
+            if winctrol.cls == "custom" {
+                var id = ctrlNameList.frame + 1;
+                ctrlNameList.frame = id;
+                pycode += 'self.frame'++id++ ' = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.frame'++id++ '.pack()\r\n        ';
+                if hide { pycode += 'self.frame'++id++ '.pack_forget()\r\n        '; }; 
+            };
+              
+            //Tab
+            if winctrol.cls == "tab" {
+                var id = ctrlNameList.tab + 1;
+                ctrlNameList.tab = id;
+                pycode += 'self.nb'++id++ ' = ttk.Notebook(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.nb'++id++ '.pack()\r\n        ';
+                if hide { pycode += 'self.nb'++id++ '.pack_forget()\r\n        '; };
+            };
+        };
+         
+        pycode += 'self.mainframe.pack()\r\n';
+         
+        pycode += '\r\n    ### 功能逻辑部分 ###\r\n        \r\n        \r\n        ';
+         
+        return pycode;
+    };
+    
+    //转换为组件(grid方式)
+    transfer2grid = function(assembly_name="SubAssembly"){
+        var window_width = this.width - 12;
+        var window_height = this.height - 33;
+        var window_text = this.text;
+        var pycode = /***
+import tkinter as tk
+import tkinter.ttk as ttk
+  
+class ***/
+        pycode += assembly_name++'():\r\n    ### 界面设计部分 ###\r\n    \r\n    def __init__(self, master):\r\n        '
+        pycode += 'self.mainframe = ttk.Frame(master, width='++ window_width ++', height='++ window_height ++')\r\n        ';
+        var ctrlNameList = {
+            'button' = 0;
+            'static' = 0;
+            'edit' = 0;
+            'radio' = 0;
+            'check' = 0;
+            'pic' = 0;
+            'listbox' = 0;
+            'combobox' = 0;
+            'progress' = 0;
+            'trackbar' = 0;
+            'listview' = 0;
+            'treeview' = 0;
+            'canvas' = 0;
+            'groupbox' = 0;
+            'frame' = 0;
+            'tab' = 0;
+               
+        };
+        var col = 0;
+        var row = 0;
+        for ( hwnd,ctrl in this.eachControlEx() ){
+            winctrol = this.getCtrl(hwnd);
+            var width = winctrol.width;
+            var height = winctrol.height;
+            var text = winctrol.text;
+            var hide = ctrl.hide;
+            var disabled = ctrl.disabled;
+            var readonly = ctrl.readonly;
+            var bgcolor = ctrl.bgcolor;
+            var frcolor = ctrl.color;
+            //按钮
+            if winctrol.cls == "button" {
+                row++;
+                var id = ctrlNameList.button + 1;
+                ctrlNameList.button = id;
+                pycode += 'self.button'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.button'++id++ ' = ttk.Button(self.button'++id++'_frame, text="'++ text ++'")\r\n        ';
+                pycode += 'self.button'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.button'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.button'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.button'++id++'_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+              
+            //标签
+            if winctrol.cls == "static" {
+                row++;
+                var id = ctrlNameList.static + 1;
+                ctrlNameList.static = id;
+                pycode += 'self.label'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.label'++id++ ' = ttk.Label(self.label'++id++'_frame, text="'++ text ++'")\r\n        ';
+                pycode += 'self.label'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.label'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.label'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    pycode += 'self.label'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    pycode += 'self.label'++id++ '.config(foreground="'++frcolorStr++'")\r\n        ';
+                };
+                pycode += 'self.label'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+              
+            //文本框
+            if winctrol.cls == "edit" {
+                col++;
+                var id = ctrlNameList.edit + 1;
+                ctrlNameList.edit = id;
+                pycode += 'self.editVar' ++ id ++ " = tk.StringVar(value='"++ winctrol.text ++"')"++'\r\n        ';
+                pycode += 'self.edit'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                if winctrol.multiline == 1 {
+                    pycode += 'self.edit'++id++ ' = tk.Text(self.edit'++id++'_frame)\r\n        ';
+                    pycode += 'self.edit'++id++ '.insert("end", "'++ winctrol.text ++ '")\r\n        ';
+                } else {
+                    pycode += 'self.edit'++id++ ' = ttk.Entry(self.edit'++id++'_frame, textvariable=self.editVar'++id++')\r\n        ';
+                }
+                pycode += 'self.edit'++id++ '.place(x=0, y=0)\r\n        ';
+                if ctrl.password { pycode += 'self.edit'++id++ '.configure(show="*")\r\n        '; };
+                if hide { pycode += 'self.edit'++id++ '.place_forget()\r\n        '; };
+                if(readonly or disabled) { pycode += 'self.edit'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    pycode += 'self.edit'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    pycode += 'self.edit'++id++ '.config(foreground="'++frcolorStr++'")\r\n        ';
+                };
+                pycode += 'self.edit'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+              
+            //单选
+            if winctrol.cls == "radiobutton" {
+                col++;
+                var id = ctrlNameList.radio + 1;
+                ctrlNameList.radio = id;
+                pycode += 'self.radio'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.radio'++id++ ' = ttk.Radiobutton(self.radio'++id++'_frame, text="'++ text ++'")\r\n        ';
+                pycode += 'self.radio'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.radio'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.radio'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.radio'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+              
+            //复选
+            if winctrol.cls == "checkbox" {
+                col++;
+                var id = ctrlNameList.check + 1;
+                ctrlNameList.check = id;
+                pycode += 'self.check'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.check'++id++ ' = ttk.Checkbutton(self.check'++id++'_frame, text="'++ text ++'")\r\n        ';
+                pycode += 'self.check'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.check'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.check'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.check'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+              
+            //图片框
+            if winctrol.cls == "picturebox" {
+                row++;
+                var id = ctrlNameList.pic + 1;
+                ctrlNameList.pic = id;
+                pycode += 'self.pic'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                var picpath = winctrol.background;
+                if picpath {
+                    pycode += 'self.img' ++ id ++ " = tk.PhotoImage(file=r'"++ picpath.path ++"')"++'\r\n        ';
+                    pycode += 'self.pic' ++ id ++ ' = ttk.Label(self.pic'++id++'_frame, image=self.img'++ id ++')\r\n        ';
+                } else {
+                    pycode += 'self.pic'++id++ ' = ttk.Label(self.pic'++id++'_frame)\r\n        ';
+                }
+                pycode += 'self.pic'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.pic'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.pic'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    pycode += 'self.pic'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    pycode += 'self.pic'++id++ '.config(foreground="'++frcolorStr++'")\r\n        ';
+                };
+                pycode += 'self.pic'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+             
+            //画板
+            if winctrol.cls == "plus" {
+                row++;
+                var id = ctrlNameList.canvas + 1;
+                ctrlNameList.canvas = id;
+                var bgcolor = winctrol.backgroundColor;
+                pycode += 'self.canvas'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.canvas'++id++ ' = tk.Canvas(self.canvas'++id++'_frame)\r\n        ';
+                pycode += 'self.canvas'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.canvas'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.canvas'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    bStr = ..string.slice(bgcolorStr,2,3);
+                    gStr = ..string.slice(bgcolorStr,4,5);
+                    rStr = ..string.slice(bgcolorStr,6,7);
+                    pycode += 'self.canvas'++id++ '.config(background="#'++rStr++gStr++bStr++'")\r\n        ';
+                };
+                pycode += 'self.canvas'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+             
+            //ListBox
+            if winctrol.cls == "listbox" {
+                row++;
+                var id = ctrlNameList.listbox + 1;
+                ctrlNameList.listbox = id;
+                pycode += 'self.list'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                var items = winctrol.items;
+                if #items>0 {
+                    pycode += 'self.items'++id++' = tk.Variable(value=[';
+                    for i,item in items {
+                        pycode += '"' ++ item ++'", ';
+                    }
+                    pycode += '])\r\n        ';
+                    pycode += 'self.list'++id++ ' = tk.Listbox(self.list'++id++'_frame, listvariable=self.items'++ id ++')\r\n        ';
+                      
+                } else {
+                    pycode += 'self.list'++id++ ' = tk.Listbox(self.list'++id++'_frame)\r\n        ';
+                }
+                pycode += 'self.list'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.list'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.list'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    pycode += 'self.list'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    pycode += 'self.list'++id++ '.config(foreground="'++frcolorStr++'")\r\n        ';
+                };
+                pycode += 'self.list'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+              
+            //下拉框
+            if winctrol.cls == "combobox" {
+                col++;
+                var id = ctrlNameList.combobox + 1;
+                ctrlNameList.combobox = id;
+                pycode += 'self.combobox'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                var items = winctrol.items;
+                if #items>0 {
+                    pycode += 'self.combobox'++id++ '= ttk.Combobox(self.combobox'++id++'_frame, value=[';
+                    for i,item in items {
+                        pycode += '"' ++ item ++'", ';
+                    }
+                    pycode += '])\r\n        ';
+                      
+                } else {
+                    pycode += 'self.combobox'++id++ ' = ttk.Combobox(self.combobox'++id++'_frame)\r\n        ';
+                }
+                pycode += 'self.combobox'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.combobox'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.combobox'++id++ '.configure(state="disabled")\r\n        '; };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    pycode += 'self.combobox'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    pycode += 'self.combobox'++id++ '.config(foreground="'++frcolorStr++'")\r\n        ';
+                };
+                pycode += 'self.combobox'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+             
+            //表格
+            if winctrol.cls == "listview" {
+                row++;
+                var id = ctrlNameList.treeview + 1;
+                ctrlNameList.treeview = id;
+                pycode += 'self.tree'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.tree'++id++ ' = ttk.Treeview(self.tree'++id++'_frame)\r\n        ';
+                pycode += 'self.tree'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.tree'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.tree'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.tree'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+             
+            //进度条
+            if winctrol.cls == "progress" {
+                row++;
+                var id = ctrlNameList.progress + 1;
+                ctrlNameList.progress = id;
+                pycode += 'self.progress'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                var max = winctrol.max;
+                var value = winctrol.pos;
+                pycode += 'self.progress'++id++ ' = ttk.Progressbar(self.progress'++id++'_frame, value='++ value ++', maximum='++ max ++')\r\n        ';
+                pycode += 'self.progress'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.progress'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.progress'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.progress'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+              
+            //Trackbar
+            if winctrol.cls == "trackbar" {
+                col++;
+                var id = ctrlNameList.trackbar + 1;
+                ctrlNameList.trackbar = id;
+                pycode += 'self.scale'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                var min = winctrol.min;
+                var max = winctrol.max;
+                var value = winctrol.pos;
+                pycode += 'self.scale'++id++ ' = ttk.Scale(self.scale'++id++'_frame, from_='++ min ++', to='++ max ++', value='++ value ++ ')\r\n        ';
+                pycode += 'self.scale'++id++ '.place(x=0, y=0)\r\n        ';
+                if hide { pycode += 'self.scale'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.scale'++id++ '.configure(state="disabled")\r\n        '; };
+                pycode += 'self.scale'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
+            };
+              
+            //GroupBox
+            if winctrol.cls == "groupbox" {
+                row++;
+                var id = ctrlNameList.groupbox + 1;
+                ctrlNameList.groupbox = id;
+                pycode += 'self.labelframe'++id++ ' = ttk.Labelframe(self.mainframe, text="'++ text ++'", width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.labelframe'++id++ '.grid(column='++col++', row='++row++')\r\n        ';
+                if hide { pycode += 'self.labelframe'++id++ '.grid_forget()\r\n        '; };
+            };
+              
+            //Frame
+            if winctrol.cls == "custom" {
+                row++;
+                var id = ctrlNameList.frame + 1;
+                ctrlNameList.frame = id;
+                pycode += 'self.frame'++id++ ' = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.frame'++id++ '.grid(column='++col++', row='++row++')\r\n        ';
+                if hide { pycode += 'self.frame'++id++ '.grid_forget()\r\n        '; }; 
+            };
+              
+            //Tab
+            if winctrol.cls == "tab" {
+                row++;
+                var id = ctrlNameList.tab + 1;
+                ctrlNameList.tab = id;
+                pycode += 'self.nb'++id++ ' = ttk.Notebook(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
+                pycode += 'self.nb'++id++ '.grid(column='++col++', row='++row++')\r\n        ';
+                if hide { pycode += 'self.nb'++id++ '.grid_forget()\r\n        '; };
+            };
+        };
+         
+        pycode += 'self.mainframe.pack()\r\n';
+         
+        pycode += '\r\n    ### 功能逻辑部分 ###\r\n        \r\n        \r\n        ';
+         
+        return pycode;
+    };
        
 }
   
@@ -624,6 +1255,8 @@ GUI2Py = 解析aardio界面生成Python Tkinter
 GUI2Py.GUI2Tk(.(winform界面窗体) = 返回解析对象
 ?GUI2Py.GUI2Tk = !GUI2Py_GUI2Tk.
 GUI2Py.GUI2Tk() = !GUI2Py_GUI2Tk.
-!GUI2Py_GUI2Tk.transfer2root = @.transfer2root( )/*返回的代码用于生成主界面*/
-!GUI2Py_GUI2Tk.transfer2assembly = @.transfer2assembly( "组件名称" ) /*返回的代码用于生成组件类*/
+!GUI2Py_GUI2Tk.transfer2root( ) = 组件按place方式布局，返回的代码用于生成主界面
+!GUI2Py_GUI2Tk.transfer2assembly(.( "组件名称" ) = 组件按place方式布局，返回的代码用于生成组件类
+!GUI2Py_GUI2Tk.transfer2pack(.( "组件名称" ) = 组件按pack方式布局，返回的代码用于生成组件类\n生成代码后，需手动添加pack参数:\nside=['top','left','bottom','right'], fill=['x','y','both','none']
+!GUI2Py_GUI2Tk.transfer2grid(.( "组件名称" ) = 组件按grid方式布局，返回的代码用于生成组件类\n生成代码后，需手动调整grid参数:\ncolumn为所在列，起始为0；row为所在行，起始为0
 end intellisense**/
