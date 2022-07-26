@@ -11,6 +11,11 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 ## 目前可以实现的功能：
 
+- 20220725更新：
+
+1. 所有可禁用控件，增加禁用属性
+2. 文本框增加密码属性
+
 - 20220724更新：
 
 1. 基本控件都已经完善，包括Label, Button, Text/Entry, RadioButton, CheckBox, PictureBox, Canvas, ListBox, ComboBox, Treeview, ProgressBar, Scale, LabelFrame, Frame, Notebook等，基本满足常规使用。其余Tkinter支持的控件也可以通过手动方式添加使用。
