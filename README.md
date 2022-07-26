@@ -131,45 +131,65 @@ root.mainloop()
 ```
         
 ### 应用实例
-- Matplotlib画函数图，内存加载至Tkinter显示
+- aardio创建界面，用matplotlib画图，实时动态显示在Tkinter中
+![](https://www.htmlayout.cn/upload/image/20220726/1658814090451434.gif)
 
 ```python
 import tkinter as tk
 import tkinter.ttk as ttk
-from PIL import Image, ImageTk
-import numpy as np
 import matplotlib.pyplot as plt
+import numpy as np
 from io import BytesIO
-
-class SubAssembly():
+from PIL import Image, ImageTk
+   
+class SA():
     ### 界面设计部分 ###
-
+     
     def __init__(self, master):
-        self.SubAssembly = ttk.Frame(master, width=672, height=626)
-        self.frame = ttk.Frame(self.SubAssembly, width=500, height=400)
-        self.label = ttk.Label(self.frame, background='#00AA00')
-        self.label.pack(fill='both')
-        self.frame.pack(fill='both')
-        self.SubAssembly.pack()
-
+        self.mainframe = ttk.Frame(master, width=601, height=390)
+        self.label1_frame = ttk.Frame(self.mainframe, width=209, height=27)
+        self.label1 = ttk.Label(self.label1_frame, text="y = sin(x) / log(x)")
+        self.label1.place(x=0, y=0)
+        self.label1_frame.pack()
+        self.pic1_frame = ttk.Frame(self.mainframe, width=640, height=480)
+        self.pic1 = ttk.Label(self.pic1_frame)
+        self.pic1.place(x=0, y=0)
+        self.pic1_frame.pack()
+        self.scale1_frame = ttk.Frame(self.mainframe, width=529, height=30)
+        self.scale1 = ttk.Scale(self.scale1_frame, from_=21, to=100, value=21, command=self.drawImage)
+        self.scale1.place(x=0, y=0)
+        self.scale1_frame.pack()
+        self.label2_frame = ttk.Frame(self.mainframe, width=209, height=27)
+        self.label2_str = tk.StringVar(value='start point: x = 2.1')
+        self.label2 = ttk.Label(self.label2_frame, textvariable=self.label2_str)
+        self.label2.place(x=0, y=0)
+        self.label2_frame.pack()
+        self.mainframe.pack()
+ 
     ### 功能逻辑部分 ###
-    def showImg(self):
-        x = np.linspace(2,10,50)
-        y = np.tan(x) / np.log(x)
-        plt.plot(x,y,'b')
+    def drawImage(self, *args):
+        start = self.scale1.get()
+        x = np.linspace(start, start+50, 50)
+        x = x / 10
+        self.label2_str.set('start point: x = {0}'.format(start/10))
+        y = np.sin(x) / np.log(x)
+        plt.clf()
+        plt.plot(x, y, 'b')
         buff = BytesIO()
         plt.savefig(buff)
         buff.seek(0)
         im = Image.open(buff)
-        img = ImageTk.PhotoImage(im)
-        self.label.img = img
-        self.label.config(image=img)
-
-
+        image = ImageTk.PhotoImage(im)
+        self.pic1.image = image
+        self.pic1.configure(image=image)
+ 
+ 
+ 
+         
 root = tk.Tk()
-root.geometry("800x600+200+100")
-sa = SubAssembly(root)
-sa.showImg()
+ 
+sa = SA(root)
+sa.drawImage()
 root.mainloop()
 ```
 
