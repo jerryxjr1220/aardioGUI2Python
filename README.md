@@ -1,4 +1,18 @@
 # aardioGUI2Python
+---
+
+GUI2Python Lib - use aardio to create UI of Tkinter and generate Python code. - *As a Tkinter Designer*
+
+>TKinter is a native Python Lib to easily create GUI of Python program，but there is no visual interface to use. Not friendly at all!
+
+Not too complicated, just like a "Qt Designer".
+
+>aardio is very easy to use to create UI so that it can be nice to create UI in aardio and transfer to tkinter in Python automatically!
+
+* aardio can be downloaded at [https://www.aardio.com/](https://www.aardio.com/)  for the latest version for free.*
+
+---
+
 GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter Designer*
 
 >TKinter是Python的原生GUI库，用来创建一些简单的GUI界面还是很方便的。但是，缺点是没有提供一套图形化的设计界面，这样创建界面的时候就非常不直观。
@@ -7,7 +21,10 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 >aardio的图形化设计非常便捷，这样在aardio里画好界面自动生成tkinter的python代码就是再好不过的事情了。
 
-* aardio 可以至 [https://www.aardio.com/](https://www.aardio.com/) 下载最新版，可免费下载使用。
+* aardio 可以至 [https://www.aardio.com/](https://www.aardio.com/) 下载最新版，可免费下载使用。*
+
+---
+
 
 ## 目前可以实现的功能：
 
