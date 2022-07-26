@@ -1,4 +1,4 @@
-﻿//解析aardio界面生成Python Tkinter
+//解析aardio界面生成Python Tkinter
 import color
 import string
 namespace GUI2Py
@@ -52,6 +52,8 @@ root = tk.Tk()
             var height = winctrol.height;
             var text = winctrol.text;
             var hide = ctrl.hide;
+            var disabled = ctrl.disabled;
+            var readonly = ctrl.readonly;
             var bgcolor = ctrl.bgcolor;
             var frcolor = ctrl.color;
             //按钮
@@ -62,6 +64,7 @@ root = tk.Tk()
                 pycode += 'button'++id++ ' = ttk.Button(button'++id++'_frame, text="'++ text ++'")\r\n';
                 pycode += 'button'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'button'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'button'++id++ '.configure(state="disabled")\r\n'; };
                 pycode += 'button'++id++'_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
             //标签
@@ -72,6 +75,7 @@ root = tk.Tk()
                 pycode += 'label'++id++ ' = ttk.Label(label'++id++'_frame, text="'++ text ++'")\r\n';
                 pycode += 'label'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'label'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'label'++id++ '.configure(state="disabled")\r\n'; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     pycode += 'label'++id++ '.config(background="'++bgcolorStr++'")\r\n';
@@ -95,6 +99,8 @@ root = tk.Tk()
                     pycode += 'edit'++id++ ' = ttk.Entry(edit'++id++'_frame, textvariable=editVar'++id++')\r\n';
                 }
                 pycode += 'edit'++id++ '.place(x=0, y=0)\r\n';
+                if ctrl.password { pycode += 'edit'++id++ '.configure(show="*")\r\n'; };
+                if(readonly or disabled) { pycode += 'edit'++id++ '.configure(state="disabled")\r\n'; };
                 if hide { pycode += 'edit'++id++ '.place_forget()\r\n'; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -114,6 +120,7 @@ root = tk.Tk()
                 pycode += 'radio'++id++ ' = ttk.Radiobutton(radio'++id++'_frame, text="'++ text ++'")\r\n';
                 pycode += 'radio'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'radio'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'radio'++id++ '.configure(state="disabled")\r\n'; };
                 pycode += 'radio'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
             //复选
@@ -124,6 +131,7 @@ root = tk.Tk()
                 pycode += 'check'++id++ ' = ttk.Checkbutton(check'++id++'_frame, text="'++ text ++'")\r\n';
                 pycode += 'check'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'check'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'check'++id++ '.configure(state="disabled")\r\n'; };
                 pycode += 'check'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
             //图片框
@@ -140,6 +148,7 @@ root = tk.Tk()
                 }
                 pycode += 'pic'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'pic'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'pic'++id++ '.configure(state="disabled")\r\n'; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     pycode += 'pic'++id++ '.config(background="'++bgcolorStr++'")\r\n';
@@ -159,6 +168,7 @@ root = tk.Tk()
                 pycode += 'canvas'++id++ ' = tk.Canvas(canvas'++id++'_frame)\r\n';
                 pycode += 'canvas'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'canvas'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'canvas'++id++ '.configure(state="disabled")\r\n'; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     bStr = ..string.slice(bgcolorStr,2,3);
@@ -187,6 +197,7 @@ root = tk.Tk()
                 }
                 pycode += 'list'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'list'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'list'++id++ '.configure(state="disabled")\r\n'; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     pycode += 'list'++id++ '.config(background="'++bgcolorStr++'")\r\n';
@@ -215,6 +226,7 @@ root = tk.Tk()
                 }
                 pycode += 'combobox'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'combobox'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'combobox'++id++ '.configure(state="disabled")\r\n'; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     pycode += 'combobox'++id++ '.config(background="'++bgcolorStr++'")\r\n';
@@ -233,6 +245,7 @@ root = tk.Tk()
                 pycode += 'tree'++id++ ' = ttk.Treeview(tree'++id++'_frame)\r\n';
                 pycode += 'tree'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'tree'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'tree'++id++ '.configure(state="disabled")\r\n'; };
                 pycode += 'tree'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
             //进度条
@@ -245,6 +258,7 @@ root = tk.Tk()
                 pycode += 'progress'++id++ ' = ttk.Progressbar(progress'++id++'_frame, value='++ value ++', maximum='++ max ++')\r\n';
                 pycode += 'progress'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'progress'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'progress'++id++ '.configure(state="disabled")\r\n'; };
                 pycode += 'progress'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
             //Trackbar
@@ -258,6 +272,7 @@ root = tk.Tk()
                 pycode += 'scale'++id++ ' = ttk.Scale(scale'++id++'_frame, from_='++ min ++', to='++ max ++', value='++ value ++ ')\r\n';
                 pycode += 'scale'++id++ '.place(x=0, y=0)\r\n';
                 if hide { pycode += 'scale'++id++ '.place_forget()\r\n'; };
+                if disabled { pycode += 'scale'++id++ '.configure(state="disabled")\r\n'; };
                 pycode += 'scale'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
             //GroupBox
@@ -332,6 +347,8 @@ class ***/
             var height = winctrol.height;
             var text = winctrol.text;
             var hide = ctrl.hide;
+            var disabled = ctrl.disabled;
+            var readonly = ctrl.readonly;
             var bgcolor = ctrl.bgcolor;
             var frcolor = ctrl.color;
             //按钮
@@ -342,6 +359,7 @@ class ***/
                 pycode += 'self.button'++id++ ' = ttk.Button(self.button'++id++'_frame, text="'++ text ++'")\r\n        ';
                 pycode += 'self.button'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.button'++id++ '.place_forget()\r\n        '};
+                if disabled { pycode += 'self.button'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.button'++id++'_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
               
@@ -353,6 +371,7 @@ class ***/
                 pycode += 'self.label'++id++ ' = ttk.Label(self.label'++id++'_frame, text="'++ text ++'")\r\n        ';
                 pycode += 'self.label'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.label'++id++ '.place_forget()\r\n        '};
+                if disabled { pycode += 'self.label'++id++ '.configure(state="disabled")\r\n        '; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     pycode += 'self.label'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
@@ -377,7 +396,9 @@ class ***/
                     pycode += 'self.edit'++id++ ' = ttk.Entry(self.edit'++id++'_frame, textvariable=self.editVar'++id++')\r\n        ';
                 }
                 pycode += 'self.edit'++id++ '.place(x=0, y=0)\r\n        ';
+                if ctrl.password { pycode += 'self.edit'++id++ '.configure(show="*")\r\n        '; };
                 if hide { pycode += 'self.edit'++id++ '.place_forget()\r\n        '};
+                if(readonly or disabled) { pycode += 'self.edit'++id++ '.configure(state="disabled")\r\n        '; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     pycode += 'self.edit'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
@@ -397,6 +418,7 @@ class ***/
                 pycode += 'self.radio'++id++ ' = ttk.Radiobutton(self.radio'++id++'_frame, text="'++ text ++'")\r\n        ';
                 pycode += 'self.radio'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.radio'++id++ '.place_forget()\r\n        '};
+                if disabled { pycode += 'self.radio'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.radio'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
               
@@ -408,6 +430,7 @@ class ***/
                 pycode += 'self.check'++id++ ' = ttk.Checkbutton(self.check'++id++'_frame, text="'++ text ++'")\r\n        ';
                 pycode += 'self.check'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.check'++id++ '.place_forget()\r\n        '};
+                if disabled { pycode += 'self.check'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.check'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
               
@@ -425,6 +448,7 @@ class ***/
                 }
                 pycode += 'self.pic'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.pic'++id++ '.place_forget()\r\n        '};
+                if disabled { pycode += 'self.pic'++id++ '.configure(state="disabled")\r\n        '; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     pycode += 'self.pic'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
@@ -445,6 +469,7 @@ class ***/
                 pycode += 'self.canvas'++id++ ' = tk.Canvas(self.canvas'++id++'_frame)\r\n        ';
                 pycode += 'self.canvas'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.canvas'++id++ '.place_forget()\r\n        '; };
+                if disabled { pycode += 'self.canvas'++id++ '.configure(state="disabled")\r\n        '; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     bStr = ..string.slice(bgcolorStr,2,3);
@@ -474,6 +499,7 @@ class ***/
                 }
                 pycode += 'self.list'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.list'++id++ '.place_forget()\r\n        '};
+                if disabled { pycode += 'self.list'++id++ '.configure(state="disabled")\r\n        '; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     pycode += 'self.list'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
@@ -503,6 +529,7 @@ class ***/
                 }
                 pycode += 'self.combobox'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.combobox'++id++ '.place_forget()\r\n        '};
+                if disabled { pycode += 'self.combobox'++id++ '.configure(state="disabled")\r\n        '; };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     pycode += 'self.combobox'++id++ '.config(background="'++bgcolorStr++'")\r\n        ';
@@ -522,6 +549,7 @@ class ***/
                 pycode += 'self.tree'++id++ ' = ttk.Treeview(self.tree'++id++'_frame)\r\n        ';
                 pycode += 'self.tree'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.tree'++id++ '.place_forget()\r\n        '};
+                if disabled { pycode += 'self.tree'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.tree'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
              
@@ -535,6 +563,7 @@ class ***/
                 pycode += 'self.progress'++id++ ' = ttk.Progressbar(self.progress'++id++'_frame, value='++ value ++', maximum='++ max ++')\r\n        ';
                 pycode += 'self.progress'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.progress'++id++ '.place_forget()\r\n        '};
+                if disabled { pycode += 'self.progress'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.progress'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
               
@@ -549,6 +578,7 @@ class ***/
                 pycode += 'self.scale'++id++ ' = ttk.Scale(self.scale'++id++'_frame, from_='++ min ++', to='++ max ++', value='++ value ++ ')\r\n        ';
                 pycode += 'self.scale'++id++ '.place(x=0, y=0)\r\n        ';
                 if hide { pycode += 'self.scale'++id++ '.place_forget()\r\n        '};
+                if disabled { pycode += 'self.scale'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.scale'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
               
