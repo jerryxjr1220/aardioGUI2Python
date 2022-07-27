@@ -28,6 +28,11 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 ## 目前可以实现的功能：
 
+- 20220727更新：
+
+1. 新增字体属性设置，可按照aardio中的字体自动设置到Tkinter中
+2. 修改transfer2assembly名称 为 transfer2place，更好地对应place方法
+
 - 20220725更新：
 
 1. 所有可禁用控件，增加禁用属性
