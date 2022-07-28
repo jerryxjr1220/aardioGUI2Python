@@ -73,19 +73,11 @@ root = tk.Tk()
                 var id = ctrlNameList.button + 1;
                 ctrlNameList.button = id;
                 pycode += 'button'++id++'_frame = ttk.Frame(width='++ width ++', height='++ height ++')\r\n';
-                pycode += 'button'++id++ ' = ttk.Button(button'++id++'_frame, text="'++ text ++ '"' ++ justify ++')\r\n';
+                pycode += 'button'++id++ ' = ttk.Button(button'++id++'_frame, text="'++ text ++ '")\r\n';
                 pycode += 'button'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n';
                 if hide { pycode += 'button'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'button'++id++ '.configure(state="disabled")\r\n'; };
-                if font {
-                	var italic = font.italic ? 'slant = "italic"' : 'slant = "roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline = True' : 'underline = False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'button'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
-                	pycode += 'button'++id++'.configure(font=button'++id++'_font)\r\n';
-                };
+                
                 pycode += 'button'++id++'_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
             //标签
@@ -469,19 +461,11 @@ class ***/
                 var id = ctrlNameList.button + 1;
                 ctrlNameList.button = id;
                 pycode += 'self.button'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
-                pycode += 'self.button'++id++ ' = ttk.Button(self.button'++id++'_frame, text="'++ text ++'"'++ justify ++')\r\n        ';
+                pycode += 'self.button'++id++ ' = ttk.Button(self.button'++id++'_frame, text="'++ text ++'")\r\n        ';
                 pycode += 'self.button'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.button'++id++ '.place_forget()\r\n        '};
                 if disabled { pycode += 'self.button'++id++ '.configure(state="disabled")\r\n        '; };
-                if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.button'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.button'++id++'.configure(font=self.button'++id++'_font)\r\n        ';
-                };
+                
                 pycode += 'self.button'++id++'_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
               
@@ -813,7 +797,7 @@ class ***/
             };
         };
          
-        pycode += 'self.mainframe.pack()\r\n';
+        pycode += 'self.mainframe.pack()\r\n        ';
          
         pycode += '\r\n    ### 功能逻辑部分 ###\r\n        \r\n        \r\n        ';
          
@@ -877,19 +861,11 @@ class ***/
                 var id = ctrlNameList.button + 1;
                 ctrlNameList.button = id;
                 pycode += 'self.button'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
-                pycode += 'self.button'++id++ ' = ttk.Button(self.button'++id++'_frame, text="'++ text ++'"'++ justify ++')\r\n        ';
+                pycode += 'self.button'++id++ ' = ttk.Button(self.button'++id++'_frame, text="'++ text ++'")\r\n        ';
                 pycode += 'self.button'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.button'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.button'++id++ '.configure(state="disabled")\r\n        '; };
-                if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.button'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.button'++id++'.configure(font=self.button'++id++'_font)\r\n        ';
-                };
+                
                 pycode += 'self.button'++id++'_frame.pack()\r\n        ';
             };
               
@@ -1288,19 +1264,11 @@ class ***/
                 var id = ctrlNameList.button + 1;
                 ctrlNameList.button = id;
                 pycode += 'self.button'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
-                pycode += 'self.button'++id++ ' = ttk.Button(self.button'++id++'_frame, text="'++ text ++'"'++ justify ++')\r\n        ';
+                pycode += 'self.button'++id++ ' = ttk.Button(self.button'++id++'_frame, text="'++ text ++'")\r\n        ';
                 pycode += 'self.button'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.button'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.button'++id++ '.configure(state="disabled")\r\n        '; };
-                if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.button'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.button'++id++'.configure(font=self.button'++id++'_font)\r\n        ';
-                };
+                
                 pycode += 'self.button'++id++'_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
               
