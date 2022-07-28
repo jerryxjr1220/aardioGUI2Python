@@ -3,12 +3,12 @@ import color
 import string
 import math
 namespace GUI2Py
-   
+    
 class GUI2Tk {
     ctor( winform ){
         this = winform;
     };
-      
+       
     //转换为主界面
     transfer2root = function(){
         var window_width = this.width;
@@ -18,12 +18,12 @@ class GUI2Tk {
 import tkinter as tk
 import tkinter.ttk as ttk
 import tkinter.font as tkFont
-   
+    
 root = tk.Tk()
-   
+    
 ### 界面设计部分 ###
-   
-
+    
+ 
 ***/;
         pycode += 'root.geometry("'++ window_width ++ 'x' ++ window_height ++'")\r\n';
         pycode += 'root.title("'++ window_text ++'")\r\n';
@@ -44,7 +44,7 @@ root = tk.Tk()
             'groupbox' = 0;
             'frame' = 0;
             'tab' = 0;
-               
+                
         };
         for ( hwnd,ctrl in this.eachControlEx() ){
             winctrol = this.getCtrl(hwnd);
@@ -62,11 +62,11 @@ root = tk.Tk()
             var align = ctrl.align;
             var justify;
             if !align {
-            	justify = ', justify="left"';
+                justify = ', justify="left"';
             } elseif align == "center" {
-            	justify = ', justify="center"';
+                justify = ', justify="center"';
             } else {
-            	justify = ', justify="right"';
+                justify = ', justify="right"';
             };
             //按钮
             if winctrol.cls == "button" {
@@ -77,7 +77,7 @@ root = tk.Tk()
                 pycode += 'button'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n';
                 if hide { pycode += 'button'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'button'++id++ '.configure(state="disabled")\r\n'; };
-                
+                 
                 pycode += 'button'++id++'_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
             //标签
@@ -90,13 +90,13 @@ root = tk.Tk()
                 if hide { pycode += 'label'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'label'++id++ '.configure(state="disabled")\r\n'; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'label'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
-                	pycode += 'label'++id++'.configure(font=label'++id++'_font)\r\n';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'label'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
+                    pycode += 'label'++id++'.configure(font=label'++id++'_font)\r\n';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -127,23 +127,23 @@ root = tk.Tk()
                 if(readonly or disabled) { pycode += 'edit'++id++ '.configure(state="disabled")\r\n'; };
                 if hide { pycode += 'edit'++id++ '.place_forget()\r\n'; };
                 if vscroll {
-                	pycode += 'edit'++id++'_vscroll = tk.Scrollbar(edit'++id++', orient="vertical", command=edit'++id++'.yview)\r\n';
-        			pycode += 'edit'++id++'.configure(yscrollcommand=edit'++id++'_vscroll.set)\r\n';
-        			pycode += 'edit'++id++'_vscroll.pack(side="right", fill="y")\r\n';
+                    pycode += 'edit'++id++'_vscroll = tk.Scrollbar(edit'++id++', orient="vertical", command=edit'++id++'.yview)\r\n';
+                    pycode += 'edit'++id++'.configure(yscrollcommand=edit'++id++'_vscroll.set)\r\n';
+                    pycode += 'edit'++id++'_vscroll.pack(side="right", fill="y")\r\n';
                 };
                 if hscroll {
-                	pycode += 'edit'++id++'_hscroll = tk.Scrollbar(edit'++id++', orient="horizontal", command=edit'++id++'.xview)\r\n';
-        			pycode += 'edit'++id++'.configure(xscrollcommand=edit'++id++'_hscroll.set)\r\n';
-        			pycode += 'edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
+                    pycode += 'edit'++id++'_hscroll = tk.Scrollbar(edit'++id++', orient="horizontal", command=edit'++id++'.xview)\r\n';
+                    pycode += 'edit'++id++'.configure(xscrollcommand=edit'++id++'_hscroll.set)\r\n';
+                    pycode += 'edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
                 };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'edit'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
-                	pycode += 'edit'++id++'.configure(font=edit'++id++'_font)\r\n';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'edit'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
+                    pycode += 'edit'++id++'.configure(font=edit'++id++'_font)\r\n';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -165,13 +165,13 @@ root = tk.Tk()
                 if hide { pycode += 'radio'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'radio'++id++ '.configure(state="disabled")\r\n'; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
-                	pycode += 'radio'++id++'.configure(font=radio'++id++'_font)\r\n';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
+                    pycode += 'radio'++id++'.configure(font=radio'++id++'_font)\r\n';
                 };
                 pycode += 'radio'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
@@ -185,13 +185,13 @@ root = tk.Tk()
                 if hide { pycode += 'check'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'check'++id++ '.configure(state="disabled")\r\n'; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
-                	pycode += 'check'++id++'.configure(font=check'++id++'_font)\r\n';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
+                    pycode += 'check'++id++'.configure(font=check'++id++'_font)\r\n';
                 };
                 pycode += 'check'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
@@ -233,14 +233,14 @@ root = tk.Tk()
                 if hide { pycode += 'canvas'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'canvas'++id++ '.configure(state="disabled")\r\n'; };
                 if vscroll {
-                	pycode += 'canvas'++id++'_vscroll = tk.Scrollbar(canvas'++id++', orient="vertical", command=canvas'++id++'.yview)\r\n';
-        			pycode += 'canvas'++id++'.configure(yscrollcommand=canvas'++id++'_vscroll.set)\r\n';
-        			pycode += 'canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n';
+                    pycode += 'canvas'++id++'_vscroll = tk.Scrollbar(canvas'++id++', orient="vertical", command=canvas'++id++'.yview)\r\n';
+                    pycode += 'canvas'++id++'.configure(yscrollcommand=canvas'++id++'_vscroll.set)\r\n';
+                    pycode += 'canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n';
                 };
                 if hscroll {
-                	pycode += 'canvas'++id++'_hscroll = tk.Scrollbar(canvas'++id++', orient="horizontal", command=canvas'++id++'.xview)\r\n';
-        			pycode += 'canvas'++id++'.configure(xscrollcommand=canvas'++id++'_hscroll.set)\r\n';
-        			pycode += 'canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
+                    pycode += 'canvas'++id++'_hscroll = tk.Scrollbar(canvas'++id++', orient="horizontal", command=canvas'++id++'.xview)\r\n';
+                    pycode += 'canvas'++id++'.configure(xscrollcommand=canvas'++id++'_hscroll.set)\r\n';
+                    pycode += 'canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -266,7 +266,7 @@ root = tk.Tk()
                     }
                     pycode += '])\r\n';
                     pycode += 'list'++id++ ' = tk.Listbox(list'++id++'_frame, listvariable=items'++ id ++ justify ++')\r\n';
-                      
+                       
                 } else {
                     pycode += 'list'++id++ ' = tk.Listbox(list'++id++'_frame'++justify++')\r\n';
                 }
@@ -274,23 +274,23 @@ root = tk.Tk()
                 if hide { pycode += 'list'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'list'++id++ '.configure(state="disabled")\r\n'; };
                 if vscroll {
-                	pycode += 'list'++id++'_vscroll = tk.Scrollbar(list'++id++', orient="vertical", command=list'++id++'.yview)\r\n';
-        			pycode += 'list'++id++'.configure(yscrollcommand=list'++id++'_vscroll.set)\r\n';
-        			pycode += 'list'++id++'_vscroll.pack(side="right", fill="y")\r\n';
+                    pycode += 'list'++id++'_vscroll = tk.Scrollbar(list'++id++', orient="vertical", command=list'++id++'.yview)\r\n';
+                    pycode += 'list'++id++'.configure(yscrollcommand=list'++id++'_vscroll.set)\r\n';
+                    pycode += 'list'++id++'_vscroll.pack(side="right", fill="y")\r\n';
                 };
                 if hscroll {
-                	pycode += 'list'++id++'_hscroll = tk.Scrollbar(list'++id++', orient="horizontal", command=list'++id++'.xview)\r\n';
-        			pycode += 'list'++id++'.configure(xscrollcommand=list'++id++'_hscroll.set)\r\n';
-        			pycode += 'list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
+                    pycode += 'list'++id++'_hscroll = tk.Scrollbar(list'++id++', orient="horizontal", command=list'++id++'.xview)\r\n';
+                    pycode += 'list'++id++'.configure(xscrollcommand=list'++id++'_hscroll.set)\r\n';
+                    pycode += 'list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
                 };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'list'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
-                	pycode += 'list'++id++'.configure(font=list'++id++'_font)\r\n';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'list'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
+                    pycode += 'list'++id++'.configure(font=list'++id++'_font)\r\n';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -314,7 +314,7 @@ root = tk.Tk()
                         pycode += '"' ++ item ++'", ';
                     }
                     pycode += ']'++justify++')\r\n';
-                      
+                       
                 } else {
                     pycode += 'combobox'++id++ ' = ttk.Combobox(combobox'++id++'_frame'++justify++')\r\n';
                 }
@@ -322,13 +322,13 @@ root = tk.Tk()
                 if hide { pycode += 'combobox'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'combobox'++id++ '.configure(state="disabled")\r\n'; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'combobox'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
-                	pycode += 'combobox'++id++'.configure(font=combobox'++id++'_font)\r\n';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'combobox'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
+                    pycode += 'combobox'++id++'.configure(font=combobox'++id++'_font)\r\n';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -345,19 +345,10 @@ root = tk.Tk()
                 var id = ctrlNameList.treeview + 1;
                 ctrlNameList.treeview = id;
                 pycode += 'tree'++id++'_frame = ttk.Frame(width='++ width ++', height='++ height ++')\r\n';
-                pycode += 'tree'++id++ ' = ttk.Treeview(tree'++id++'_frame'++justify++')\r\n';
+                pycode += 'tree'++id++ ' = ttk.Treeview(tree'++id++'_frame)\r\n';
                 pycode += 'tree'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n';
                 if hide { pycode += 'tree'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'tree'++id++ '.configure(state="disabled")\r\n'; };
-                if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'tree'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
-                	pycode += 'tree'++id++'.configure(font=tree'++id++'_font)\r\n';
-                };
                 pycode += 'tree'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n';
             };
             //进度条
@@ -395,13 +386,13 @@ root = tk.Tk()
                 pycode += 'labelframe'++id++ '.place(x='++ x ++', y='++ y ++', width='++ width ++', height='++ height ++')\r\n';
                 if hide { pycode += 'labelframe'++id++ '.place_forget()\r\n'; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
-                	pycode += 'labelframe'++id++'.configure(font=labelframe'++id++'_font)\r\n';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
+                    pycode += 'labelframe'++id++'.configure(font=labelframe'++id++'_font)\r\n';
                 };
             };
             //Frame
@@ -420,24 +411,24 @@ root = tk.Tk()
                 pycode += 'nb'++id++ '.place(x='++ x ++', y='++ y ++', width='++ width ++', height='++ height ++')\r\n';
                 if hide { pycode += 'nb'++id++ '.place_forget()\r\n'; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
-                	pycode += 'nb'++id++'.configure(font=nb'++id++'_font)\r\n';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n';
+                    pycode += 'nb'++id++'.configure(font=nb'++id++'_font)\r\n';
                 };
             };
         };
-           
+            
         pycode += '\r\n\r\n### 功能逻辑部分 ###\r\n\r\n';
-           
+            
         pycode += 'root.mainloop()\r\n';
-           
+            
         return pycode;
     };
-      
+       
     //转换为组件
     transfer2place = function(assembly_name="SubAssembly"){
         var window_width = this.width;
@@ -447,7 +438,7 @@ root = tk.Tk()
 import tkinter as tk
 import tkinter.ttk as ttk
 import tkinter.font as tkFont
-  
+   
 class ***/
         pycode += assembly_name++'():\r\n    ### 界面设计部分 ###\r\n    \r\n    def __init__(self, master):\r\n        '
         pycode += 'self.mainframe = ttk.Frame(master, width='++ window_width ++', height='++ window_height ++')\r\n        ';
@@ -468,7 +459,7 @@ class ***/
             'groupbox' = 0;
             'frame' = 0;
             'tab' = 0;
-               
+                
         };
         for ( hwnd,ctrl in this.eachControlEx() ){
             winctrol = this.getCtrl(hwnd);
@@ -486,11 +477,11 @@ class ***/
             var align = ctrl.align;
             var justify;
             if !align {
-            	justify = ', justify="left"';
+                justify = ', justify="left"';
             } elseif align == "center" {
-            	justify = ', justify="center"';
+                justify = ', justify="center"';
             } else {
-            	justify = ', justify="right"';
+                justify = ', justify="right"';
             };
             //按钮
             if winctrol.cls == "button" {
@@ -501,10 +492,10 @@ class ***/
                 pycode += 'self.button'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.button'++id++ '.place_forget()\r\n        '};
                 if disabled { pycode += 'self.button'++id++ '.configure(state="disabled")\r\n        '; };
-                
+                 
                 pycode += 'self.button'++id++'_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-              
+               
             //标签
             if winctrol.cls == "static" {
                 var id = ctrlNameList.static + 1;
@@ -515,13 +506,13 @@ class ***/
                 if hide { pycode += 'self.label'++id++ '.place_forget()\r\n        '};
                 if disabled { pycode += 'self.label'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.label'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.label'++id++'.configure(font=self.label'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.label'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.label'++id++'.configure(font=self.label'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -533,7 +524,7 @@ class ***/
                 };
                 pycode += 'self.label'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-              
+               
             //文本框
             if winctrol.cls == "edit" {
                 var id = ctrlNameList.edit + 1;
@@ -553,23 +544,23 @@ class ***/
                 if hide { pycode += 'self.edit'++id++ '.place_forget()\r\n        '};
                 if(readonly or disabled) { pycode += 'self.edit'++id++ '.configure(state="disabled")\r\n        '; };
                 if vscroll {
-                	pycode += 'self.edit'++id++'_vscroll = tk.Scrollbar(self.edit'++id++', orient="vertical", command=self.edit'++id++'.yview)\r\n        ';
-        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_vscroll.set)\r\n        ';
-        			pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                    pycode += 'self.edit'++id++'_vscroll = tk.Scrollbar(self.edit'++id++', orient="vertical", command=self.edit'++id++'.yview)\r\n        ';
+                    pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_vscroll.set)\r\n        ';
+                    pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.xview)\r\n        ';
-        			pycode += 'self.edit'++id++'.configure(xscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
-        			pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                    pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.xview)\r\n        ';
+                    pycode += 'self.edit'++id++'.configure(xscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
+                    pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.edit'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.edit'++id++'.configure(font=self.edit'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.edit'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.edit'++id++'.configure(font=self.edit'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -581,7 +572,7 @@ class ***/
                 };
                 pycode += 'self.edit'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-              
+               
             //单选
             if winctrol.cls == "radiobutton" {
                 var id = ctrlNameList.radio + 1;
@@ -592,17 +583,17 @@ class ***/
                 if hide { pycode += 'self.radio'++id++ '.place_forget()\r\n        '};
                 if disabled { pycode += 'self.radio'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.radio'++id++'.configure(font=self.radio'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.radio'++id++'.configure(font=self.radio'++id++'_font)\r\n        ';
                 };
                 pycode += 'self.radio'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-              
+               
             //复选
             if winctrol.cls == "checkbox" {
                 var id = ctrlNameList.check + 1;
@@ -613,17 +604,17 @@ class ***/
                 if hide { pycode += 'self.check'++id++ '.place_forget()\r\n        '};
                 if disabled { pycode += 'self.check'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.check'++id++'.configure(font=self.check'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.check'++id++'.configure(font=self.check'++id++'_font)\r\n        ';
                 };
                 pycode += 'self.check'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-              
+               
             //图片框
             if winctrol.cls == "picturebox" {
                 var id = ctrlNameList.pic + 1;
@@ -649,7 +640,7 @@ class ***/
                 };
                 pycode += 'self.pic'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-             
+              
             //画板
             if winctrol.cls == "plus" {
                 var id = ctrlNameList.canvas + 1;
@@ -663,14 +654,14 @@ class ***/
                 if hide { pycode += 'self.canvas'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.canvas'++id++ '.configure(state="disabled")\r\n        '; };
                 if vscroll {
-                	pycode += 'self.canvas'++id++'_vscroll = tk.Scrollbar(self.canvas'++id++', orient="vertical", command=self.canvas'++id++'.yview)\r\n        ';
-        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_vscroll.set)\r\n        ';
-        			pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                    pycode += 'self.canvas'++id++'_vscroll = tk.Scrollbar(self.canvas'++id++', orient="vertical", command=self.canvas'++id++'.yview)\r\n        ';
+                    pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_vscroll.set)\r\n        ';
+                    pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.xview)\r\n        ';
-        			pycode += 'self.canvas'++id++'.configure(xscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
-        			pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                    pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.xview)\r\n        ';
+                    pycode += 'self.canvas'++id++'.configure(xscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
+                    pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -681,7 +672,7 @@ class ***/
                 };
                 pycode += 'self.canvas'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-             
+              
             //ListBox
             if winctrol.cls == "listbox" {
                 var id = ctrlNameList.listbox + 1;
@@ -697,7 +688,7 @@ class ***/
                     }
                     pycode += '])\r\n        ';
                     pycode += 'self.list'++id++ ' = tk.Listbox(self.list'++id++'_frame, listvariable=self.items'++ id ++ justify ++')\r\n        ';
-                      
+                       
                 } else {
                     pycode += 'self.list'++id++ ' = tk.Listbox(self.list'++id++'_frame'++ justify ++')\r\n        ';
                 }
@@ -705,23 +696,23 @@ class ***/
                 if hide { pycode += 'self.list'++id++ '.place_forget()\r\n        '};
                 if disabled { pycode += 'self.list'++id++ '.configure(state="disabled")\r\n        '; };
                 if vscroll {
-                	pycode += 'self.list'++id++'_vscroll = tk.Scrollbar(self.list'++id++', orient="vertical", command=self.list'++id++'.yview)\r\n        ';
-        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_vscroll.set)\r\n        ';
-        			pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                    pycode += 'self.list'++id++'_vscroll = tk.Scrollbar(self.list'++id++', orient="vertical", command=self.list'++id++'.yview)\r\n        ';
+                    pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_vscroll.set)\r\n        ';
+                    pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.xview)\r\n        ';
-        			pycode += 'self.list'++id++'.configure(xscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
-        			pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                    pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.xview)\r\n        ';
+                    pycode += 'self.list'++id++'.configure(xscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
+                    pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.list'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.list'++id++'.configure(font=self.list'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.list'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.list'++id++'.configure(font=self.list'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -733,7 +724,7 @@ class ***/
                 };
                 pycode += 'self.list'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-              
+               
             //下拉框
             if winctrol.cls == "combobox" {
                 var id = ctrlNameList.combobox + 1;
@@ -746,7 +737,7 @@ class ***/
                         pycode += '"' ++ item ++'", ';
                     }
                     pycode += ']'++ justify ++')\r\n        ';
-                      
+                       
                 } else {
                     pycode += 'self.combobox'++id++ ' = ttk.Combobox(self.combobox'++id++'_frame'++ justify ++')\r\n        ';
                 }
@@ -754,13 +745,13 @@ class ***/
                 if hide { pycode += 'self.combobox'++id++ '.place_forget()\r\n        '};
                 if disabled { pycode += 'self.combobox'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.combobox'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.combobox'++id++'.configure(font=self.combobox'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.combobox'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.combobox'++id++'.configure(font=self.combobox'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -772,28 +763,19 @@ class ***/
                 };
                 pycode += 'self.combobox'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-             
+              
             //表格
             if winctrol.cls == "listview" {
                 var id = ctrlNameList.treeview + 1;
                 ctrlNameList.treeview = id;
                 pycode += 'self.tree'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
-                pycode += 'self.tree'++id++ ' = ttk.Treeview(self.tree'++id++'_frame'++ justify ++')\r\n        ';
+                pycode += 'self.tree'++id++ ' = ttk.Treeview(self.tree'++id++'_frame)\r\n        ';
                 pycode += 'self.tree'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.tree'++id++ '.place_forget()\r\n        '};
                 if disabled { pycode += 'self.tree'++id++ '.configure(state="disabled")\r\n        '; };
-                if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.tree'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.tree'++id++'.configure(font=self.tree'++id++'_font)\r\n        ';
-                };
                 pycode += 'self.tree'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-             
+              
             //进度条
             if winctrol.cls == "progress" {
                 var id = ctrlNameList.progress + 1;
@@ -807,7 +789,7 @@ class ***/
                 if disabled { pycode += 'self.progress'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.progress'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-              
+               
             //Trackbar
             if winctrol.cls == "trackbar" {
                 var id = ctrlNameList.trackbar + 1;
@@ -822,7 +804,7 @@ class ***/
                 if disabled { pycode += 'self.scale'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.scale'++id++ '_frame.place(x='++ x ++', y='++ y ++')\r\n        ';
             };
-              
+               
             //GroupBox
             if winctrol.cls == "groupbox" {
                 var id = ctrlNameList.groupbox + 1;
@@ -831,16 +813,16 @@ class ***/
                 pycode += 'self.labelframe'++id++ '.place(x='++ x ++', y='++ y ++', width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.labelframe'++id++ '.place_forget()\r\n        '};
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.labelframe'++id++'.configure(font=self.labelframe'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.labelframe'++id++'.configure(font=self.labelframe'++id++'_font)\r\n        ';
                 };
             };
-              
+               
             //Frame
             if winctrol.cls == "custom" {
                 var id = ctrlNameList.frame + 1;
@@ -849,7 +831,7 @@ class ***/
                 pycode += 'self.frame'++id++ '.place(x='++ x ++', y='++ y ++', width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.frame'++id++ '.place_forget()\r\n        '};
             };
-              
+               
             //Tab
             if winctrol.cls == "tab" {
                 var id = ctrlNameList.tab + 1;
@@ -858,24 +840,24 @@ class ***/
                 pycode += 'self.nb'++id++ '.place(x='++ x ++', y='++ y ++', width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.nb'++id++ '.place_forget()\r\n        '};
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.nb'++id++'.configure(font=self.nb'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.nb'++id++'.configure(font=self.nb'++id++'_font)\r\n        ';
                 };
             };
         };
-         
+          
         pycode += 'self.mainframe.pack()\r\n        ';
-         
+          
         pycode += '\r\n    ### 功能逻辑部分 ###\r\n        \r\n        \r\n        ';
-         
+          
         return pycode;
     };
-    
+     
     //转换为组件(pack方式)
     transfer2pack = function(assembly_name="SubAssembly"){
         var window_width = this.width;
@@ -885,7 +867,7 @@ class ***/
 import tkinter as tk
 import tkinter.ttk as ttk
 import tkinter.font as tkFont
-
+ 
 class ***/
         pycode += assembly_name++'():\r\n    ### 界面设计部分 ###\r\n    \r\n    def __init__(self, master):\r\n        '
         pycode += 'self.mainframe = ttk.Frame(master, width='++ window_width ++', height='++ window_height ++')\r\n        ';
@@ -906,7 +888,7 @@ class ***/
             'groupbox' = 0;
             'frame' = 0;
             'tab' = 0;
-               
+                
         };
         for ( hwnd,ctrl in this.eachControlEx() ){
             winctrol = this.getCtrl(hwnd);
@@ -922,11 +904,11 @@ class ***/
             var align = ctrl.align;
             var justify;
             if !align {
-            	justify = ', justify="left"';
+                justify = ', justify="left"';
             } elseif align == "center" {
-            	justify = ', justify="center"';
+                justify = ', justify="center"';
             } else {
-            	justify = ', justify="right"';
+                justify = ', justify="right"';
             };
             //按钮
             if winctrol.cls == "button" {
@@ -937,10 +919,10 @@ class ***/
                 pycode += 'self.button'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.button'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.button'++id++ '.configure(state="disabled")\r\n        '; };
-                
+                 
                 pycode += 'self.button'++id++'_frame.pack()\r\n        ';
             };
-              
+               
             //标签
             if winctrol.cls == "static" {
                 var id = ctrlNameList.static + 1;
@@ -951,13 +933,13 @@ class ***/
                 if hide { pycode += 'self.label'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.label'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.label'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.label'++id++'.configure(font=self.label'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.label'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.label'++id++'.configure(font=self.label'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -969,7 +951,7 @@ class ***/
                 };
                 pycode += 'self.label'++id++ '_frame.pack()\r\n        ';
             };
-              
+               
             //文本框
             if winctrol.cls == "edit" {
                 var id = ctrlNameList.edit + 1;
@@ -989,23 +971,23 @@ class ***/
                 if hide { pycode += 'self.edit'++id++ '.place_forget()\r\n        '; };
                 if(readonly or disabled) { pycode += 'self.edit'++id++ '.configure(state="disabled")\r\n        '; };
                 if vscroll {
-                	pycode += 'self.edit'++id++'_vscroll = tk.Scrollbar(self.edit'++id++', orient="vertical", command=self.edit'++id++'.yview)\r\n        ';
-        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_vscroll.set)\r\n        ';
-        			pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                    pycode += 'self.edit'++id++'_vscroll = tk.Scrollbar(self.edit'++id++', orient="vertical", command=self.edit'++id++'.yview)\r\n        ';
+                    pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_vscroll.set)\r\n        ';
+                    pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.xview)\r\n        ';
-        			pycode += 'self.edit'++id++'.configure(xscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
-        			pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                    pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.xview)\r\n        ';
+                    pycode += 'self.edit'++id++'.configure(xscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
+                    pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.edit'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.edit'++id++'.configure(font=self.edit'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.edit'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.edit'++id++'.configure(font=self.edit'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -1017,7 +999,7 @@ class ***/
                 };
                 pycode += 'self.edit'++id++ '_frame.pack()\r\n        ';
             };
-              
+               
             //单选
             if winctrol.cls == "radiobutton" {
                 var id = ctrlNameList.radio + 1;
@@ -1028,17 +1010,17 @@ class ***/
                 if hide { pycode += 'self.radio'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.radio'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.radio'++id++'.configure(font=self.radio'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.radio'++id++'.configure(font=self.radio'++id++'_font)\r\n        ';
                 };
                 pycode += 'self.radio'++id++ '_frame.pack()\r\n        ';
             };
-              
+               
             //复选
             if winctrol.cls == "checkbox" {
                 var id = ctrlNameList.check + 1;
@@ -1049,17 +1031,17 @@ class ***/
                 if hide { pycode += 'self.check'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.check'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.check'++id++'.configure(font=self.check'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.check'++id++'.configure(font=self.check'++id++'_font)\r\n        ';
                 };
                 pycode += 'self.check'++id++ '_frame.pack()\r\n        ';
             };
-              
+               
             //图片框
             if winctrol.cls == "picturebox" {
                 var id = ctrlNameList.pic + 1;
@@ -1085,7 +1067,7 @@ class ***/
                 };
                 pycode += 'self.pic'++id++ '_frame.pack()\r\n        ';
             };
-             
+              
             //画板
             if winctrol.cls == "plus" {
                 var id = ctrlNameList.canvas + 1;
@@ -1099,14 +1081,14 @@ class ***/
                 if hide { pycode += 'self.canvas'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.canvas'++id++ '.configure(state="disabled")\r\n        '; };
                 if vscroll {
-                	pycode += 'self.canvas'++id++'_vscroll = tk.Scrollbar(self.canvas'++id++', orient="vertical", command=self.canvas'++id++'.yview)\r\n        ';
-        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_vscroll.set)\r\n        ';
-        			pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                    pycode += 'self.canvas'++id++'_vscroll = tk.Scrollbar(self.canvas'++id++', orient="vertical", command=self.canvas'++id++'.yview)\r\n        ';
+                    pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_vscroll.set)\r\n        ';
+                    pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.xview)\r\n        ';
-        			pycode += 'self.canvas'++id++'.configure(xscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
-        			pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                    pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.xview)\r\n        ';
+                    pycode += 'self.canvas'++id++'.configure(xscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
+                    pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -1117,7 +1099,7 @@ class ***/
                 };
                 pycode += 'self.canvas'++id++ '_frame.pack()\r\n        ';
             };
-             
+              
             //ListBox
             if winctrol.cls == "listbox" {
                 var id = ctrlNameList.listbox + 1;
@@ -1133,7 +1115,7 @@ class ***/
                     }
                     pycode += '])\r\n        ';
                     pycode += 'self.list'++id++ ' = tk.Listbox(self.list'++id++'_frame, listvariable=self.items'++ id ++ justify ++')\r\n        ';
-                      
+                       
                 } else {
                     pycode += 'self.list'++id++ ' = tk.Listbox(self.list'++id++'_frame'++ justify ++')\r\n        ';
                 }
@@ -1141,23 +1123,23 @@ class ***/
                 if hide { pycode += 'self.list'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.list'++id++ '.configure(state="disabled")\r\n        '; };
                 if vscroll {
-                	pycode += 'self.list'++id++'_vscroll = tk.Scrollbar(self.list'++id++', orient="vertical", command=self.list'++id++'.yview)\r\n        ';
-        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_vscroll.set)\r\n        ';
-        			pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                    pycode += 'self.list'++id++'_vscroll = tk.Scrollbar(self.list'++id++', orient="vertical", command=self.list'++id++'.yview)\r\n        ';
+                    pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_vscroll.set)\r\n        ';
+                    pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.xview)\r\n        ';
-        			pycode += 'self.list'++id++'.configure(xscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
-        			pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                    pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.xview)\r\n        ';
+                    pycode += 'self.list'++id++'.configure(xscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
+                    pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.list'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.list'++id++'.configure(font=self.list'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.list'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.list'++id++'.configure(font=self.list'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -1169,7 +1151,7 @@ class ***/
                 };
                 pycode += 'self.list'++id++ '_frame.pack()\r\n        ';
             };
-              
+               
             //下拉框
             if winctrol.cls == "combobox" {
                 var id = ctrlNameList.combobox + 1;
@@ -1182,7 +1164,7 @@ class ***/
                         pycode += '"' ++ item ++'", ';
                     }
                     pycode += ']'++ justify ++')\r\n        ';
-                      
+                       
                 } else {
                     pycode += 'self.combobox'++id++ ' = ttk.Combobox(self.combobox'++id++'_frame'++ justify ++')\r\n        ';
                 }
@@ -1190,13 +1172,13 @@ class ***/
                 if hide { pycode += 'self.combobox'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.combobox'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.combobox'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.combobox'++id++'.configure(font=self.combobox'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.combobox'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.combobox'++id++'.configure(font=self.combobox'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -1208,28 +1190,19 @@ class ***/
                 };
                 pycode += 'self.combobox'++id++ '_frame.pack()\r\n        ';
             };
-             
+              
             //表格
             if winctrol.cls == "listview" {
                 var id = ctrlNameList.treeview + 1;
                 ctrlNameList.treeview = id;
                 pycode += 'self.tree'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
-                pycode += 'self.tree'++id++ ' = ttk.Treeview(self.tree'++id++'_frame'++ justify ++')\r\n        ';
+                pycode += 'self.tree'++id++ ' = ttk.Treeview(self.tree'++id++'_frame)\r\n        ';
                 pycode += 'self.tree'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.tree'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.tree'++id++ '.configure(state="disabled")\r\n        '; };
-                if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.tree'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.tree'++id++'.configure(font=self.tree'++id++'_font)\r\n        ';
-                };
                 pycode += 'self.tree'++id++ '_frame.pack()\r\n        ';
             };
-             
+              
             //进度条
             if winctrol.cls == "progress" {
                 var id = ctrlNameList.progress + 1;
@@ -1243,7 +1216,7 @@ class ***/
                 if disabled { pycode += 'self.progress'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.progress'++id++ '_frame.pack()\r\n        ';
             };
-              
+               
             //Trackbar
             if winctrol.cls == "trackbar" {
                 var id = ctrlNameList.trackbar + 1;
@@ -1258,7 +1231,7 @@ class ***/
                 if disabled { pycode += 'self.scale'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.scale'++id++ '_frame.pack()\r\n        ';
             };
-              
+               
             //GroupBox
             if winctrol.cls == "groupbox" {
                 var id = ctrlNameList.groupbox + 1;
@@ -1267,16 +1240,16 @@ class ***/
                 pycode += 'self.labelframe'++id++ '.pack()\r\n        ';
                 if hide { pycode += 'self.labelframe'++id++ '.pack_forget()\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.labelframe'++id++'.configure(font=self.labelframe'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.labelframe'++id++'.configure(font=self.labelframe'++id++'_font)\r\n        ';
                 };
             };
-              
+               
             //Frame
             if winctrol.cls == "custom" {
                 var id = ctrlNameList.frame + 1;
@@ -1285,7 +1258,7 @@ class ***/
                 pycode += 'self.frame'++id++ '.pack()\r\n        ';
                 if hide { pycode += 'self.frame'++id++ '.pack_forget()\r\n        '; }; 
             };
-              
+               
             //Tab
             if winctrol.cls == "tab" {
                 var id = ctrlNameList.tab + 1;
@@ -1294,24 +1267,24 @@ class ***/
                 pycode += 'self.nb'++id++ '.pack()\r\n        ';
                 if hide { pycode += 'self.nb'++id++ '.pack_forget()\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.nb'++id++'.configure(font=self.nb'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.nb'++id++'.configure(font=self.nb'++id++'_font)\r\n        ';
                 };
             };
         };
-         
+          
         pycode += 'self.mainframe.pack()\r\n';
-         
+          
         pycode += '\r\n    ### 功能逻辑部分 ###\r\n        \r\n        \r\n        ';
-         
+          
         return pycode;
     };
-    
+     
     //转换为组件(grid方式)
     transfer2grid = function(assembly_name="SubAssembly"){
         var window_width = this.width;
@@ -1321,7 +1294,7 @@ class ***/
 import tkinter as tk
 import tkinter.ttk as ttk
 import tkinter.font as tkFont
-
+ 
 class ***/
         pycode += assembly_name++'():\r\n    ### 界面设计部分 ###\r\n    \r\n    def __init__(self, master):\r\n        '
         pycode += 'self.mainframe = ttk.Frame(master, width='++ window_width ++', height='++ window_height ++')\r\n        ';
@@ -1342,7 +1315,7 @@ class ***/
             'groupbox' = 0;
             'frame' = 0;
             'tab' = 0;
-               
+                
         };
         var col = 0;
         var row = 0;
@@ -1360,11 +1333,11 @@ class ***/
             var align = ctrl.align;
             var justify;
             if !align {
-            	justify = ', justify="left"';
+                justify = ', justify="left"';
             } elseif align == "center" {
-            	justify = ', justify="center"';
+                justify = ', justify="center"';
             } else {
-            	justify = ', justify="right"';
+                justify = ', justify="right"';
             };
             //按钮
             if winctrol.cls == "button" {
@@ -1376,10 +1349,10 @@ class ***/
                 pycode += 'self.button'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.button'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.button'++id++ '.configure(state="disabled")\r\n        '; };
-                
+                 
                 pycode += 'self.button'++id++'_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-              
+               
             //标签
             if winctrol.cls == "static" {
                 row++;
@@ -1391,13 +1364,13 @@ class ***/
                 if hide { pycode += 'self.label'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.label'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.label'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.label'++id++'.configure(font=self.label'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.label'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.label'++id++'.configure(font=self.label'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -1409,7 +1382,7 @@ class ***/
                 };
                 pycode += 'self.label'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-              
+               
             //文本框
             if winctrol.cls == "edit" {
                 col++;
@@ -1430,23 +1403,23 @@ class ***/
                 if hide { pycode += 'self.edit'++id++ '.place_forget()\r\n        '; };
                 if(readonly or disabled) { pycode += 'self.edit'++id++ '.configure(state="disabled")\r\n        '; };
                 if vscroll {
-                	pycode += 'self.edit'++id++'_vscroll = tk.Scrollbar(self.edit'++id++', orient="vertical", command=self.edit'++id++'.yview)\r\n        ';
-        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_vscroll.set)\r\n        ';
-        			pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                    pycode += 'self.edit'++id++'_vscroll = tk.Scrollbar(self.edit'++id++', orient="vertical", command=self.edit'++id++'.yview)\r\n        ';
+                    pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_vscroll.set)\r\n        ';
+                    pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.xview)\r\n        ';
-        			pycode += 'self.edit'++id++'.configure(xscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
-        			pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                    pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.xview)\r\n        ';
+                    pycode += 'self.edit'++id++'.configure(xscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
+                    pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.edit'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.edit'++id++'.configure(font=self.edit'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.edit'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.edit'++id++'.configure(font=self.edit'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -1458,7 +1431,7 @@ class ***/
                 };
                 pycode += 'self.edit'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-              
+               
             //单选
             if winctrol.cls == "radiobutton" {
                 col++;
@@ -1470,17 +1443,17 @@ class ***/
                 if hide { pycode += 'self.radio'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.radio'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.radio'++id++'.configure(font=self.radio'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.radio'++id++'.configure(font=self.radio'++id++'_font)\r\n        ';
                 };
                 pycode += 'self.radio'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-              
+               
             //复选
             if winctrol.cls == "checkbox" {
                 col++;
@@ -1492,17 +1465,17 @@ class ***/
                 if hide { pycode += 'self.check'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.check'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.check'++id++'.configure(font=self.check'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.check'++id++'.configure(font=self.check'++id++'_font)\r\n        ';
                 };
                 pycode += 'self.check'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-              
+               
             //图片框
             if winctrol.cls == "picturebox" {
                 row++;
@@ -1529,7 +1502,7 @@ class ***/
                 };
                 pycode += 'self.pic'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-             
+              
             //画板
             if winctrol.cls == "plus" {
                 row++;
@@ -1544,14 +1517,14 @@ class ***/
                 if hide { pycode += 'self.canvas'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.canvas'++id++ '.configure(state="disabled")\r\n        '; };
                 if vscroll {
-                	pycode += 'self.canvas'++id++'_vscroll = tk.Scrollbar(self.canvas'++id++', orient="vertical", command=self.canvas'++id++'.yview)\r\n        ';
-        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_vscroll.set)\r\n        ';
-        			pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                    pycode += 'self.canvas'++id++'_vscroll = tk.Scrollbar(self.canvas'++id++', orient="vertical", command=self.canvas'++id++'.yview)\r\n        ';
+                    pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_vscroll.set)\r\n        ';
+                    pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.xview)\r\n        ';
-        			pycode += 'self.canvas'++id++'.configure(xscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
-        			pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                    pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.xview)\r\n        ';
+                    pycode += 'self.canvas'++id++'.configure(xscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
+                    pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -1562,7 +1535,7 @@ class ***/
                 };
                 pycode += 'self.canvas'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-             
+              
             //ListBox
             if winctrol.cls == "listbox" {
                 row++;
@@ -1579,7 +1552,7 @@ class ***/
                     }
                     pycode += '])\r\n        ';
                     pycode += 'self.list'++id++ ' = tk.Listbox(self.list'++id++'_frame, listvariable=self.items'++ id ++ justify ++')\r\n        ';
-                      
+                       
                 } else {
                     pycode += 'self.list'++id++ ' = tk.Listbox(self.list'++id++'_frame'++ justify ++')\r\n        ';
                 }
@@ -1587,23 +1560,23 @@ class ***/
                 if hide { pycode += 'self.list'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.list'++id++ '.configure(state="disabled")\r\n        '; };
                 if vscroll {
-                	pycode += 'self.list'++id++'_vscroll = tk.Scrollbar(self.list'++id++', orient="vertical", command=self.list'++id++'.yview)\r\n        ';
-        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_vscroll.set)\r\n        ';
-        			pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                    pycode += 'self.list'++id++'_vscroll = tk.Scrollbar(self.list'++id++', orient="vertical", command=self.list'++id++'.yview)\r\n        ';
+                    pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_vscroll.set)\r\n        ';
+                    pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.xview)\r\n        ';
-        			pycode += 'self.list'++id++'.configure(xscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
-        			pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                    pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.xview)\r\n        ';
+                    pycode += 'self.list'++id++'.configure(xscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
+                    pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.list'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.list'++id++'.configure(font=self.list'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.list'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.list'++id++'.configure(font=self.list'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -1615,7 +1588,7 @@ class ***/
                 };
                 pycode += 'self.list'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-              
+               
             //下拉框
             if winctrol.cls == "combobox" {
                 col++;
@@ -1629,7 +1602,7 @@ class ***/
                         pycode += '"' ++ item ++'", ';
                     }
                     pycode += ']'++ justify ++')\r\n        ';
-                      
+                       
                 } else {
                     pycode += 'self.combobox'++id++ ' = ttk.Combobox(self.combobox'++id++'_frame'++ justify ++')\r\n        ';
                 }
@@ -1637,13 +1610,13 @@ class ***/
                 if hide { pycode += 'self.combobox'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.combobox'++id++ '.configure(state="disabled")\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.combobox'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.combobox'++id++'.configure(font=self.combobox'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.combobox'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.combobox'++id++'.configure(font=self.combobox'++id++'_font)\r\n        ';
                 };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
@@ -1655,29 +1628,20 @@ class ***/
                 };
                 pycode += 'self.combobox'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-             
+              
             //表格
             if winctrol.cls == "listview" {
                 row++;
                 var id = ctrlNameList.treeview + 1;
                 ctrlNameList.treeview = id;
                 pycode += 'self.tree'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
-                pycode += 'self.tree'++id++ ' = ttk.Treeview(self.tree'++id++'_frame'++ justify ++')\r\n        ';
+                pycode += 'self.tree'++id++ ' = ttk.Treeview(self.tree'++id++'_frame)\r\n        ';
                 pycode += 'self.tree'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.tree'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.tree'++id++ '.configure(state="disabled")\r\n        '; };
-                if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.tree'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.tree'++id++'.configure(font=self.tree'++id++'_font)\r\n        ';
-                };
                 pycode += 'self.tree'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-             
+              
             //进度条
             if winctrol.cls == "progress" {
                 row++;
@@ -1692,7 +1656,7 @@ class ***/
                 if disabled { pycode += 'self.progress'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.progress'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-              
+               
             //Trackbar
             if winctrol.cls == "trackbar" {
                 col++;
@@ -1708,7 +1672,7 @@ class ***/
                 if disabled { pycode += 'self.scale'++id++ '.configure(state="disabled")\r\n        '; };
                 pycode += 'self.scale'++id++ '_frame.grid(column='++col++', row='++row++')\r\n        ';
             };
-              
+               
             //GroupBox
             if winctrol.cls == "groupbox" {
                 row++;
@@ -1718,16 +1682,16 @@ class ***/
                 pycode += 'self.labelframe'++id++ '.grid(column='++col++', row='++row++')\r\n        ';
                 if hide { pycode += 'self.labelframe'++id++ '.grid_forget()\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.labelframe'++id++'.configure(font=self.labelframe'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.labelframe'++id++'.configure(font=self.labelframe'++id++'_font)\r\n        ';
                 };
             };
-              
+               
             //Frame
             if winctrol.cls == "custom" {
                 row++;
@@ -1737,7 +1701,7 @@ class ***/
                 pycode += 'self.frame'++id++ '.grid(column='++col++', row='++row++')\r\n        ';
                 if hide { pycode += 'self.frame'++id++ '.grid_forget()\r\n        '; }; 
             };
-              
+               
             //Tab
             if winctrol.cls == "tab" {
                 row++;
@@ -1747,26 +1711,26 @@ class ***/
                 pycode += 'self.nb'++id++ '.grid(column='++col++', row='++row++')\r\n        ';
                 if hide { pycode += 'self.nb'++id++ '.grid_forget()\r\n        '; };
                 if font {
-                	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                	var family = 'family="'+font.name+'"';
-                	var underline = font.underline ? 'underline=True' : 'underline=False';
-                	var size = 'size='++..math.round(font.h*(-3)/4);
-                	pycode += 'self.nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
-                	pycode += 'self.nb'++id++'.configure(font=self.nb'++id++'_font)\r\n        ';
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    pycode += 'self.nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')\r\n        ';
+                    pycode += 'self.nb'++id++'.configure(font=self.nb'++id++'_font)\r\n        ';
                 };
             };
         };
-         
+          
         pycode += 'self.mainframe.pack()\r\n';
-         
+          
         pycode += '\r\n    ### 功能逻辑部分 ###\r\n        \r\n        \r\n        ';
-         
+          
         return pycode;
     };
-       
+        
 }
-  
+   
 /**intellisense()
 GUI2Py = 解析aardio界面生成Python Tkinter
 GUI2Py.GUI2Tk(.(winform界面窗体) = 返回解析对象
