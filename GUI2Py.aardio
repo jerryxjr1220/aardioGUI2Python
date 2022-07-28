@@ -115,7 +115,7 @@ root = tk.Tk()
                 pycode += 'editVar' ++ id ++ " = tk.StringVar(value='"++ winctrol.text ++"')"++'\r\n';
                 pycode += 'edit'++id++'_frame = ttk.Frame(width='++ width ++', height='++ height ++')\r\n';
                 if winctrol.multiline == 1 {
-                    pycode += 'edit'++id++ ' = tk.Text(edit'++id++'_frame'++ justify ++')\r\n';
+                    pycode += 'edit'++id++ ' = tk.Text(edit'++id++'_frame)\r\n';
                     pycode += 'edit'++id++ '.insert("end", "'++ winctrol.text ++ '")\r\n';
                 } else {
                     pycode += 'edit'++id++ ' = ttk.Entry(edit'++id++'_frame, textvariable=editVar'++id++justify++')\r\n';
@@ -505,7 +505,7 @@ class ***/
                 pycode += 'self.editVar' ++ id ++ " = tk.StringVar(value='"++ winctrol.text ++"')"++'\r\n        ';
                 pycode += 'self.edit'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 if winctrol.multiline == 1 {
-                    pycode += 'self.edit'++id++ ' = tk.Text(self.edit'++id++'_frame'++ justify ++')\r\n        ';
+                    pycode += 'self.edit'++id++ ' = tk.Text(self.edit'++id++'_frame)\r\n        ';
                     pycode += 'self.edit'++id++ '.insert("end", "'++ winctrol.text ++ '")\r\n        ';
                 } else {
                     pycode += 'self.edit'++id++ ' = ttk.Entry(self.edit'++id++'_frame, textvariable=self.editVar'++id++ justify ++')\r\n        ';
@@ -905,7 +905,7 @@ class ***/
                 pycode += 'self.editVar' ++ id ++ " = tk.StringVar(value='"++ winctrol.text ++"')"++'\r\n        ';
                 pycode += 'self.edit'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 if winctrol.multiline == 1 {
-                    pycode += 'self.edit'++id++ ' = tk.Text(self.edit'++id++'_frame'++ justify ++')\r\n        ';
+                    pycode += 'self.edit'++id++ ' = tk.Text(self.edit'++id++'_frame)\r\n        ';
                     pycode += 'self.edit'++id++ '.insert("end", "'++ winctrol.text ++ '")\r\n        ';
                 } else {
                     pycode += 'self.edit'++id++ ' = ttk.Entry(self.edit'++id++'_frame, textvariable=self.editVar'++id++ justify ++')\r\n        ';
@@ -1310,7 +1310,7 @@ class ***/
                 pycode += 'self.editVar' ++ id ++ " = tk.StringVar(value='"++ winctrol.text ++"')"++'\r\n        ';
                 pycode += 'self.edit'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 if winctrol.multiline == 1 {
-                    pycode += 'self.edit'++id++ ' = tk.Text(self.edit'++id++'_frame'++ justify ++')\r\n        ';
+                    pycode += 'self.edit'++id++ ' = tk.Text(self.edit'++id++'_frame)\r\n        ';
                     pycode += 'self.edit'++id++ '.insert("end", "'++ winctrol.text ++ '")\r\n        ';
                 } else {
                     pycode += 'self.edit'++id++ ' = ttk.Entry(self.edit'++id++'_frame, textvariable=self.editVar'++id++ justify ++')\r\n        ';
