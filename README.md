@@ -31,6 +31,7 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 - 20220728更新：
 1. 标签、文本框等有字符布局的控件新增左对齐、居中、右对齐布局
 2. 多行文本框、画板、Listbox增加水平和垂直滚动条
+3. 新增translateName函数，解析窗体设计器代码，返回的Z序与对应控件名称，可用来替换python中的控件名
 
 - 20220727更新：
 
