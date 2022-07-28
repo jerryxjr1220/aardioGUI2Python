@@ -112,6 +112,8 @@ root = tk.Tk()
             if winctrol.cls == "edit" {
                 var id = ctrlNameList.edit + 1;
                 ctrlNameList.edit = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 pycode += 'editVar' ++ id ++ " = tk.StringVar(value='"++ winctrol.text ++"')"++'\r\n';
                 pycode += 'edit'++id++'_frame = ttk.Frame(width='++ width ++', height='++ height ++')\r\n';
                 if winctrol.multiline == 1 {
@@ -124,6 +126,16 @@ root = tk.Tk()
                 if ctrl.password { pycode += 'edit'++id++ '.configure(show="*")\r\n'; };
                 if(readonly or disabled) { pycode += 'edit'++id++ '.configure(state="disabled")\r\n'; };
                 if hide { pycode += 'edit'++id++ '.place_forget()\r\n'; };
+                if vscroll {
+                	pycode += 'edit'++id++'_vscroll = tk.Scrollbar(edit'++id++', orient="vertical", command=edit'++id++'.yview)\r\n';
+        			pycode += 'edit'++id++'.configure(yscrollcommand=edit'++id++'_vscroll.set)\r\n';
+        			pycode += 'edit'++id++'_vscroll.pack(side="right", fill="y")\r\n';
+                };
+                if hscroll {
+                	pycode += 'edit'++id++'_hscroll = tk.Scrollbar(edit'++id++', orient="horizontal", command=edit'++id++'.yview)\r\n';
+        			pycode += 'edit'++id++'.configure(yscrollcommand=edit'++id++'_hscroll.set)\r\n';
+        			pycode += 'edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
+                };
                 if font {
                 	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
                 	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
@@ -212,12 +224,24 @@ root = tk.Tk()
             if winctrol.cls == "plus" {
                 var id = ctrlNameList.canvas + 1;
                 ctrlNameList.canvas = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 var bgcolor = winctrol.backgroundColor;
                 pycode += 'canvas'++id++'_frame = ttk.Frame(width='++ width ++', height='++ height ++')\r\n';
                 pycode += 'canvas'++id++ ' = tk.Canvas(canvas'++id++'_frame)\r\n';
                 pycode += 'canvas'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n';
                 if hide { pycode += 'canvas'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'canvas'++id++ '.configure(state="disabled")\r\n'; };
+                if vscroll {
+                	pycode += 'canvas'++id++'_vscroll = tk.Scrollbar(canvas'++id++', orient="vertical", command=canvas'++id++'.yview)\r\n';
+        			pycode += 'canvas'++id++'.configure(yscrollcommand=canvas'++id++'_vscroll.set)\r\n';
+        			pycode += 'canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n';
+                };
+                if hscroll {
+                	pycode += 'canvas'++id++'_hscroll = tk.Scrollbar(canvas'++id++', orient="horizontal", command=canvas'++id++'.yview)\r\n';
+        			pycode += 'canvas'++id++'.configure(yscrollcommand=canvas'++id++'_hscroll.set)\r\n';
+        			pycode += 'canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
+                };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     bStr = ..string.slice(bgcolorStr,2,3);
@@ -231,6 +255,8 @@ root = tk.Tk()
             if winctrol.cls == "listbox" {
                 var id = ctrlNameList.listbox + 1;
                 ctrlNameList.listbox = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 pycode += 'list'++id++'_frame = ttk.Frame(width='++ width ++', height='++ height ++')\r\n';
                 var items = winctrol.items;
                 if #items>0 {
@@ -247,6 +273,16 @@ root = tk.Tk()
                 pycode += 'list'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n';
                 if hide { pycode += 'list'++id++ '.place_forget()\r\n'; };
                 if disabled { pycode += 'list'++id++ '.configure(state="disabled")\r\n'; };
+                if vscroll {
+                	pycode += 'list'++id++'_vscroll = tk.Scrollbar(list'++id++', orient="vertical", command=list'++id++'.yview)\r\n';
+        			pycode += 'list'++id++'.configure(yscrollcommand=list'++id++'_vscroll.set)\r\n';
+        			pycode += 'list'++id++'_vscroll.pack(side="right", fill="y")\r\n';
+                };
+                if hscroll {
+                	pycode += 'list'++id++'_hscroll = tk.Scrollbar(list'++id++', orient="horizontal", command=list'++id++'.yview)\r\n';
+        			pycode += 'list'++id++'.configure(yscrollcommand=list'++id++'_hscroll.set)\r\n';
+        			pycode += 'list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
+                };
                 if font {
                 	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
                 	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
@@ -502,6 +538,8 @@ class ***/
             if winctrol.cls == "edit" {
                 var id = ctrlNameList.edit + 1;
                 ctrlNameList.edit = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 pycode += 'self.editVar' ++ id ++ " = tk.StringVar(value='"++ winctrol.text ++"')"++'\r\n        ';
                 pycode += 'self.edit'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 if winctrol.multiline == 1 {
@@ -514,6 +552,16 @@ class ***/
                 if ctrl.password { pycode += 'self.edit'++id++ '.configure(show="*")\r\n        '; };
                 if hide { pycode += 'self.edit'++id++ '.place_forget()\r\n        '};
                 if(readonly or disabled) { pycode += 'self.edit'++id++ '.configure(state="disabled")\r\n        '; };
+                if vscroll {
+                	pycode += 'self.edit'++id++'_vscroll = tk.Scrollbar(self.edit'++id++', orient="vertical", command=self.edit'++id++'.yview)\r\n        ';
+        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_vscroll.set)\r\n        ';
+        			pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                };
+                if hscroll {
+                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.yview)\r\n        ';
+        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
+        			pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                };
                 if font {
                 	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
                 	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
@@ -606,12 +654,24 @@ class ***/
             if winctrol.cls == "plus" {
                 var id = ctrlNameList.canvas + 1;
                 ctrlNameList.canvas = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 var bgcolor = winctrol.backgroundColor;
                 pycode += 'self.canvas'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 pycode += 'self.canvas'++id++ ' = tk.Canvas(self.canvas'++id++'_frame)\r\n        ';
                 pycode += 'self.canvas'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.canvas'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.canvas'++id++ '.configure(state="disabled")\r\n        '; };
+                if vscroll {
+                	pycode += 'self.canvas'++id++'_vscroll = tk.Scrollbar(self.canvas'++id++', orient="vertical", command=self.canvas'++id++'.yview)\r\n        ';
+        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_vscroll.set)\r\n        ';
+        			pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                };
+                if hscroll {
+                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.yview)\r\n        ';
+        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
+        			pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     bStr = ..string.slice(bgcolorStr,2,3);
@@ -626,6 +686,8 @@ class ***/
             if winctrol.cls == "listbox" {
                 var id = ctrlNameList.listbox + 1;
                 ctrlNameList.listbox = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 pycode += 'self.list'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 var items = winctrol.items;
                 if #items>0 {
@@ -642,6 +704,16 @@ class ***/
                 pycode += 'self.list'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.list'++id++ '.place_forget()\r\n        '};
                 if disabled { pycode += 'self.list'++id++ '.configure(state="disabled")\r\n        '; };
+                if vscroll {
+                	pycode += 'self.list'++id++'_vscroll = tk.Scrollbar(self.list'++id++', orient="vertical", command=self.list'++id++'.yview)\r\n        ';
+        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_vscroll.set)\r\n        ';
+        			pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                };
+                if hscroll {
+                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.yview)\r\n        ';
+        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
+        			pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                };
                 if font {
                 	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
                 	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
@@ -902,6 +974,8 @@ class ***/
             if winctrol.cls == "edit" {
                 var id = ctrlNameList.edit + 1;
                 ctrlNameList.edit = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 pycode += 'self.editVar' ++ id ++ " = tk.StringVar(value='"++ winctrol.text ++"')"++'\r\n        ';
                 pycode += 'self.edit'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 if winctrol.multiline == 1 {
@@ -914,6 +988,16 @@ class ***/
                 if ctrl.password { pycode += 'self.edit'++id++ '.configure(show="*")\r\n        '; };
                 if hide { pycode += 'self.edit'++id++ '.place_forget()\r\n        '; };
                 if(readonly or disabled) { pycode += 'self.edit'++id++ '.configure(state="disabled")\r\n        '; };
+                if vscroll {
+                	pycode += 'self.edit'++id++'_vscroll = tk.Scrollbar(self.edit'++id++', orient="vertical", command=self.edit'++id++'.yview)\r\n        ';
+        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_vscroll.set)\r\n        ';
+        			pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                };
+                if hscroll {
+                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.yview)\r\n        ';
+        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
+        			pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                };
                 if font {
                 	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
                 	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
@@ -1006,12 +1090,24 @@ class ***/
             if winctrol.cls == "plus" {
                 var id = ctrlNameList.canvas + 1;
                 ctrlNameList.canvas = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 var bgcolor = winctrol.backgroundColor;
                 pycode += 'self.canvas'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 pycode += 'self.canvas'++id++ ' = tk.Canvas(self.canvas'++id++'_frame)\r\n        ';
                 pycode += 'self.canvas'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.canvas'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.canvas'++id++ '.configure(state="disabled")\r\n        '; };
+                if vscroll {
+                	pycode += 'self.canvas'++id++'_vscroll = tk.Scrollbar(self.canvas'++id++', orient="vertical", command=self.canvas'++id++'.yview)\r\n        ';
+        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_vscroll.set)\r\n        ';
+        			pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                };
+                if hscroll {
+                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.yview)\r\n        ';
+        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
+        			pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     bStr = ..string.slice(bgcolorStr,2,3);
@@ -1026,6 +1122,8 @@ class ***/
             if winctrol.cls == "listbox" {
                 var id = ctrlNameList.listbox + 1;
                 ctrlNameList.listbox = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 pycode += 'self.list'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 var items = winctrol.items;
                 if #items>0 {
@@ -1042,6 +1140,16 @@ class ***/
                 pycode += 'self.list'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.list'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.list'++id++ '.configure(state="disabled")\r\n        '; };
+                if vscroll {
+                	pycode += 'self.list'++id++'_vscroll = tk.Scrollbar(self.list'++id++', orient="vertical", command=self.list'++id++'.yview)\r\n        ';
+        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_vscroll.set)\r\n        ';
+        			pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                };
+                if hscroll {
+                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.yview)\r\n        ';
+        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
+        			pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                };
                 if font {
                 	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
                 	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
@@ -1307,6 +1415,8 @@ class ***/
                 col++;
                 var id = ctrlNameList.edit + 1;
                 ctrlNameList.edit = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 pycode += 'self.editVar' ++ id ++ " = tk.StringVar(value='"++ winctrol.text ++"')"++'\r\n        ';
                 pycode += 'self.edit'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 if winctrol.multiline == 1 {
@@ -1319,6 +1429,16 @@ class ***/
                 if ctrl.password { pycode += 'self.edit'++id++ '.configure(show="*")\r\n        '; };
                 if hide { pycode += 'self.edit'++id++ '.place_forget()\r\n        '; };
                 if(readonly or disabled) { pycode += 'self.edit'++id++ '.configure(state="disabled")\r\n        '; };
+                if vscroll {
+                	pycode += 'self.edit'++id++'_vscroll = tk.Scrollbar(self.edit'++id++', orient="vertical", command=self.edit'++id++'.yview)\r\n        ';
+        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_vscroll.set)\r\n        ';
+        			pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                };
+                if hscroll {
+                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.yview)\r\n        ';
+        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
+        			pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                };
                 if font {
                 	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
                 	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
@@ -1415,12 +1535,24 @@ class ***/
                 row++;
                 var id = ctrlNameList.canvas + 1;
                 ctrlNameList.canvas = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 var bgcolor = winctrol.backgroundColor;
                 pycode += 'self.canvas'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 pycode += 'self.canvas'++id++ ' = tk.Canvas(self.canvas'++id++'_frame)\r\n        ';
                 pycode += 'self.canvas'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.canvas'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.canvas'++id++ '.configure(state="disabled")\r\n        '; };
+                if vscroll {
+                	pycode += 'self.canvas'++id++'_vscroll = tk.Scrollbar(self.canvas'++id++', orient="vertical", command=self.canvas'++id++'.yview)\r\n        ';
+        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_vscroll.set)\r\n        ';
+        			pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                };
+                if hscroll {
+                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.yview)\r\n        ';
+        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
+        			pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                };
                 if bgcolor {
                     bgcolorStr = ..color.stringify(bgcolor,false);
                     bStr = ..string.slice(bgcolorStr,2,3);
@@ -1436,6 +1568,8 @@ class ***/
                 row++;
                 var id = ctrlNameList.listbox + 1;
                 ctrlNameList.listbox = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
                 pycode += 'self.list'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')\r\n        ';
                 var items = winctrol.items;
                 if #items>0 {
@@ -1452,6 +1586,16 @@ class ***/
                 pycode += 'self.list'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')\r\n        ';
                 if hide { pycode += 'self.list'++id++ '.place_forget()\r\n        '; };
                 if disabled { pycode += 'self.list'++id++ '.configure(state="disabled")\r\n        '; };
+                if vscroll {
+                	pycode += 'self.list'++id++'_vscroll = tk.Scrollbar(self.list'++id++', orient="vertical", command=self.list'++id++'.yview)\r\n        ';
+        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_vscroll.set)\r\n        ';
+        			pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
+                };
+                if hscroll {
+                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.yview)\r\n        ';
+        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
+        			pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
+                };
                 if font {
                 	var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
                 	var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
