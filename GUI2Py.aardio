@@ -1735,7 +1735,7 @@ class ***/
     
     translateName = function(formStr){
         var pycode = '';
-    	var pattern = "(\w+\d?\d?)=\{.*?z=(\d\d?)\}";
+    	var pattern = "(\w+)=\{.*?z=(\d\d?)\}";
     	var results = ..string.matches(formStr, pattern);
     	for i, result in results {
     		var name = result[1];
