@@ -132,8 +132,8 @@ root = tk.Tk()
         			pycode += 'edit'++id++'_vscroll.pack(side="right", fill="y")\r\n';
                 };
                 if hscroll {
-                	pycode += 'edit'++id++'_hscroll = tk.Scrollbar(edit'++id++', orient="horizontal", command=edit'++id++'.yview)\r\n';
-        			pycode += 'edit'++id++'.configure(yscrollcommand=edit'++id++'_hscroll.set)\r\n';
+                	pycode += 'edit'++id++'_hscroll = tk.Scrollbar(edit'++id++', orient="horizontal", command=edit'++id++'.xview)\r\n';
+        			pycode += 'edit'++id++'.configure(xscrollcommand=edit'++id++'_hscroll.set)\r\n';
         			pycode += 'edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
                 };
                 if font {
@@ -238,8 +238,8 @@ root = tk.Tk()
         			pycode += 'canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n';
                 };
                 if hscroll {
-                	pycode += 'canvas'++id++'_hscroll = tk.Scrollbar(canvas'++id++', orient="horizontal", command=canvas'++id++'.yview)\r\n';
-        			pycode += 'canvas'++id++'.configure(yscrollcommand=canvas'++id++'_hscroll.set)\r\n';
+                	pycode += 'canvas'++id++'_hscroll = tk.Scrollbar(canvas'++id++', orient="horizontal", command=canvas'++id++'.xview)\r\n';
+        			pycode += 'canvas'++id++'.configure(xscrollcommand=canvas'++id++'_hscroll.set)\r\n';
         			pycode += 'canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
                 };
                 if bgcolor {
@@ -279,8 +279,8 @@ root = tk.Tk()
         			pycode += 'list'++id++'_vscroll.pack(side="right", fill="y")\r\n';
                 };
                 if hscroll {
-                	pycode += 'list'++id++'_hscroll = tk.Scrollbar(list'++id++', orient="horizontal", command=list'++id++'.yview)\r\n';
-        			pycode += 'list'++id++'.configure(yscrollcommand=list'++id++'_hscroll.set)\r\n';
+                	pycode += 'list'++id++'_hscroll = tk.Scrollbar(list'++id++', orient="horizontal", command=list'++id++'.xview)\r\n';
+        			pycode += 'list'++id++'.configure(xscrollcommand=list'++id++'_hscroll.set)\r\n';
         			pycode += 'list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n';
                 };
                 if font {
@@ -558,8 +558,8 @@ class ***/
         			pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.yview)\r\n        ';
-        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
+                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.xview)\r\n        ';
+        			pycode += 'self.edit'++id++'.configure(xscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
         			pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
@@ -668,8 +668,8 @@ class ***/
         			pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.yview)\r\n        ';
-        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
+                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.xview)\r\n        ';
+        			pycode += 'self.canvas'++id++'.configure(xscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
         			pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if bgcolor {
@@ -710,8 +710,8 @@ class ***/
         			pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.yview)\r\n        ';
-        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
+                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.xview)\r\n        ';
+        			pycode += 'self.list'++id++'.configure(xscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
         			pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
@@ -994,8 +994,8 @@ class ***/
         			pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.yview)\r\n        ';
-        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
+                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.xview)\r\n        ';
+        			pycode += 'self.edit'++id++'.configure(xscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
         			pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
@@ -1104,8 +1104,8 @@ class ***/
         			pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.yview)\r\n        ';
-        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
+                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.xview)\r\n        ';
+        			pycode += 'self.canvas'++id++'.configure(xscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
         			pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if bgcolor {
@@ -1146,8 +1146,8 @@ class ***/
         			pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.yview)\r\n        ';
-        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
+                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.xview)\r\n        ';
+        			pycode += 'self.list'++id++'.configure(xscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
         			pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
@@ -1435,8 +1435,8 @@ class ***/
         			pycode += 'self.edit'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.yview)\r\n        ';
-        			pycode += 'self.edit'++id++'.configure(yscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
+                	pycode += 'self.edit'++id++'_hscroll = tk.Scrollbar(self.edit'++id++', orient="horizontal", command=self.edit'++id++'.xview)\r\n        ';
+        			pycode += 'self.edit'++id++'.configure(xscrollcommand=self.edit'++id++'_hscroll.set)\r\n        ';
         			pycode += 'self.edit'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
@@ -1549,8 +1549,8 @@ class ***/
         			pycode += 'self.canvas'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.yview)\r\n        ';
-        			pycode += 'self.canvas'++id++'.configure(yscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
+                	pycode += 'self.canvas'++id++'_hscroll = tk.Scrollbar(self.canvas'++id++', orient="horizontal", command=self.canvas'++id++'.xview)\r\n        ';
+        			pycode += 'self.canvas'++id++'.configure(xscrollcommand=self.canvas'++id++'_hscroll.set)\r\n        ';
         			pycode += 'self.canvas'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if bgcolor {
@@ -1592,8 +1592,8 @@ class ***/
         			pycode += 'self.list'++id++'_vscroll.pack(side="right", fill="y")\r\n        ';
                 };
                 if hscroll {
-                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.yview)\r\n        ';
-        			pycode += 'self.list'++id++'.configure(yscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
+                	pycode += 'self.list'++id++'_hscroll = tk.Scrollbar(self.list'++id++', orient="horizontal", command=self.list'++id++'.xview)\r\n        ';
+        			pycode += 'self.list'++id++'.configure(xscrollcommand=self.list'++id++'_hscroll.set)\r\n        ';
         			pycode += 'self.list'++id++'_hscroll.pack(side="bottom", fill="x")\r\n        ';
                 };
                 if font {
