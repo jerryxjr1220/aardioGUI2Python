@@ -58,7 +58,10 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 ## Quick Start
 
-1. 在aardio中画界面
+1. 安装
+直接把下载的GUI2Py.aardio文件复制到aardio项目文件夹的lib目录下（lib目录下存放着用户自制库，可以直接import到程序中）即可。
+
+2. 在aardio中画界面
 ```aardio
 import win.ui;
 /*DSG{{*/
@@ -74,15 +77,16 @@ mainForm.show();
 return win.loopMessage();
 ```
 
-2. 调用
+3. 调用
 ```aardio
 import GUI2Py;
 g2t = GUI2Py.GUI2Tk(mainForm);
 code = g2t.transfer2root();
 ```
-生成的code就是我们所需要的python代码，可以直接复制到python运行。
+把这段代码放到主程序的```return win.loopMessage()```之前，不然无法运行。
+现在生成的code就是我们所需要的python代码，可以直接复制到python运行，也可以用```string.save('example.py',code)```函数保存为py文件。
 
-3. python代码
+4. python代码
 ```python
 import tkinter as tk
 import tkinter.ttk as ttk
