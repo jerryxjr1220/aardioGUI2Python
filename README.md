@@ -25,7 +25,7 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 ---
 
-- 视频教程：  [https://www.bilibili.com/video/BV1wN4y1L7Wk/?vd_source=0400f0a70c0250d73895963c7c937f75](https://www.bilibili.com/video/BV1wN4y1L7Wk/?vd_source=0400f0a70c0250d73895963c7c937f75)
+- 视频教程：  [https://space.bilibili.com/382613220/channel/seriesdetail?sid=2503337](https://space.bilibili.com/382613220/channel/seriesdetail?sid=2503337)
 
 
 ## 目前可以实现的功能：
