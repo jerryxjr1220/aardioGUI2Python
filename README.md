@@ -30,6 +30,9 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 ## 目前可以实现的功能：
 
+- 20220807更新：
+1. 优化代码增强可读性，功能不变。
+
 - 20220731更新：
 1. 增加了一个实例：光学测量仪，源码在Measurement文件夹中。demo1.py和demo2.py的界面设计都是在aardio中完成并自动生成的，在添加逻辑功能后，放到主程序界面运行。
 
