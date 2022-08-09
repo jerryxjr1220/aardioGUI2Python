@@ -38,7 +38,7 @@ root = tk.Tk()
 
 
 ***/;
-        owner.write(..string.format('root.geometry("%sx%s")', window_width, window_height));
+        owner.write(..string.format('root.geometry("%ix%i")', window_width, window_height));
         owner.write(..string.format('root.title("%s")', window_text));
         var ctrlNameList = {
             'button' = 0;
