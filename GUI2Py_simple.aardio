@@ -1,0 +1,885 @@
+import GUI2Py;
+//解析aardio界面生成Python Tkinter
+import color
+import string
+import math
+
+namespace GUI2Py
+    
+class GUI2Tk {
+    ctor( winform ){
+        this = winform;
+        this.pycode = "";
+    };
+    
+    write = function(code, space=0, end_='\r\n'){
+    	if space>0 {
+    		for i=1;space {
+    			this.pycode += ' ';
+    		}
+    	}
+    	this.pycode += code++end_;
+    };
+    
+       
+    //转换为主界面
+    transfer2root = function(){
+        var window_width = this.width;
+        var window_height = this.height;
+        var window_text = this.text;
+        this.pycode = /***
+import tkinter as tk
+import tkinter.ttk as ttk
+import tkinter.font as tkFont
+
+root = tk.Tk()
+
+### 界面设计部分 ###
+
+
+***/;
+        owner.write(..string.format('root.geometry("%sx%s")', window_width, window_height));
+        owner.write(..string.format('root.title("%s")', window_text));
+        var ctrlNameList = {
+            'button' = 0;
+            'static' = 0;
+            'edit' = 0;
+            'radio' = 0;
+            'check' = 0;
+            'pic' = 0;
+            'listbox' = 0;
+            'combobox' = 0;
+            'progress' = 0;
+            'trackbar' = 0;
+            'listview' = 0;
+            'treeview' = 0;
+            'canvas' = 0;
+            'groupbox' = 0;
+            'frame' = 0;
+            'tab' = 0;
+                
+        };
+        for ( hwnd,ctrl in this.eachControlEx() ){
+            owner.write(..string.format('# Z=%i', ctrl.z));
+            winctrol = this.getCtrl(hwnd);
+            var x = winctrol.left;
+            var y = winctrol.top;
+            var width = winctrol.width;
+            var height = winctrol.height;
+            var text = winctrol.text;
+            var hide = ctrl.hide;
+            var disabled = ctrl.disabled;
+            var readonly = ctrl.readonly;
+            var bgcolor = ctrl.bgcolor;
+            var frcolor = ctrl.color;
+            var font = ctrl.font;
+            var align = ctrl.align;
+            var justify;
+            if !align {
+                justify = 'justify="left"';
+            } elseif align == "center" {
+                justify = 'justify="center"';
+            } else {
+                justify = 'justify="right"';
+            };
+            //按钮
+            if winctrol.cls == "button" {
+                var id = ctrlNameList.button + 1;
+                ctrlNameList.button = id;
+                owner.write(..string.format('button%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                owner.write(..string.format('button%i = ttk.Button(button%i_frame, text="%s")', id, id, text));
+                owner.write(..string.format('button%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if hide { owner.write(..string.format('button%i.place_forget()', id)); };
+                if disabled { owner.write(..string.format('button%i.configure(state="disabled")', id)); };
+                 
+                owner.write(..string.format('button%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //标签
+            if winctrol.cls == "static" {
+                var id = ctrlNameList.static + 1;
+                ctrlNameList.static = id;
+                owner.write(..string.format('label%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                owner.write(..string.format('label%i = ttk.Label(label%i_frame, text="%s", %s)', id, id, text, justify));
+                owner.write(..string.format('label%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if hide { owner.write(..string.format('label%i.place_forget()')); };
+                if disabled { owner.write(..string.format('label%i.configure(state="disabled")')); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('label%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
+                    owner.write(..string.format('label%i.configure(font=label%i_font)', id, id));
+                };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    owner.write(..string.format('label%i.config(background="%s")', id, bgcolorStr));
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    owner.write(..string.format('label%i.config(foreground="%s")', id, frcolorStr));
+                };
+                owner.write(..string.format('label%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //文本框
+            if winctrol.cls == "edit" {
+                var id = ctrlNameList.edit + 1;
+                ctrlNameList.edit = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
+                owner.write(..string.format('editVar%i = tk.StringVar(value="%s")', id, text));
+                owner.write(..string.format('edit%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                if winctrol.multiline == 1 {
+                    owner.write(..string.format('edit%i = tk.Text(edit%i_frame)', id, id));
+                    owner.write(..string.format('edit%i.insert("end", "%s")', id, text));
+                } else {
+                    owner.write(..string.format('edit%i = ttk.Entry(edit%i_frame, textvariable=editVar%i, %s)', id, id, id, justify));
+                }
+                owner.write(..string.format('edit%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if ctrl.password { owner.write(..string.format('edit%i.configure(show="*")', id)); };
+                if(readonly or disabled) { owner.write(..string.format('edit%i.configure(state="disabled")', id)); };
+                if hide { owner.write(..string.format('edit%i.place_forget()', id)); };
+                if vscroll {
+                    owner.write(..string.format('edit%i_vscroll = tk.Scrollbar(edit%i, orient="vertical", command=edit%i.yview)', id, id, id));
+                    owner.write(..string.format('edit%i.configure(yscrollcommand=edit%i_vscroll.set)', id, id));
+                    owner.write(..string.format('edit%i_vscroll.pack(side="right", fill="y")', id));
+                };
+                if hscroll {
+                    owner.write(..string.format('edit%i_hscroll = tk.Scrollbar(edit%i, orient="horizontal", command=edit%i.xview)',id, id, id));
+                    owner.write(..string.format('edit%i.configure(xscrollcommand=edit%i_hscroll.set)', id, id));
+                    owner.write(..string.format('edit%i_hscroll.pack(side="bottom", fill="x")', id));
+                };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('edit%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
+                    owner.write(..string.format('edit%i.configure(font=edit%i_font)', id, id));
+                };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    owner.write(..string.format('edit%i.config(background="%s")', id, bgcolorStr));
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    owner.write(..string.format('edit%i.config(foreground="%s")', id, frcolorStr));
+                };
+                owner.write(..string.format('edit%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //单选
+            if winctrol.cls == "radiobutton" {
+                var id = ctrlNameList.radio + 1;
+                ctrlNameList.radio = id;
+                owner.write(..string.format('radio%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                owner.write(..string.format('radio%i = ttk.Radiobutton(radio%i_frame, text="%s", %s)', id, id, text, justify));
+                owner.write(..string.format('radio%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if hide { owner.write(..string.format('radio%i.place_forget()', id)); };
+                if disabled { owner.write(..string.format('radio%i.configure(state="disabled")', id)); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('radio%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
+                    owner.write(..string.format('radio%i.configure(font=radio%i_font)', id, id));
+                };
+                owner.write(..string.format('radio%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //复选
+            if winctrol.cls == "checkbox" {
+                var id = ctrlNameList.check + 1;
+                ctrlNameList.check = id;
+                owner.write(..string.format('check%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                owner.write(..string.format('check%i = ttk.Checkbutton(check%i_frame, text="%s", %s)', id, id, text, justify));
+                owner.write(..string.format('check%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if hide { owner.write(..string.format('check%i.place_forget()', id)); };
+                if disabled { owner.write(..string.format('check%i.configure(state="disabled")', id)); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('check%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
+                    owner.write(..string.format('check%i.configure(font=check%i_font)', id, id));
+                };
+                owner.write(..string.format('check%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //图片框
+            if winctrol.cls == "picturebox" {
+                var id = ctrlNameList.pic + 1;
+                ctrlNameList.pic = id;
+                owner.write(..string.format('pic%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                var picpath = winctrol.background;
+                if picpath {
+                    owner.write(..string.format('img%i = tk.PhotoImage(file=r"%s")', id, picpath.path));
+                    owner.write(..string.format('pic%i = ttk.Label(pic%i_frame, image=img%i, %s)', id, id, id, justify));
+                } else {
+                    owner.write(..string.format('pic%i = ttk.Label(pic%i_frame, %s)', id, id, justify));
+                }
+                owner.write(..string.format('pic%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if hide { owner.write(..string.format('pic%i.place_forget()', id)); };
+                if disabled { owner.write(..string.format('pic%i.configure(state="disabled")', id)); };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    owner.write(..string.format('pic%i.config(background="%s")', id, bgcolorStr));
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    owner.write(..string.format('pic%i.config(foreground="%s")', id, frcolorStr));
+                };
+                owner.write(..string.format('pic%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //画板
+            if winctrol.cls == "plus" {
+                var id = ctrlNameList.canvas + 1;
+                ctrlNameList.canvas = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
+                var bgcolor = winctrol.backgroundColor;
+                owner.write(..string.format('canvas%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                owner.write(..string.format('canvas%i = tk.Canvas(canvas%i_frame)', id, id));
+                owner.write(..string.format('canvas%i.place(x=0, y=0, width=%i, height=%i)', id , width, height));
+                if hide { owner.write(..string.format('canvas%i.place_forget()', id)); };
+                if disabled { owner.write(..string.format('canvas%i.configure(state="disabled")', id)); };
+                if vscroll {
+                    owner.write(..string.format('canvas%i_vscroll = tk.Scrollbar(canvas%i, orient="vertical", command=canvas%i.yview)', id, id, id));
+                    owner.write(..string.format('canvas%i.configure(yscrollcommand=canvas%i_vscroll.set)', id, id));
+                    owner.write(..string.format('canvas%i_vscroll.pack(side="right", fill="y")', id));
+                };
+                if hscroll {
+                    owner.write(..string.format('canvas%i_hscroll = tk.Scrollbar(canvas%i, orient="horizontal", command=canvas%i.xview)', id, id, id));
+                    owner.write(..string.format('canvas%i.configure(xscrollcommand=canvas%i_hscroll.set)', id, id));
+                    owner.write(..string.format('canvas%i_hscroll.pack(side="bottom", fill="x")', id));
+                };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    bStr = ..string.slice(bgcolorStr,2,3);
+                    gStr = ..string.slice(bgcolorStr,4,5);
+                    rStr = ..string.slice(bgcolorStr,6,7);
+                    owner.write(..string.format('canvas%i.config(background="#%s%s%s")', id, rStr, gStr, bStr));
+                };
+                owner.write(..string.format('canvas%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //ListBox
+            if winctrol.cls == "listbox" {
+                var id = ctrlNameList.listbox + 1;
+                ctrlNameList.listbox = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
+                owner.write(..string.format('list%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                var items = winctrol.items;
+                if #items>0 {
+                    owner.write(..string.format('items%i = tk.Variable(value=[', id), 0, "");
+                    for i,item in items {
+                        owner.write('"' ++ item ++'", ', 0, "");
+                    }
+                    owner.write('])');
+                    owner.write(..string.format('list%i = tk.Listbox(list%i_frame, listvariable=items%i, %s)', id, id, id, justify));
+                       
+                } else {
+                    owner.write(..string.format('list%i = tk.Listbox(list%i_frame, %s)', id, id, justify));
+                }
+                owner.write(..string.format('list%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if hide { owner.write(..string.format('list%i.place_forget()', id)); };
+                if disabled { owner.write(..string.format('list%i.configure(state="disabled")', id)); };
+                if vscroll {
+                    owner.write(..string.format('list%i_vscroll = tk.Scrollbar(list%i, orient="vertical", command=list%i.yview)', id, id, id));
+                    owner.write(..string.format('list%i.configure(yscrollcommand=list%i_vscroll.set)', id, id));
+                    owner.write(..string.format('list%i_vscroll.pack(side="right", fill="y")', id));
+                };
+                if hscroll {
+                    owner.write(..string.format('list%i_hscroll = tk.Scrollbar(list%i, orient="horizontal", command=list%i.xview)', id, id, id));
+                    owner.write(..string.format('list%i.configure(xscrollcommand=list%i_hscroll.set)', id, id));
+                    owner.write(..string.format('list%i_hscroll.pack(side="bottom", fill="x")', id));
+                };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('list%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
+                    owner.write(..string.format('list%i.configure(font=list%i_font)', id, id));
+                };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    owner.write(..string.format('list%i.config(background="%s")', id, bgcolorStr));
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    owner.write(..string.format('list%i.config(foreground="%s")', id, frcolorStr));
+                };
+                owner.write(..string.format('list%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //下拉框
+            if winctrol.cls == "combobox" {
+                var id = ctrlNameList.combobox + 1;
+                ctrlNameList.combobox = id;
+                owner.write(..string.format('combobox%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                var items = winctrol.items;
+                if #items>0 {
+                    owner.write(..string.format('combobox%i= ttk.Combobox(combobox%i_frame, value=[', id, id), 0, "");
+                    for i,item in items {
+                        owner.write('"' ++ item ++'", ', 0, "");
+                    }
+                    owner.write(..string.format('], %s)', justify));
+                       
+                } else {
+                    owner.write(..string.format('combobox%i = ttk.Combobox(combobox%i_frame, %s)', id, id, justify));
+                }
+                owner.write(..string.format('combobox%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if hide { owner.write(..string.format('combobox%i.place_forget()', id)); };
+                if disabled { owner.write(..string.format('combobox%i.configure(state="disabled")', id)); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('combobox%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
+                    owner.write(..string.format('combobox%i.configure(font=combobox%i_font)', id, id));
+                };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    owner.write(..string.format('combobox%i.config(background="%s")', id, bgcolorStr));
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    owner.write(..string.format('combobox%i.config(foreground="%s")', id, frcolorStr));
+                };
+                owner.write(..string.format('combobox%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //表格
+            if winctrol.cls == "listview" {
+                var id = ctrlNameList.treeview + 1;
+                ctrlNameList.treeview = id;
+                owner.write(..string.format('tree%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                owner.write(..string.format('tree%i = ttk.Treeview(tree%i_frame)', id, id));
+                owner.write(..string.format('tree%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if hide { owner.write(..string.format('tree%i.place_forget()', id)); };
+                if disabled { owner.write(..string.format('tree%i.configure(state="disabled")', id)); };
+                owner.write(..string.format('tree%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //进度条
+            if winctrol.cls == "progress" {
+                var id = ctrlNameList.progress + 1;
+                ctrlNameList.progress = id;
+                owner.write(..string.format('progress%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                var max = winctrol.max;
+                var value = winctrol.pos;
+                owner.write(..string.format('progress%i = ttk.Progressbar(progress%i_frame, value=%i, maximum=%i)', id, id, value, max));
+                owner.write(..string.format('progress%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if hide { owner.write(..string.format('progress%i.place_forget()', id)); };
+                if disabled { owner.write(..string.format('progress%i.configure(state="disabled")', id)); };
+                owner.write(..string.format('progress%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //Trackbar
+            if winctrol.cls == "trackbar" {
+                var id = ctrlNameList.trackbar + 1;
+                ctrlNameList.trackbar = id;
+                owner.write(..string.format('scale%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
+                var min = winctrol.min;
+                var max = winctrol.max;
+                var value = winctrol.pos;
+                owner.write(..string.format('scale%i = ttk.Scale(scale%i_frame, from_=%i, to=%i, value=%i)', id, id, min, max, value));
+                owner.write(..string.format('scale%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
+                if hide { owner.write(..string.format('scale%i.place_forget()', id)); };
+                if disabled { owner.write(..string.format('scale%i.configure(state="disabled")', id)); };
+                owner.write(..string.format('scale%i_frame.place(x=%i, y=%i)', id, x, y));
+            };
+            //GroupBox
+            if winctrol.cls == "groupbox" {
+                var id = ctrlNameList.groupbox + 1;
+                ctrlNameList.groupbox = id;
+                owner.write(..string.format('labelframe%i = ttk.Labelframe(text="%s", width=%i, height=%i)', id, text, width, height));
+                owner.write(..string.format('labelframe%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height));
+                if hide { owner.write(..string.format('labelframe%i.place_forget()', id)); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('labelframe%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
+                    owner.write(..string.format('labelframe%i.configure(font=labelframe%i_font)', id, id));
+                };
+            };
+            //Frame
+            if winctrol.cls == "custom" {
+                var id = ctrlNameList.frame + 1;
+                ctrlNameList.frame = id;
+                owner.write(..string.format('frame%i = ttk.Frame(width=%i, height=%i)', id, width, height));
+                owner.write(..string.format('frame%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height));
+                if hide { owner.write(..string.format('frame%i.place_forget()', id)); };
+            };
+            //Tab
+            if winctrol.cls == "tab" {
+                var id = ctrlNameList.tab + 1;
+                ctrlNameList.tab = id;
+                owner.write(..string.format('nb%i = ttk.Notebook(width=%i, height=%i)', id, width, height));
+                owner.write(..string.format('nb%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height));
+                if hide { owner.write(..string.format('nb%i.place_forget()', id)); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('nb%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
+                    owner.write(..string.format('nb%i.configure(font=nb%i_font)', id, id));
+                };
+            };
+        };
+            
+        owner.write('\r\n\r\n### 功能逻辑部分 ###\r\n');
+            
+        owner.write('root.mainloop()');
+            
+        return this.pycode;
+    };
+    
+       
+    //转换为组件
+    transfer2place = function(name="SubAssembly"){
+        var window_width = this.width;
+        var window_height = this.height;
+        var window_text = this.text;
+        this.pycode = /***
+import tkinter as tk
+import tkinter.ttk as ttk
+import tkinter.font as tkFont
+
+class ***/
+        owner.write(name++'():\r\n    ### 界面设计部分 ###\r\n    \r\n    def __init__(self, master):');
+        owner.write(..string.format('self.mainframe = ttk.Frame(master, width=%i, height=%i)', window_width, window_height), 8);
+        var ctrlNameList = {
+            'button' = 0;
+            'static' = 0;
+            'edit' = 0;
+            'radio' = 0;
+            'check' = 0;
+            'pic' = 0;
+            'listbox' = 0;
+            'combobox' = 0;
+            'progress' = 0;
+            'trackbar' = 0;
+            'listview' = 0;
+            'treeview' = 0;
+            'canvas' = 0;
+            'groupbox' = 0;
+            'frame' = 0;
+            'tab' = 0;
+                
+        };
+        for ( hwnd,ctrl in this.eachControlEx() ){
+            owner.write(..string.format('# Z=%i', ctrl.z), 8);
+            winctrol = this.getCtrl(hwnd);
+            var x = winctrol.left;
+            var y = winctrol.top;
+            var width = winctrol.width;
+            var height = winctrol.height;
+            var text = winctrol.text;
+            var hide = ctrl.hide;
+            var disabled = ctrl.disabled;
+            var readonly = ctrl.readonly;
+            var bgcolor = ctrl.bgcolor;
+            var frcolor = ctrl.color;
+            var font = ctrl.font;
+            var align = ctrl.align;
+            var justify;
+            if !align {
+                justify = 'justify="left"';
+            } elseif align == "center" {
+                justify = 'justify="center"';
+            } else {
+                justify = 'justify="right"';
+            };
+            //按钮
+            if winctrol.cls == "button" {
+                var id = ctrlNameList.button + 1;
+                ctrlNameList.button = id;
+                owner.write(..string.format('self.button%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                owner.write(..string.format('self.button%i = ttk.Button(self.button%i_frame, text="%s")', id, id, text), 8);
+                owner.write(..string.format('self.button%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if hide { owner.write(..string.format('self.button%i.place_forget()', id), 8); };
+                if disabled { owner.write(..string.format('self.button%i.configure(state="disabled")', id), 8); };
+                 
+                owner.write(..string.format('self.button%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //标签
+            if winctrol.cls == "static" {
+                var id = ctrlNameList.static + 1;
+                ctrlNameList.static = id;
+                owner.write(..string.format('self.label%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                owner.write(..string.format('self.label%i = ttk.Label(self.label%i_frame, text="%s", %s)', id, id, text, justify), 8);
+                owner.write(..string.format('self.label%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if hide { owner.write(..string.format('self.label%i.place_forget()'), 8); };
+                if disabled { owner.write(..string.format('self.label%i.configure(state="disabled")'), 8); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('self.label%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
+                    owner.write(..string.format('self.label%i.configure(font=self.label%i_font)', id, id), 8);
+                };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    owner.write(..string.format('self.label%i.config(background="%s")', id, bgcolorStr), 8);
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    owner.write(..string.format('self.label%i.config(foreground="%s")', id, frcolorStr), 8);
+                };
+                owner.write(..string.format('self.label%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //文本框
+            if winctrol.cls == "edit" {
+                var id = ctrlNameList.edit + 1;
+                ctrlNameList.edit = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
+                owner.write(..string.format('self.editVar%i = tk.StringVar(value="%s")', id, text), 8);
+                owner.write(..string.format('self.edit%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                if winctrol.multiline == 1 {
+                    owner.write(..string.format('self.edit%i = tk.Text(self.edit%i_frame)', id, id), 8);
+                    owner.write(..string.format('self.edit%i.insert("end", "%s")', id, text), 8);
+                } else {
+                    owner.write(..string.format('self.edit%i = ttk.Entry(self.edit%i_frame, textvariable=editVar%i, %s)', id, id, id, justify), 8);
+                }
+                owner.write(..string.format('self.edit%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if ctrl.password { owner.write(..string.format('self.edit%i.configure(show="*")', id), 8); };
+                if(readonly or disabled) { owner.write(..string.format('self.edit%i.configure(state="disabled")', id), 8); };
+                if hide { owner.write(..string.format('self.edit%i.place_forget()', id), 8); };
+                if vscroll {
+                    owner.write(..string.format('self.edit%i_vscroll = tk.Scrollbar(self.edit%i, orient="vertical", command=edit%i.yview)', id, id, id), 8);
+                    owner.write(..string.format('self.edit%i.configure(yscrollcommand=self.edit%i_vscroll.set)', id, id), 8);
+                    owner.write(..string.format('self.edit%i_vscroll.pack(side="right", fill="y")', id), 8);
+                };
+                if hscroll {
+                    owner.write(..string.format('self.edit%i_hscroll = tk.Scrollbar(self.edit%i, orient="horizontal", command=edit%i.xview)',id, id, id), 8);
+                    owner.write(..string.format('self.edit%i.configure(xscrollcommand=self.edit%i_hscroll.set)', id, id), 8);
+                    owner.write(..string.format('self.edit%i_hscroll.pack(side="bottom", fill="x")', id), 8);
+                };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('self.edit%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
+                    owner.write(..string.format('self.edit%i.configure(font=self.edit%i_font)', id, id), 8);
+                };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    owner.write(..string.format('self.edit%i.config(background="%s")', id, bgcolorStr), 8);
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    owner.write(..string.format('self.edit%i.config(foreground="%s")', id, frcolorStr), 8);
+                };
+                owner.write(..string.format('self.edit%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //单选
+            if winctrol.cls == "radiobutton" {
+                var id = ctrlNameList.radio + 1;
+                ctrlNameList.radio = id;
+                owner.write(..string.format('self.radio%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                owner.write(..string.format('self.radio%i = ttk.Radiobutton(self.radio%i_frame, text="%s", %s)', id, id, text, justify), 8);
+                owner.write(..string.format('self.radio%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if hide { owner.write(..string.format('self.radio%i.place_forget()', id), 8); };
+                if disabled { owner.write(..string.format('self.radio%i.configure(state="disabled")', id), 8); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('self.radio%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
+                    owner.write(..string.format('self.radio%i.configure(font=self.radio%i_font)', id, id), 8);
+                };
+                owner.write(..string.format('self.radio%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //复选
+            if winctrol.cls == "checkbox" {
+                var id = ctrlNameList.check + 1;
+                ctrlNameList.check = id;
+                owner.write(..string.format('self.check%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                owner.write(..string.format('self.check%i = ttk.Checkbutton(self.check%i_frame, text="%s", %s)', id, id, text, justify), 8);
+                owner.write(..string.format('self.check%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if hide { owner.write(..string.format('self.check%i.place_forget()', id), 8); };
+                if disabled { owner.write(..string.format('self.check%i.configure(state="disabled")', id), 8); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('self.check%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
+                    owner.write(..string.format('self.check%i.configure(font=self.check%i_font)', id, id), 8);
+                };
+                owner.write(..string.format('self.check%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //图片框
+            if winctrol.cls == "picturebox" {
+                var id = ctrlNameList.pic + 1;
+                ctrlNameList.pic = id;
+                owner.write(..string.format('self.pic%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                var picpath = winctrol.background;
+                if picpath {
+                    owner.write(..string.format('self.img%i = tk.PhotoImage(file=r"%s")', id, picpath.path), 8);
+                    owner.write(..string.format('self.pic%i = ttk.Label(self.pic%i_frame, image=self.img%i, %s)', id, id, id, justify), 8);
+                } else {
+                    owner.write(..string.format('self.pic%i = ttk.Label(self.pic%i_frame, %s)', id, id, justify), 8);
+                }
+                owner.write(..string.format('self.pic%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if hide { owner.write(..string.format('self.pic%i.place_forget()', id), 8); };
+                if disabled { owner.write(..string.format('self.pic%i.configure(state="disabled")', id), 8); };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    owner.write(..string.format('self.pic%i.config(background="%s")', id, bgcolorStr), 8);
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    owner.write(..string.format('self.pic%i.config(foreground="%s")', id, frcolorStr), 8);
+                };
+                owner.write(..string.format('self.pic%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //画板
+            if winctrol.cls == "plus" {
+                var id = ctrlNameList.canvas + 1;
+                ctrlNameList.canvas = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
+                var bgcolor = winctrol.backgroundColor;
+                owner.write(..string.format('self.canvas%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                owner.write(..string.format('self.canvas%i = tk.Canvas(self.canvas%i_frame)', id, id), 8);
+                owner.write(..string.format('self.canvas%i.place(x=0, y=0, width=%i, height=%i)', id , width, height), 8);
+                if hide { owner.write(..string.format('self.canvas%i.place_forget()', id), 8); };
+                if disabled { owner.write(..string.format('self.canvas%i.configure(state="disabled")', id), 8); };
+                if vscroll {
+                    owner.write(..string.format('self.canvas%i_vscroll = tk.Scrollbar(self.canvas%i, orient="vertical", command=self.canvas%i.yview)', id, id, id), 8);
+                    owner.write(..string.format('self.canvas%i.configure(yscrollcommand=self.canvas%i_vscroll.set)', id, id), 8);
+                    owner.write(..string.format('self.canvas%i_vscroll.pack(side="right", fill="y")', id), 8);
+                };
+                if hscroll {
+                    owner.write(..string.format('self.canvas%i_hscroll = tk.Scrollbar(self.canvas%i, orient="horizontal", command=self.canvas%i.xview)', id, id, id), 8);
+                    owner.write(..string.format('self.canvas%i.configure(xscrollcommand=self.canvas%i_hscroll.set)', id, id), 8);
+                    owner.write(..string.format('self.canvas%i_hscroll.pack(side="bottom", fill="x")', id), 8);
+                };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    bStr = ..string.slice(bgcolorStr,2,3);
+                    gStr = ..string.slice(bgcolorStr,4,5);
+                    rStr = ..string.slice(bgcolorStr,6,7);
+                    owner.write(..string.format('self.canvas%i.config(background="#%s%s%s")', id, rStr, gStr, bStr), 8);
+                };
+                owner.write(..string.format('self.canvas%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //ListBox
+            if winctrol.cls == "listbox" {
+                var id = ctrlNameList.listbox + 1;
+                ctrlNameList.listbox = id;
+                var vscroll = ctrl.vscroll;
+                var hscroll = ctrl.hscroll;
+                owner.write(..string.format('self.list%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                var items = winctrol.items;
+                if #items>0 {
+                    owner.write(..string.format('self.items%i = tk.Variable(value=[', id), 0, "");
+                    for i,item in items {
+                        owner.write('"' ++ item ++'", ', 0, "");
+                    }
+                    owner.write('])');
+                    owner.write(..string.format('self.list%i = tk.Listbox(self.list%i_frame, listvariable=self.items%i, %s)', id, id, id, justify), 8);
+                       
+                } else {
+                    owner.write(..string.format('self.list%i = tk.Listbox(self.list%i_frame, %s)', id, id, justify), 8);
+                }
+                owner.write(..string.format('self.list%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if hide { owner.write(..string.format('self.list%i.place_forget()', id), 8); };
+                if disabled { owner.write(..string.format('self.list%i.configure(state="disabled")', id), 8); };
+                if vscroll {
+                    owner.write(..string.format('self.list%i_vscroll = tk.Scrollbar(self.list%i, orient="vertical", command=self.list%i.yview)', id, id, id), 8);
+                    owner.write(..string.format('self.list%i.configure(yscrollcommand=self.list%i_vscroll.set)', id, id), 8);
+                    owner.write(..string.format('self.list%i_vscroll.pack(side="right", fill="y")', id), 8);
+                };
+                if hscroll {
+                    owner.write(..string.format('self.list%i_hscroll = tk.Scrollbar(self.list%i, orient="horizontal", command=self.list%i.xview)', id, id, id), 8);
+                    owner.write(..string.format('self.list%i.configure(xscrollcommand=self.list%i_hscroll.set)', id, id), 8);
+                    owner.write(..string.format('self.list%i_hscroll.pack(side="bottom", fill="x")', id), 8);
+                };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('self.list%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
+                    owner.write(..string.format('self.list%i.configure(font=list%i_font)', id, id), 8);
+                };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    owner.write(..string.format('self.list%i.config(background="%s")', id, bgcolorStr), 8);
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    owner.write(..string.format('self.list%i.config(foreground="%s")', id, frcolorStr), 8);
+                };
+                owner.write(..string.format('self.list%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //下拉框
+            if winctrol.cls == "combobox" {
+                var id = ctrlNameList.combobox + 1;
+                ctrlNameList.combobox = id;
+                owner.write(..string.format('self.combobox%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                var items = winctrol.items;
+                if #items>0 {
+                    owner.write(..string.format('self.combobox%i= ttk.Combobox(self.combobox%i_frame, value=[', id, id), 0, "");
+                    for i,item in items {
+                        owner.write('"' ++ item ++'", ', 0, "");
+                    }
+                    owner.write(..string.format('], %s)', justify), 8);
+                       
+                } else {
+                    owner.write(..string.format('self.combobox%i = ttk.Combobox(self.combobox%i_frame, %s)', id, id, justify), 8);
+                }
+                owner.write(..string.format('self.combobox%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if hide { owner.write(..string.format('self.combobox%i.place_forget()', id), 8); };
+                if disabled { owner.write(..string.format('self.combobox%i.configure(state="disabled")', id), 8); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('self.combobox%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
+                    owner.write(..string.format('self.combobox%i.configure(font=self.combobox%i_font)', id, id), 8);
+                };
+                if bgcolor {
+                    bgcolorStr = ..color.stringify(bgcolor,false);
+                    owner.write(..string.format('self.combobox%i.config(background="%s")', id, bgcolorStr), 8);
+                };
+                if frcolor {
+                    frcolorStr = ..color.stringify(frcolor,false);
+                    owner.write(..string.format('self.combobox%i.config(foreground="%s")', id, frcolorStr), 8);
+                };
+                owner.write(..string.format('self.combobox%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //表格
+            if winctrol.cls == "listview" {
+                var id = ctrlNameList.treeview + 1;
+                ctrlNameList.treeview = id;
+                owner.write(..string.format('self.tree%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                owner.write(..string.format('self.tree%i = ttk.Treeview(self.tree%i_frame)', id, id), 8);
+                owner.write(..string.format('self.tree%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if hide { owner.write(..string.format('self.tree%i.place_forget()', id), 8); };
+                if disabled { owner.write(..string.format('self.tree%i.configure(state="disabled")', id), 8); };
+                owner.write(..string.format('self.tree%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //进度条
+            if winctrol.cls == "progress" {
+                var id = ctrlNameList.progress + 1;
+                ctrlNameList.progress = id;
+                owner.write(..string.format('self.progress%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                var max = winctrol.max;
+                var value = winctrol.pos;
+                owner.write(..string.format('self.progress%i = ttk.Progressbar(self.progress%i_frame, value=%i, maximum=%i)', id, id, value, max), 8);
+                owner.write(..string.format('self.progress%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if hide { owner.write(..string.format('self.progress%i.place_forget()', id), 8); };
+                if disabled { owner.write(..string.format('self.progress%i.configure(state="disabled")', id), 8); };
+                owner.write(..string.format('self.progress%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //Trackbar
+            if winctrol.cls == "trackbar" {
+                var id = ctrlNameList.trackbar + 1;
+                ctrlNameList.trackbar = id;
+                owner.write(..string.format('self.scale%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                var min = winctrol.min;
+                var max = winctrol.max;
+                var value = winctrol.pos;
+                owner.write(..string.format('self.scale%i = ttk.Scale(self.scale%i_frame, from_=%i, to=%i, value=%i)', id, id, min, max, value), 8);
+                owner.write(..string.format('self.scale%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
+                if hide { owner.write(..string.format('self.scale%i.place_forget()', id), 8); };
+                if disabled { owner.write(..string.format('self.scale%i.configure(state="disabled")', id), 8); };
+                owner.write(..string.format('self.scale%i_frame.place(x=%i, y=%i)', id, x, y), 8);
+            };
+            //GroupBox
+            if winctrol.cls == "groupbox" {
+                var id = ctrlNameList.groupbox + 1;
+                ctrlNameList.groupbox = id;
+                owner.write(..string.format('self.labelframe%i = ttk.Labelframe(text="%s", width=%i, height=%i)', id, text, width, height), 8);
+                owner.write(..string.format('self.labelframe%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height), 8);
+                if hide { owner.write(..string.format('self.labelframe%i.place_forget()', id), 8); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('self.labelframe%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
+                    owner.write(..string.format('self.labelframe%i.configure(font=self.labelframe%i_font)', id, id), 8);
+                };
+            };
+            //Frame
+            if winctrol.cls == "custom" {
+                var id = ctrlNameList.frame + 1;
+                ctrlNameList.frame = id;
+                owner.write(..string.format('self.frame%i = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
+                owner.write(..string.format('self.frame%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height), 8);
+                if hide { owner.write(..string.format('self.frame%i.place_forget()', id), 8); };
+            };
+            //Tab
+            if winctrol.cls == "tab" {
+                var id = ctrlNameList.tab + 1;
+                ctrlNameList.tab = id;
+                owner.write(..string.format('self.nb%i = ttk.Notebook(width=%i, height=%i)', id, width, height), 8);
+                owner.write(..string.format('self.nb%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height), 8);
+                if hide { owner.write(..string.format('self.nb%i.place_forget()', id), 8); };
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('self.nb%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
+                    owner.write(..string.format('self.nb%i.configure(font=self.nb%i_font)', id, id), 8);
+                };
+            };
+        };
+          
+        owner.write('self.mainframe.pack()', 8);
+          
+        owner.write('\r\n    ### 功能逻辑部分 ###\r\n\r\n', 0);
+          
+        return this.pycode;
+    };
+    
+    translateName = function(formStr){
+    	var pattern = "(\w+)=\{.*?z=(\d\d?)\}";
+    	var results = ..string.matches(formStr, pattern);
+    	for i, result in results {
+    		var name = result[1];
+    		var z = result[2];
+    		owner.write(..string.format('# Z=%i -> %s', z, name));
+    	};
+    	return this.pycode;
+    };
+     
+
+}
+   
+/**intellisense()
+GUI2Py = 解析aardio界面生成Python Tkinter
+GUI2Py.GUI2Tk(.(winform界面窗体) = 返回解析对象
+?GUI2Py.GUI2Tk = !GUI2Py_GUI2Tk.
+GUI2Py.GUI2Tk() = !GUI2Py_GUI2Tk.
+!GUI2Py_GUI2Tk.transfer2root( ) = 组件按place方式布局，返回的代码用于生成主界面
+!GUI2Py_GUI2Tk.transfer2place(.( "组件名称" ) = 组件按place方式布局，返回的代码用于生成组件类
+!GUI2Py_GUI2Tk.translateName(.( winform_DSG ) = 解析窗体设计器代码，返回的Z序与对应控件名称，可用来替换python中的控件名
+end intellisense**/
