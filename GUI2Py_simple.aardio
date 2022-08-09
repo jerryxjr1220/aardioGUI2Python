@@ -1,5 +1,4 @@
-import GUI2Py;
-//解析aardio界面生成Python Tkinter
+//解析aardio界面生成Python Tkinter 
 import color
 import string
 import math
