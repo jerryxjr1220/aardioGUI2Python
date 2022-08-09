@@ -551,19 +551,19 @@ class ***/
                     owner.write(..string.format('self.edit%i = tk.Text(self.edit%i_frame)', id, id), 8);
                     owner.write(..string.format('self.edit%i.insert("end", "%s")', id, text), 8);
                 } else {
-                    owner.write(..string.format('self.edit%i = ttk.Entry(self.edit%i_frame, textvariable=editVar%i, %s)', id, id, id, justify), 8);
+                    owner.write(..string.format('self.edit%i = ttk.Entry(self.edit%i_frame, textvariable=self.editVar%i, %s)', id, id, id, justify), 8);
                 }
                 owner.write(..string.format('self.edit%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
                 if ctrl.password { owner.write(..string.format('self.edit%i.configure(show="*")', id), 8); };
                 if(readonly or disabled) { owner.write(..string.format('self.edit%i.configure(state="disabled")', id), 8); };
                 if hide { owner.write(..string.format('self.edit%i.place_forget()', id), 8); };
                 if vscroll {
-                    owner.write(..string.format('self.edit%i_vscroll = tk.Scrollbar(self.edit%i, orient="vertical", command=edit%i.yview)', id, id, id), 8);
+                    owner.write(..string.format('self.edit%i_vscroll = tk.Scrollbar(self.edit%i, orient="vertical", command=self.edit%i.yview)', id, id, id), 8);
                     owner.write(..string.format('self.edit%i.configure(yscrollcommand=self.edit%i_vscroll.set)', id, id), 8);
                     owner.write(..string.format('self.edit%i_vscroll.pack(side="right", fill="y")', id), 8);
                 };
                 if hscroll {
-                    owner.write(..string.format('self.edit%i_hscroll = tk.Scrollbar(self.edit%i, orient="horizontal", command=edit%i.xview)',id, id, id), 8);
+                    owner.write(..string.format('self.edit%i_hscroll = tk.Scrollbar(self.edit%i, orient="horizontal", command=self.edit%i.xview)',id, id, id), 8);
                     owner.write(..string.format('self.edit%i.configure(xscrollcommand=self.edit%i_hscroll.set)', id, id), 8);
                     owner.write(..string.format('self.edit%i_hscroll.pack(side="bottom", fill="x")', id), 8);
                 };
