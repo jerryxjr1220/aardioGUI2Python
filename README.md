@@ -30,6 +30,11 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 ## 目前可以实现的功能：
 
+- 20220810更新：
+1. 修正一处错误：radiobutton和checkbox不支持justify参数，也不支持font参数
+2. radiobutton添加value参数，配合variable参数控制选项，详见Test实例
+3. 添加一个新的Test实例“Python习题集”
+
 - 20220809更新：
 1. 优化代码，用格式化字符串替换字符串拼接，增强可读性。
 2. 精简布局，移除transfer2pack和transfer2grid方法（有需要可以自行更改transfer2place的最后一行布局代码），仅保留transfer2root和transfer2place。
