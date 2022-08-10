@@ -1,4 +1,5 @@
-//解析aardio界面生成Python Tkinter 
+import GUI2Py;
+//解析aardio界面生成Python Tkinter
 import color
 import string
 import math
@@ -173,19 +174,11 @@ root = tk.Tk()
                 var id = ctrlNameList.radio + 1;
                 ctrlNameList.radio = id;
                 owner.write(..string.format('radio%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
-                owner.write(..string.format('radio%i = ttk.Radiobutton(radio%i_frame, text="%s", %s)', id, id, text, justify));
+                owner.write(..string.format('radio%i = ttk.Radiobutton(radio%i_frame, text="%s", value=%i)', id, id, text, id));
                 owner.write(..string.format('radio%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
                 if hide { owner.write(..string.format('radio%i.place_forget()', id)); };
                 if disabled { owner.write(..string.format('radio%i.configure(state="disabled")', id)); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write(..string.format('radio%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
-                    owner.write(..string.format('radio%i.configure(font=radio%i_font)', id, id));
-                };
+                
                 owner.write(..string.format('radio%i_frame.place(x=%i, y=%i)', id, x, y));
             };
             //复选
@@ -193,19 +186,10 @@ root = tk.Tk()
                 var id = ctrlNameList.check + 1;
                 ctrlNameList.check = id;
                 owner.write(..string.format('check%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
-                owner.write(..string.format('check%i = ttk.Checkbutton(check%i_frame, text="%s", %s)', id, id, text, justify));
+                owner.write(..string.format('check%i = ttk.Checkbutton(check%i_frame, text="%s")', id, id, text));
                 owner.write(..string.format('check%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
                 if hide { owner.write(..string.format('check%i.place_forget()', id)); };
                 if disabled { owner.write(..string.format('check%i.configure(state="disabled")', id)); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write(..string.format('check%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
-                    owner.write(..string.format('check%i.configure(font=check%i_font)', id, id));
-                };
                 owner.write(..string.format('check%i_frame.place(x=%i, y=%i)', id, x, y));
             };
             //图片框
@@ -590,19 +574,10 @@ class ***/
                 var id = ctrlNameList.radio + 1;
                 ctrlNameList.radio = id;
                 owner.write(..string.format('self.radio%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
-                owner.write(..string.format('self.radio%i = ttk.Radiobutton(self.radio%i_frame, text="%s", %s)', id, id, text, justify), 8);
+                owner.write(..string.format('self.radio%i = ttk.Radiobutton(self.radio%i_frame, text="%s", value=%i)', id, id, text, id), 8);
                 owner.write(..string.format('self.radio%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
                 if hide { owner.write(..string.format('self.radio%i.place_forget()', id), 8); };
-                if disabled { owner.write(..string.format('self.radio%i.configure(state="disabled")', id), 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write(..string.format('self.radio%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
-                    owner.write(..string.format('self.radio%i.configure(font=self.radio%i_font)', id, id), 8);
-                };
+                if disabled { owner.write(..string.format('self.radio%i.configure(state="disabled")', id), 8); }; 
                 owner.write(..string.format('self.radio%i_frame.place(x=%i, y=%i)', id, x, y), 8);
             };
             //复选
@@ -610,19 +585,10 @@ class ***/
                 var id = ctrlNameList.check + 1;
                 ctrlNameList.check = id;
                 owner.write(..string.format('self.check%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
-                owner.write(..string.format('self.check%i = ttk.Checkbutton(self.check%i_frame, text="%s", %s)', id, id, text, justify), 8);
+                owner.write(..string.format('self.check%i = ttk.Checkbutton(self.check%i_frame, text="%s")', id, id, text), 8);
                 owner.write(..string.format('self.check%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
                 if hide { owner.write(..string.format('self.check%i.place_forget()', id), 8); };
                 if disabled { owner.write(..string.format('self.check%i.configure(state="disabled")', id), 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write(..string.format('self.check%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
-                    owner.write(..string.format('self.check%i.configure(font=self.check%i_font)', id, id), 8);
-                };
                 owner.write(..string.format('self.check%i_frame.place(x=%i, y=%i)', id, x, y), 8);
             };
             //图片框
