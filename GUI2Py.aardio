@@ -174,19 +174,11 @@ root = tk.Tk()
                 var id = ctrlNameList.radio + 1;
                 ctrlNameList.radio = id;
                 owner.write('radio'++id++'_frame = ttk.Frame(width='++ width ++', height='++ height ++')');
-                owner.write('radio'++id++ ' = ttk.Radiobutton(radio'++id++'_frame, text="'++ text ++'"' ++ justify ++ ')');
+                owner.write('radio'++id++ ' = ttk.Radiobutton(radio'++id++'_frame, text="'++ text ++'", value='++id++')');
                 owner.write('radio'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')');
                 if hide { owner.write('radio'++id++ '.place_forget()'); };
                 if disabled { owner.write('radio'++id++ '.configure(state="disabled")'); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')');
-                    owner.write('radio'++id++'.configure(font=radio'++id++'_font)');
-                };
+                
                 owner.write('radio'++id++ '_frame.place(x='++ x ++', y='++ y ++')');
             };
             //复选
@@ -194,19 +186,11 @@ root = tk.Tk()
                 var id = ctrlNameList.check + 1;
                 ctrlNameList.check = id;
                 owner.write('check'++id++'_frame = ttk.Frame(width='++ width ++', height='++ height ++')');
-                owner.write('check'++id++ ' = ttk.Checkbutton(check'++id++'_frame, text="'++ text ++'"'++justify++')');
+                owner.write('check'++id++ ' = ttk.Checkbutton(check'++id++'_frame, text="'++ text ++'")');
                 owner.write('check'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')');
                 if hide { owner.write('check'++id++ '.place_forget()'); };
                 if disabled { owner.write('check'++id++ '.configure(state="disabled")'); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')');
-                    owner.write('check'++id++'.configure(font=check'++id++'_font)');
-                };
+                
                 owner.write('check'++id++ '_frame.place(x='++ x ++', y='++ y ++')');
             };
             //图片框
@@ -592,19 +576,11 @@ class ***/
                 var id = ctrlNameList.radio + 1;
                 ctrlNameList.radio = id;
                 owner.write('self.radio'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')', 8);
-                owner.write('self.radio'++id++ ' = ttk.Radiobutton(self.radio'++id++'_frame, text="'++ text ++'"'++ justify ++')', 8);
+                owner.write('self.radio'++id++ ' = ttk.Radiobutton(self.radio'++id++'_frame, text="'++ text ++'", value='++id++')', 8);
                 owner.write('self.radio'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')', 8);
                 if hide { owner.write('self.radio'++id++ '.place_forget()', 8); };
                 if disabled { owner.write('self.radio'++id++ '.configure(state="disabled")', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.radio'++id++'.configure(font=self.radio'++id++'_font)', 8);
-                };
+                
                 owner.write('self.radio'++id++ '_frame.place(x='++ x ++', y='++ y ++')', 8);
             };
                
@@ -613,19 +589,11 @@ class ***/
                 var id = ctrlNameList.check + 1;
                 ctrlNameList.check = id;
                 owner.write('self.check'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')', 8);
-                owner.write('self.check'++id++ ' = ttk.Checkbutton(self.check'++id++'_frame, text="'++ text ++'"'++ justify ++')', 8);
+                owner.write('self.check'++id++ ' = ttk.Checkbutton(self.check'++id++'_frame, text="'++ text ++'")', 8);
                 owner.write('self.check'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')', 8);
                 if hide { owner.write('self.check'++id++ '.place_forget()', 8); };
                 if disabled { owner.write('self.check'++id++ '.configure(state="disabled")', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.check'++id++'.configure(font=self.check'++id++'_font)', 8);
-                };
+                
                 owner.write('self.check'++id++ '_frame.place(x='++ x ++', y='++ y ++')', 8);
             };
                
@@ -1021,19 +989,11 @@ class ***/
                 var id = ctrlNameList.radio + 1;
                 ctrlNameList.radio = id;
                 owner.write('self.radio'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')', 8);
-                owner.write('self.radio'++id++ ' = ttk.Radiobutton(self.radio'++id++'_frame, text="'++ text ++'"'++ justify ++')', 8);
+                owner.write('self.radio'++id++ ' = ttk.Radiobutton(self.radio'++id++'_frame, text="'++ text ++'", value='++id++')', 8);
                 owner.write('self.radio'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')', 8);
                 if hide { owner.write('self.radio'++id++ '.place_forget()', 8); };
                 if disabled { owner.write('self.radio'++id++ '.configure(state="disabled")', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.radio'++id++'.configure(font=self.radio'++id++'_font)', 8);
-                };
+                
                 owner.write('self.radio'++id++ '_frame.pack()', 8);
             };
                
@@ -1042,19 +1002,11 @@ class ***/
                 var id = ctrlNameList.check + 1;
                 ctrlNameList.check = id;
                 owner.write('self.check'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')', 8);
-                owner.write('self.check'++id++ ' = ttk.Checkbutton(self.check'++id++'_frame, text="'++ text ++'"'++ justify ++')', 8);
+                owner.write('self.check'++id++ ' = ttk.Checkbutton(self.check'++id++'_frame, text="'++ text ++'")', 8);
                 owner.write('self.check'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')', 8);
                 if hide { owner.write('self.check'++id++ '.place_forget()', 8); };
                 if disabled { owner.write('self.check'++id++ '.configure(state="disabled")', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.check'++id++'.configure(font=self.check'++id++'_font)', 8);
-                };
+                
                 owner.write('self.check'++id++ '_frame.pack()', 8);
             };
                
@@ -1455,19 +1407,11 @@ class ***/
                 var id = ctrlNameList.radio + 1;
                 ctrlNameList.radio = id;
                 owner.write('self.radio'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')', 8);
-                owner.write('self.radio'++id++ ' = ttk.Radiobutton(self.radio'++id++'_frame, text="'++ text ++'"'++ justify ++')', 8);
+                owner.write('self.radio'++id++ ' = ttk.Radiobutton(self.radio'++id++'_frame, text="'++ text ++'", value='++id++')', 8);
                 owner.write('self.radio'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')', 8);
                 if hide { owner.write('self.radio'++id++ '.place_forget()', 8); };
                 if disabled { owner.write('self.radio'++id++ '.configure(state="disabled")', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.radio'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.radio'++id++'.configure(font=self.radio'++id++'_font)', 8);
-                };
+                
                 owner.write('self.radio'++id++'_frame.grid(column='++col++', row='++row++')', 8);
             };
                
@@ -1477,19 +1421,11 @@ class ***/
                 var id = ctrlNameList.check + 1;
                 ctrlNameList.check = id;
                 owner.write('self.check'++id++'_frame = ttk.Frame(self.mainframe, width='++ width ++', height='++ height ++')', 8);
-                owner.write('self.check'++id++ ' = ttk.Checkbutton(self.check'++id++'_frame, text="'++ text ++'"'++ justify ++')', 8);
+                owner.write('self.check'++id++ ' = ttk.Checkbutton(self.check'++id++'_frame, text="'++ text ++'")', 8);
                 owner.write('self.check'++id++ '.place(x=0, y=0, width='++ width ++', height='++ height ++')', 8);
                 if hide { owner.write('self.check'++id++ '.place_forget()', 8); };
                 if disabled { owner.write('self.check'++id++ '.configure(state="disabled")', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.check'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.check'++id++'.configure(font=self.check'++id++'_font)', 8);
-                };
+                
                 owner.write('self.check'++id++'_frame.grid(column='++col++', row='++row++')', 8);
             };
                
