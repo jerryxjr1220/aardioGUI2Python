@@ -22,9 +22,7 @@ GUI2Python库 - 用VB.Net画Tkinter界面并生成Python代码 - *As a Tkinter D
 - 视频教程：  [https://space.bilibili.com/382613220/channel/seriesdetail?sid=2503337](https://space.bilibili.com/382613220/channel/seriesdetail?sid=2503337)
 
 
-## 目前正在进行的工作：
-**移植GUI2Py库至VB.Net中  - 进度 30%**, 
-详见VB_NET分支
+## GUI2Py  VB.Net版本发布
 
 
 ## 目前可以实现的功能：
