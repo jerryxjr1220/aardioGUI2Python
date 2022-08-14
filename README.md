@@ -27,9 +27,9 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 - 视频教程：  [https://space.bilibili.com/382613220/channel/seriesdetail?sid=2503337](https://space.bilibili.com/382613220/channel/seriesdetail?sid=2503337)
 
-## 目前正在进行的工作：
-**移植GUI2Py库至VB.Net中  - 进度 30%**
-详见VB_NET分支
+## GUI2Py VB.Net版发布
+
+详见VB.Net分支的GUI2Py.vb
 
 ## 目前可以实现的功能：
 
