@@ -1,5 +1,6 @@
 '解析VB.Net界面生成Tkinter的Python代码
 Imports System.Text.RegularExpressions
+Imports System.IO
 Module GUI2Py
     Dim code As String = ""
     Dim pattern As String = "System\.Windows\.Forms\.(.+?),"
@@ -671,13 +672,12 @@ Module GUI2Py
             Return code
         Else
             Try
-                Dim filewriter = System.IO.File.CreateText(outputFile)
+                Dim filewriter = File.CreateText(outputFile)
                 filewriter.Write(code)
-                filewriter.Flush()
                 filewriter.Close()
-                Return vbTrue
-            Catch e As Exception
-                Return vbFalse
+                Return CStr(vbTrue)
+            Catch
+                Return CStr(vbFalse)
             End Try
         End If
     End Function
