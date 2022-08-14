@@ -421,247 +421,251 @@ Module GUI2Py
 
             Select Case theCtrl
                 Case "Button"
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write(String.Format("self.{0} = ttk.Button(self.{1}_frame, text='{2}')", id, id, text))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write(String.Format("self.{0} = ttk.Button(self.{1}_frame, text='{2}')", id, id, text), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "Label"
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write(String.Format("self.{0} = ttk.Label(self.{1}_frame, text='{2}')", id, id, text))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write(String.Format("self.{0} = ttk.Label(self.{1}_frame, text='{2}')", id, id, text), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
-                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont))
-                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id))
-                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb))
-                    write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb))
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont), 8)
+                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id), 8)
+                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb), 8)
+                    write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb), 8)
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "TextBox"
-                    write(String.Format("self.{0}Var = tk.StringVar(value='{1}')", id, text))
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write("#单行文本")
-                    write(String.Format("self.{0} = ttk.Entry(self.{1}_frame, textvariable={2}Var)", id, id, id))
-                    write("#多行文本")
-                    write(String.Format("#self.{0} = tk.Text(self.{1}_frame)", id, id))
-                    write(String.Format("#self.{0}.insert('end', '{1}')", id, text))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
-                    write("#显示密码*")
-                    write(String.Format("#self.{0}.configure(show='*')", id))
+                    write(String.Format("self.{0}Var = tk.StringVar(value='{1}')", id, text), 8)
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write("#单行文本", 8)
+                    write(String.Format("self.{0} = ttk.Entry(self.{1}_frame, textvariable={2}Var)", id, id, id), 8)
+                    write("#多行文本", 8)
+                    write(String.Format("#self.{0} = tk.Text(self.{1}_frame)", id, id), 8)
+                    write(String.Format("#self.{0}.insert('end', '{1}')", id, text), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
+                    write("#显示密码*", 8)
+                    write(String.Format("#self.{0}.configure(show='*')", id), 8)
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write("#垂直滚动条")
-                    write(String.Format("#self.{0}_vscroll = tk.Scrollbar(self.{1}, orient='vertical', command=self.{2}.yview)", id, id, id))
-                    write(String.Format("#self.{0}.configure(yscrollcommand=self.{1}_vscroll.set)", id, id))
-                    write(String.Format("#self.{0}_vscroll.pack(side='right', fill='y')", id))
-                    write("#水平滚动条")
-                    write(String.Format("#self.{0}_hscroll = tk.Scrollbar(self.{1}, orient='horizontal', command=self.{2}.xview)", id, id, id))
-                    write(String.Format("#self.{0}.configure(xscrollcommand=self.{1}_hscroll.set)", id, id))
-                    write(String.Format("#self.{0}_hscroll.pack(side='bottom', fill='x')", id))
-                    write(String.Format("self.{0}_font = tkFont.Font(self.{1})", id, theFont))
-                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id))
-                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb))
-                    write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb))
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write("#垂直滚动条", 8)
+                    write(String.Format("#self.{0}_vscroll = tk.Scrollbar(self.{1}, orient='vertical', command=self.{2}.yview)", id, id, id), 8)
+                    write(String.Format("#self.{0}.configure(yscrollcommand=self.{1}_vscroll.set)", id, id), 8)
+                    write(String.Format("#self.{0}_vscroll.pack(side='right', fill='y')", id), 8)
+                    write("#水平滚动条", 8)
+                    write(String.Format("#self.{0}_hscroll = tk.Scrollbar(self.{1}, orient='horizontal', command=self.{2}.xview)", id, id, id), 8)
+                    write(String.Format("#self.{0}.configure(xscrollcommand=self.{1}_hscroll.set)", id, id), 8)
+                    write(String.Format("#self.{0}_hscroll.pack(side='bottom', fill='x')", id), 8)
+                    write(String.Format("self.{0}_font = tkFont.Font(self.{1})", id, theFont), 8)
+                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id), 8)
+                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb), 8)
+                    write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb), 8)
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "RadioButton"
-                    write("#同一组RadioButton使用同一个RadioSelect")
-                    write(String.Format("#self.RadioSelect1 = tk.IntVar()"))
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write("#根据选项自行修改value值")
-                    write(String.Format("self.{0} = ttk.Radiobutton(self.{1}_frame, text='{2}', value=0, variable=self.RadioSelect1)", id, id, text))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write("#同一组RadioButton使用同一个RadioSelect", 8)
+                    write(String.Format("#self.RadioSelect1 = tk.IntVar()"), 8)
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write("#根据选项自行修改value值", 8)
+                    write(String.Format("self.{0} = ttk.Radiobutton(self.{1}_frame, text='{2}', value=0, variable=self.RadioSelect1)", id, id, text), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "CheckBox"
-                    write(String.Format("self.{0}_CheckSelect = tk.IntVar()", id))
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write(String.Format("self.{0} = ttk.Checkbutton(self.{1}_frame, text='{2}', variable=self.{3}_CheckSelect)", id, id, text, id))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write(String.Format("self.{0}_CheckSelect = tk.IntVar()", id), 8)
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write(String.Format("self.{0} = ttk.Checkbutton(self.{1}_frame, text='{2}', variable=self.{3}_CheckSelect)", id, id, text, id), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "PictureBox"
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write("#根据需要自行修改图片路径")
-                    write(String.Format("#self.{0}_img = tk.PhotoImage(file=r'## IMAGE PATH ##')", id))
-                    write(String.Format("#self.{0} = ttk.Label(self.{1}_frame, image={2}_img)", id, id, id))
-                    write(String.Format("self.{0} = ttk.Label(self.{1}_frame)", id, id))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write("#根据需要自行修改图片路径", 8)
+                    write(String.Format("#self.{0}_img = tk.PhotoImage(file=r'## IMAGE PATH ##')", id), 8)
+                    write(String.Format("#self.{0} = ttk.Label(self.{1}_frame, image={2}_img)", id, id, id), 8)
+                    write(String.Format("self.{0} = ttk.Label(self.{1}_frame)", id, id), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb))
-                    write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb))
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb), 8)
+                    write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb), 8)
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "Canvas"
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write(String.Format("self.{0} = ttk.Label(self.{1}_frame)", id, id))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write(String.Format("self.{0} = ttk.Label(self.{1}_frame)", id, id), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
                     If hide Then
                         write(String.Format("self.{0}.place_forget()", id))
                     End If
-                    write("#垂直滚动条")
-                    write(String.Format("#self.{0}_vscroll = tk.Scrollbar({1}, orient='vertical', command=self.{2}.yview)", id, id, id))
-                    write(String.Format("#self.{0}.configure(yscrollcommand=self.{1}_vscroll.set)", id, id))
-                    write(String.Format("#self.{0}_vscroll.pack(side='right', fill='y')", id))
-                    write("#水平滚动条")
-                    write(String.Format("#self.{0}_hscroll = tk.Scrollbar({1}, orient='horizontal', command=self.{2}.xview)", id, id, id))
-                    write(String.Format("#self.{0}.configure(xscrollcommand=self.{1}_hscroll.set)", id, id))
-                    write(String.Format("#self.{0}_hscroll.pack(side='bottom', fill='x')", id))
-                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb))
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write("#垂直滚动条", 8)
+                    write(String.Format("#self.{0}_vscroll = tk.Scrollbar({1}, orient='vertical', command=self.{2}.yview)", id, id, id), 8)
+                    write(String.Format("#self.{0}.configure(yscrollcommand=self.{1}_vscroll.set)", id, id), 8)
+                    write(String.Format("#self.{0}_vscroll.pack(side='right', fill='y')", id), 8)
+                    write("#水平滚动条", 8)
+                    write(String.Format("#self.{0}_hscroll = tk.Scrollbar({1}, orient='horizontal', command=self.{2}.xview)", id, id, id), 8)
+                    write(String.Format("#self.{0}.configure(xscrollcommand=self.{1}_hscroll.set)", id, id), 8)
+                    write(String.Format("#self.{0}_hscroll.pack(side='bottom', fill='x')", id), 8)
+                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb), 8)
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "ListBox"
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write("#根据需要自行添加Item")
-                    write(String.Format("#self.{0}_items = tk.Variable(value=[## ADD ITEMS ##])", id))
-                    write(String.Format("#self.{0} = tk.Listbox(self.{1}_frame, listvariable={2}_items)", id, id, id))
-                    write(String.Format("self.{0} = tk.Listbox(self.{1}_frame)", id, id))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write("#根据需要自行添加Item", 8)
+                    write(String.Format("#self.{0}_items = tk.Variable(value=[## ADD ITEMS ##])", id), 8)
+                    write(String.Format("#self.{0} = tk.Listbox(self.{1}_frame, listvariable={2}_items)", id, id, id), 8)
+                    write(String.Format("self.{0} = tk.Listbox(self.{1}_frame)", id, id), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write("#垂直滚动条")
-                    write(String.Format("#self.{0}_vscroll = tk.Scrollbar({1}, orient='vertical', command=self.{2}.yview)", id, id, id))
-                    write(String.Format("#self.{0}.configure(yscrollcommand=self.{1}_vscroll.set)", id, id))
-                    write(String.Format("#self.{0}_vscroll.pack(side='right', fill='y')", id))
-                    write("#水平滚动条")
-                    write(String.Format("#self.{0}_hscroll = tk.Scrollbar({1}, orient='horizontal', command=self.{2}.xview)", id, id, id))
-                    write(String.Format("#self.{0}.configure(xscrollcommand=self.{1}_hscroll.set)", id, id))
-                    write(String.Format("#self.{0}_hscroll.pack(side='bottom', fill='x')", id))
-                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont))
-                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id))
-                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb))
-                    write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb))
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write("#垂直滚动条", 8)
+                    write(String.Format("#self.{0}_vscroll = tk.Scrollbar({1}, orient='vertical', command=self.{2}.yview)", id, id, id), 8)
+                    write(String.Format("#self.{0}.configure(yscrollcommand=self.{1}_vscroll.set)", id, id), 8)
+                    write(String.Format("#self.{0}_vscroll.pack(side='right', fill='y')", id), 8)
+                    write("#水平滚动条", 8)
+                    write(String.Format("#self.{0}_hscroll = tk.Scrollbar({1}, orient='horizontal', command=self.{2}.xview)", id, id, id), 8)
+                    write(String.Format("#self.{0}.configure(xscrollcommand=self.{1}_hscroll.set)", id, id), 8)
+                    write(String.Format("#self.{0}_hscroll.pack(side='bottom', fill='x')", id), 8)
+                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont), 8)
+                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id), 8)
+                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb), 8)
+                    write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb), 8)
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "ComboBox"
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write("#根据需要自行添加Item")
-                    write(String.Format("#self.{0} = ttk.Combobox(self.{1}_frame, value=[## ADD ITEMS ##])", id, id))
-                    write(String.Format("self.{0} = ttk.Combobox(self.{1}_frame)", id, id))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write("#根据需要自行添加Item", 8)
+                    write(String.Format("#self.{0} = ttk.Combobox(self.{1}_frame, value=[## ADD ITEMS ##])", id, id), 8)
+                    write(String.Format("self.{0} = ttk.Combobox(self.{1}_frame)", id, id), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont))
-                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id))
-                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb))
-                    write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb))
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont), 8)
+                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id), 8)
+                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb), 8)
+                    write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb), 8)
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "ListView"
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write(String.Format("self.{0} = ttk.Treeview(self.{1}_frame)", id, id))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write(String.Format("self.{0} = ttk.Treeview(self.{1}_frame)", id, id), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "ProgressBar"
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write("#根据需要自行修改进度和最大值")
-                    write(String.Format("self.{0} = ttk.Progressbar(self.{1}_frame, value=0, maximum=100)", id, id))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write("#根据需要自行修改进度和最大值", 8)
+                    write(String.Format("self.{0} = ttk.Progressbar(self.{1}_frame, value=0, maximum=100)", id, id), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "TrackBar"
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write("#根据需要自行修改进度和最大最小值")
-                    write(String.Format("self.{0} = ttk.Scale(self.{1}_frame, from_=0, to=100, value=0)", id, id))
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
+                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write("#根据需要自行修改进度和最大最小值", 8)
+                    write(String.Format("self.{0} = ttk.Scale(self.{1}_frame, from_=0, to=100, value=0)", id, id), 8)
+                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id))
+                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
                     End If
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y))
+                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "GroupBox"
-                    write(String.Format("self.{0} = ttk.Labelframe(text={1},width={2}, height={3})", id, text, w, h))
-                    write(String.Format("self.{0}.place(x={1}, y={2}, width={3}, height={4})", id, x, y, w, h))
+                    write(String.Format("self.{0} = ttk.Labelframe(text={1},width={2}, height={3})", id, text, w, h), 8)
+                    write(String.Format("self.{0}.place(x={1}, y={2}, width={3}, height={4})", id, x, y, w, h), 8)
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont))
-                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id))
+                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont), 8)
+                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id), 8)
 
                 Case "Panel"
-                    write(String.Format("self.{0} = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write(String.Format("self.{0}.place(x={1}, y={2}, width={3}, height={4})", id, x, y, w, h))
+                    write(String.Format("self.{0} = ttk.Frame(width={1}, height={2})", id, w, h), 8)
+                    write(String.Format("self.{0}.place(x={1}, y={2}, width={3}, height={4})", id, x, y, w, h), 8)
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
 
                 Case "TabControl"
-                    write(String.Format("self.{0} = ttk.Notebook(width={1}, height={2})", id, w, h))
-                    write(String.Format("self.{0}.place(x={1}, y={2}, width={3}, height={4})", id, x, y, w, h))
+                    write(String.Format("self.{0} = ttk.Notebook(width={1}, height={2})", id, w, h), 8)
+                    write(String.Format("self.{0}.place(x={1}, y={2}, width={3}, height={4})", id, x, y, w, h), 8)
                     If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
+                        write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont))
-                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id))
+                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont), 8)
+                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id), 8)
 
             End Select
 
         Next
+        write("self.mainframe.pack()", 8)
+        write()
+        write("### 功能逻辑部分 ###", 8)
         write()
         write()
-        write("### 功能逻辑部分 ###")
         write()
-        write()
+        write("root = tk.Tk()")
+        write(String.Format("sa = {0}(root)", name))
         write("root.mainloop()")
+
 
         If Len(outputFile) < 1 Then
             Return code
