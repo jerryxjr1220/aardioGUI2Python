@@ -383,15 +383,7 @@ root = tk.Tk()
                 owner.write('labelframe'++id++ ' = ttk.Labelframe(text="'++ text ++'", width='++ width ++', height='++ height ++')');
                 owner.write('labelframe'++id++ '.place(x='++ x ++', y='++ y ++', width='++ width ++', height='++ height ++')');
                 if hide { owner.write('labelframe'++id++ '.place_forget()'); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')');
-                    owner.write('labelframe'++id++'.configure(font=labelframe'++id++'_font)');
-                };
+                
             };
             //Frame
             if winctrol.cls == "custom" {
@@ -408,15 +400,7 @@ root = tk.Tk()
                 owner.write('nb'++id++ ' = ttk.Notebook(width='++ width ++', height='++ height ++')');
                 owner.write('nb'++id++ '.place(x='++ x ++', y='++ y ++', width='++ width ++', height='++ height ++')');
                 if hide { owner.write('nb'++id++ '.place_forget()'); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')');
-                    owner.write('nb'++id++'.configure(font=nb'++id++'_font)');
-                };
+                
             };
         };
             
@@ -794,15 +778,7 @@ class ***/
                 owner.write('self.labelframe'++id++ ' = ttk.Labelframe(self.mainframe, text="'++ text ++'", width='++ width ++', height='++ height ++')', 8);
                 owner.write('self.labelframe'++id++ '.place(x='++ x ++', y='++ y ++', width='++ width ++', height='++ height ++')', 8);
                 if hide { owner.write('self.labelframe'++id++ '.place_forget()', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.labelframe'++id++'.configure(font=self.labelframe'++id++'_font)', 8);
-                };
+                
             };
                
             //Frame
@@ -821,15 +797,7 @@ class ***/
                 owner.write('self.nb'++id++ ' = ttk.Notebook(self.mainframe, width='++ width ++', height='++ height ++')', 8);
                 owner.write('self.nb'++id++ '.place(x='++ x ++', y='++ y ++', width='++ width ++', height='++ height ++')', 8);
                 if hide { owner.write('self.nb'++id++ '.place_forget()', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.nb'++id++'.configure(font=self.nb'++id++'_font)', 8);
-                };
+                
             };
         };
           
@@ -1207,15 +1175,7 @@ class ***/
                 owner.write('self.labelframe'++id++ ' = ttk.Labelframe(self.mainframe, text="'++ text ++'", width='++ width ++', height='++ height ++')', 8);
                 owner.write('self.labelframe'++id++ '.pack()', 8);
                 if hide { owner.write('self.labelframe'++id++ '.pack_forget()', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.labelframe'++id++'.configure(font=self.labelframe'++id++'_font)', 8);
-                };
+                
             };
                
             //Frame
@@ -1234,15 +1194,7 @@ class ***/
                 owner.write('self.nb'++id++ ' = ttk.Notebook(self.mainframe, width='++ width ++', height='++ height ++')', 8);
                 owner.write('self.nb'++id++ '.pack()', 8);
                 if hide { owner.write('self.nb'++id++ '.pack_forget()', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.nb'++id++'.configure(font=self.nb'++id++'_font)', 8);
-                };
+                
             };
         };
           
@@ -1634,15 +1586,7 @@ class ***/
                 owner.write('self.labelframe'++id++ ' = ttk.Labelframe(self.mainframe, text="'++ text ++'", width='++ width ++', height='++ height ++')', 8);
                 owner.write('self.labelframe'++id++'.grid(column='++col++', row='++row++')', 8);
                 if hide { owner.write('self.labelframe'++id++ '.grid_forget()', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.labelframe'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.labelframe'++id++'.configure(font=self.labelframe'++id++'_font)', 8);
-                };
+                
             };
                
             //Frame
@@ -1663,15 +1607,7 @@ class ***/
                 owner.write('self.nb'++id++ ' = ttk.Notebook(self.mainframe, width='++ width ++', height='++ height ++')', 8);
                 owner.write('self.nb'++id++'.grid(column='++col++', row='++row++')', 8);
                 if hide { owner.write('self.nb'++id++ '.grid_forget()', 8); };
-                if font {
-                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
-                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
-                    var family = 'family="'+font.name+'"';
-                    var underline = font.underline ? 'underline=True' : 'underline=False';
-                    var size = 'size='++..math.round(font.h*(-3)/4);
-                    owner.write('self.nb'++id++'_font = tkFont.Font(' ++ ..string.join({family; size; weight; italic; underline}, ", ") ++ ')', 8);
-                    owner.write('self.nb'++id++'.configure(font=self.nb'++id++'_font)', 8);
-                };
+                
             };
         };
           
