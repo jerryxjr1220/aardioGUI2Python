@@ -3,7 +3,7 @@ Imports System.Text.RegularExpressions
 Imports System.IO
 Module GUI2Py
     Dim code As String = ""
-    Dim pattern As String = "System\.Windows\.Forms\.(.+?),"
+    Dim pattern As String = "System\.Windows\.Forms\.([0-9a-zA-Z_]{1,})"
 
     Dim ctrlName() As String = {"Button", "Label", "TextBox", "RadioButton", "CheckBox", "PictureBox", "ListBox", "ComboBox", "ProcessBar", "TrackBar",
             "ListView", "TreeView", "Canvas", "GroupBox", "Panel", "TabControl"}
