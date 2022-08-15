@@ -659,7 +659,7 @@ Module GUI2Py
         Next
         write("self.mainframe.pack()", 8)
         write()
-        write("### 功能逻辑部分 ###", 8)
+        write("### 功能逻辑部分 ###", 4)
         write()
         write()
         write()
