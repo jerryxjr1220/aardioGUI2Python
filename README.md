@@ -33,6 +33,9 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 ## 目前可以实现的功能：
 
+- 20220815更新：
+1. 修正一处错误：GroupBox和NoteBook不支持font参数
+
 - 20220810更新：
 1. 修正一处错误：radiobutton和checkbox不支持justify参数，也不支持font参数
 2. radiobutton添加value参数，配合variable参数控制选项，详见Test实例
