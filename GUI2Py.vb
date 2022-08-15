@@ -278,7 +278,7 @@ Module GUI2Py
                     write(String.Format("{0}_frame.place(x={1}, y={2})", id, x, y))
 
                 Case "GroupBox"
-                    write(String.Format("{0} = ttk.Labelframe(text={1},width={2}, height={3})", id, text, w, h))
+                    write(String.Format("{0} = ttk.Labelframe(text='{1}',width={2}, height={3})", id, text, w, h))
                     write(String.Format("{0}.place(x={1}, y={2}, width={3}, height={4})", id, x, y, w, h))
                     If hide Then
                         write(String.Format("{0}.place_forget()", id))
@@ -508,7 +508,7 @@ Module GUI2Py
                 Case "ListBox"
                     write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
                     write("#根据需要自行添加Item", 8)
-                    write(String.Format("#self.{0}_items = tk.Variable(value=[## ADD ITEMS ##])", id), 8)
+                    write(String.Format("#self.{0}_items = tk.Variable(value=['## ADD ITEMS ##'])", id), 8)
                     write(String.Format("#self.{0} = tk.Listbox(self.{1}_frame, listvariable={2}_items)", id, id, id), 8)
                     write(String.Format("self.{0} = tk.Listbox(self.{1}_frame)", id, id), 8)
                     write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
@@ -535,7 +535,7 @@ Module GUI2Py
                 Case "ComboBox"
                     write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
                     write("#根据需要自行添加Item", 8)
-                    write(String.Format("#self.{0} = ttk.Combobox(self.{1}_frame, value=[## ADD ITEMS ##])", id, id), 8)
+                    write(String.Format("#self.{0} = ttk.Combobox(self.{1}_frame, value=['## ADD ITEMS ##'])", id, id), 8)
                     write(String.Format("self.{0} = ttk.Combobox(self.{1}_frame)", id, id), 8)
                     write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
@@ -589,7 +589,7 @@ Module GUI2Py
                     write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "GroupBox"
-                    write(String.Format("self.{0} = ttk.Labelframe(text={1},width={2}, height={3})", id, text, w, h), 8)
+                    write(String.Format("self.{0} = ttk.Labelframe(text='{1}',width={2}, height={3})", id, text, w, h), 8)
                     write(String.Format("self.{0}.place(x={1}, y={2}, width={3}, height={4})", id, x, y, w, h), 8)
                     If hide Then
                         write(String.Format("self.{0}.place_forget()", id), 8)
