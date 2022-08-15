@@ -455,7 +455,7 @@ Module GUI2Py
                     write(String.Format("#self.{0}_hscroll = tk.Scrollbar(self.{1}, orient='horizontal', command=self.{2}.xview)", id, id, id), 8)
                     write(String.Format("#self.{0}.configure(xscrollcommand=self.{1}_hscroll.set)", id, id), 8)
                     write(String.Format("#self.{0}_hscroll.pack(side='bottom', fill='x')", id), 8)
-                    write(String.Format("self.{0}_font = tkFont.Font(self.{1})", id, theFont), 8)
+                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont), 8)
                     write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id), 8)
                     write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb), 8)
                     write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb), 8)
