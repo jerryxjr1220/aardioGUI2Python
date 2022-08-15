@@ -6,7 +6,7 @@ Module GUI2Py
     Dim pattern As String = "System\.Windows\.Forms\.([0-9a-zA-Z_]{1,})"
 
     Dim ctrlName() As String = {"Button", "Label", "TextBox", "RadioButton", "CheckBox", "PictureBox", "ListBox", "ComboBox", "ProcessBar", "TrackBar",
-        "TreeView", "GroupBox", "Panel", "TabControl"}
+            "ListView", "TreeView", "Canvas", "GroupBox", "Panel", "TabControl"}
 
     Public Sub write(Optional str As String = "", Optional space As Int16 = 0, Optional end_ As String = vbCrLf)
         If space > 0 Then
@@ -23,6 +23,9 @@ Module GUI2Py
         write("import tkinter.font as tkFont")
         write()
         write("root = tk.Tk()")
+        write()
+        write("### 全局变量 ###")
+        write()
         write()
         write("### 界面设计部分 ###")
         write()
@@ -283,8 +286,6 @@ Module GUI2Py
                     If hide Then
                         write(String.Format("{0}.place_forget()", id))
                     End If
-                    write(String.Format("{0}_font = tkFont.Font({1})", id, theFont))
-                    write(String.Format("{0}.configure(font={1}_font)", id, id))
 
                 Case "Panel"
                     write(String.Format("{0} = ttk.Frame(width={1}, height={2})", id, w, h))
@@ -299,8 +300,6 @@ Module GUI2Py
                     If hide Then
                         write(String.Format("{0}.place_forget()", id))
                     End If
-                    write(String.Format("{0}_font = tkFont.Font({1})", id, theFont))
-                    write(String.Format("{0}.configure(font={1}_font)", id, id))
 
             End Select
 
@@ -333,6 +332,9 @@ Module GUI2Py
         write("import tkinter.font as tkFont")
         write()
         write(String.Format("class {0}():", name))
+        write()
+        write("### 全局变量 ###", 4)
+        write()
         write()
         write("### 界面设计部分 ###", 4)
         write()
@@ -594,8 +596,6 @@ Module GUI2Py
                     If hide Then
                         write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont), 8)
-                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id), 8)
 
                 Case "Panel"
                     write(String.Format("self.{0} = ttk.Frame(width={1}, height={2})", id, w, h), 8)
@@ -610,8 +610,6 @@ Module GUI2Py
                     If hide Then
                         write(String.Format("self.{0}.place_forget()", id), 8)
                     End If
-                    write(String.Format("self.{0}_font = tkFont.Font({1})", id, theFont), 8)
-                    write(String.Format("self.{0}.configure(font=self.{1}_font)", id, id), 8)
 
             End Select
 
