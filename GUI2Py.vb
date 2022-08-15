@@ -6,7 +6,7 @@ Module GUI2Py
     Dim pattern As String = "System\.Windows\.Forms\.([0-9a-zA-Z_]{1,})"
 
     Dim ctrlName() As String = {"Button", "Label", "TextBox", "RadioButton", "CheckBox", "PictureBox", "ListBox", "ComboBox", "ProcessBar", "TrackBar",
-            "ListView", "TreeView", "Canvas", "GroupBox", "Panel", "TabControl"}
+        "TreeView", "GroupBox", "Panel", "TabControl"}
 
     Public Sub write(Optional str As String = "", Optional space As Int16 = 0, Optional end_ As String = vbCrLf)
         If space > 0 Then
