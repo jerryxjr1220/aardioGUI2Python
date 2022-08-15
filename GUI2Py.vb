@@ -227,7 +227,7 @@ Module GUI2Py
                 Case "ComboBox"
                     write(String.Format("{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
                     write("#根据需要自行添加Item")
-                    write(String.Format("#{0} = ttk.Combobox({1}_frame, value=[## ADD ITEMS ##])", id, id))
+                    write(String.Format("#{0} = ttk.Combobox({1}_frame, values=[## ADD ITEMS ##])", id, id))
                     write(String.Format("{0} = ttk.Combobox({1}_frame)", id, id))
                     write(String.Format("{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
                     If disabled Then
@@ -434,7 +434,7 @@ Module GUI2Py
                     write(String.Format("self.{0}Var = tk.StringVar(value='{1}')", id, text), 8)
                     write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
                     write("#单行文本", 8)
-                    write(String.Format("self.{0} = ttk.Entry(self.{1}_frame, textvariable={2}Var)", id, id, id), 8)
+    write(String.Format("self.{0} = ttk.Entry(self.{1}_frame, textvariable=self.{2}Var)", id, id, id), 8)
                     write("#多行文本", 8)
                     write(String.Format("#self.{0} = tk.Text(self.{1}_frame)", id, id), 8)
                     write(String.Format("#self.{0}.insert('end', '{1}')", id, text), 8)
@@ -537,7 +537,7 @@ Module GUI2Py
                 Case "ComboBox"
                     write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
                     write("#根据需要自行添加Item", 8)
-                    write(String.Format("#self.{0} = ttk.Combobox(self.{1}_frame, value=['## ADD ITEMS ##'])", id, id), 8)
+                    write(String.Format("#self.{0} = ttk.Combobox(self.{1}_frame, values=['## ADD ITEMS ##'])", id, id), 8)
                     write(String.Format("self.{0} = ttk.Combobox(self.{1}_frame)", id, id), 8)
                     write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
