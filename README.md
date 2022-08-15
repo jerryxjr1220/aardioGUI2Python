@@ -24,6 +24,9 @@ GUI2Python库 - 用VB.Net画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 ## GUI2Py  VB.Net版本发布
 
+- VB.Net 可以自动识别控件名称，这样就不需要通过Z序去对应了，直接可以使用自定义的控件名称
+- VB.Net 没有Canvas组件，如有需要可以通过其他组件改写（例如，Panel/Frame控件)
+- VB.Net 的有Treeview组件，直接对应Tkinter的Treeview
 
 ## 目前可以实现的功能：
 
