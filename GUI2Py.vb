@@ -194,27 +194,6 @@ Module GUI2Py
                     write(String.Format("{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb))
                     write(String.Format("{0}_frame.place(x={1}, y={2})", id, x, y))
 
-                Case "Canvas"
-                    write(String.Format("{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
-                    write(String.Format("{0} = ttk.Label({1}_frame)", id, id))
-                    write(String.Format("{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
-                    If disabled Then
-                        write(String.Format("{0}.configure(state='disabled')", id))
-                    End If
-                    If hide Then
-                        write(String.Format("{0}.place_forget()", id))
-                    End If
-                    write("#垂直滚动条")
-                    write(String.Format("#{0}_vscroll = tk.Scrollbar({1}, orient='vertical', command={2}.yview)", id, id, id))
-                    write(String.Format("#{0}.configure(yscrollcommand={1}_vscroll.set)", id, id))
-                    write(String.Format("#{0}_vscroll.pack(side='right', fill='y')", id))
-                    write("#水平滚动条")
-                    write(String.Format("#{0}_hscroll = tk.Scrollbar({1}, orient='horizontal', command={2}.xview)", id, id, id))
-                    write(String.Format("#{0}.configure(xscrollcommand={1}_hscroll.set)", id, id))
-                    write(String.Format("#{0}_hscroll.pack(side='bottom', fill='x')", id))
-                    write(String.Format("{0}.config(background='#{1}{2}{3}')", id, br, bg, bb))
-                    write(String.Format("{0}_frame.place(x={1}, y={2})", id, x, y))
-
                 Case "ListBox"
                     write(String.Format("{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
                     write("#根据需要自行添加Item")
@@ -260,7 +239,7 @@ Module GUI2Py
                     write(String.Format("{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb))
                     write(String.Format("{0}_frame.place(x={1}, y={2})", id, x, y))
 
-                Case "ListView"
+                Case "TreeView"
                     write(String.Format("{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h))
                     write(String.Format("{0} = ttk.Treeview({1}_frame)", id, id))
                     write(String.Format("{0}.place(x=0, y=0, width={1}, height={2})", id, w, h))
@@ -512,7 +491,7 @@ Module GUI2Py
                     write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
                     write("#根据需要自行修改图片路径", 8)
                     write(String.Format("#self.{0}_img = tk.PhotoImage(file=r'## IMAGE PATH ##')", id), 8)
-                    write(String.Format("#self.{0} = ttk.Label(self.{1}_frame, image={2}_img)", id, id, id), 8)
+                    write(String.Format("#self.{0} = ttk.Label(self.{1}_frame, image=self.{2}_img)", id, id, id), 8)
                     write(String.Format("self.{0} = ttk.Label(self.{1}_frame)", id, id), 8)
                     write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
                     If disabled Then
@@ -525,26 +504,6 @@ Module GUI2Py
                     write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb), 8)
                     write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
-                Case "Canvas"
-                    write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
-                    write(String.Format("self.{0} = ttk.Label(self.{1}_frame)", id, id), 8)
-                    write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
-                    If disabled Then
-                        write(String.Format("self.{0}.configure(state='disabled')", id), 8)
-                    End If
-                    If hide Then
-                        write(String.Format("self.{0}.place_forget()", id))
-                    End If
-                    write("#垂直滚动条", 8)
-                    write(String.Format("#self.{0}_vscroll = tk.Scrollbar({1}, orient='vertical', command=self.{2}.yview)", id, id, id), 8)
-                    write(String.Format("#self.{0}.configure(yscrollcommand=self.{1}_vscroll.set)", id, id), 8)
-                    write(String.Format("#self.{0}_vscroll.pack(side='right', fill='y')", id), 8)
-                    write("#水平滚动条", 8)
-                    write(String.Format("#self.{0}_hscroll = tk.Scrollbar({1}, orient='horizontal', command=self.{2}.xview)", id, id, id), 8)
-                    write(String.Format("#self.{0}.configure(xscrollcommand=self.{1}_hscroll.set)", id, id), 8)
-                    write(String.Format("#self.{0}_hscroll.pack(side='bottom', fill='x')", id), 8)
-                    write(String.Format("self.{0}.config(background='#{1}{2}{3}')", id, br, bg, bb), 8)
-                    write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
                 Case "ListBox"
                     write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
@@ -591,7 +550,7 @@ Module GUI2Py
                     write(String.Format("self.{0}.config(foreground='#{1}{2}{3}')", id, fr, fg, fb), 8)
                     write(String.Format("self.{0}_frame.place(x={1}, y={2})", id, x, y), 8)
 
-                Case "ListView"
+                Case "TreeView"
                     write(String.Format("self.{0}_frame = ttk.Frame(width={1}, height={2})", id, w, h), 8)
                     write(String.Format("self.{0} = ttk.Treeview(self.{1}_frame)", id, id), 8)
                     write(String.Format("self.{0}.place(x=0, y=0, width={1}, height={2})", id, w, h), 8)
