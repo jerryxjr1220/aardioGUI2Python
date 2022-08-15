@@ -75,110 +75,62 @@ GUI2Python库 - 用VB.Net画Tkinter界面并生成Python代码 - *As a Tkinter D
 ## Quick Start
 
 1. 安装
-直接把下载的GUI2Py.aardio文件复制到aardio项目文件夹的lib目录下（lib目录下存放着用户自制库，可以直接import到程序中）即可。
+直接把下载的GUI2Py.vb文件复制到VB.Net项目文件夹下即可。
 
-2. 在aardio中画界面
-```aardio
-import win.ui;
-/*DSG{{*/
-mainForm = win.form(text="Window Title";right=596;bottom=383)
-mainForm.add(
-button2={cls="button";text="Button";left=242;top=261;right=369;bottom=293;z=3};
-edit2={cls="edit";text="Text";left=217;top=117;right=399;bottom=234;edge=1;multiline=1;z=2};
-static2={cls="static";text="Hello, Python!";left=218;top=74;right=373;bottom=103;transparent=1;z=1}
-)
-/*}}*/
-
-mainForm.show();
-return win.loopMessage();
-```
+2. 在VB.Net中画界面
 
 3. 调用
-```aardio
-import GUI2Py;
-g2t = GUI2Py.GUI2Tk(mainForm);
-code = g2t.transfer2root();
+```VB
+Public Class Form1
+    Private Sub Button1_Click(sender As Object, e As EventArgs) Handles Button1.Click
+        MsgBox(GUI2Py.parse2place(Me, "SA", "C:\Users\xujr1\Documents\PythonProjects\demo.py"))
+    End Sub
+End Class
+
 ```
-把这段代码放到主程序的```return win.loopMessage()```之前，不然无法运行。
-现在生成的code就是我们所需要的python代码，可以直接复制到python运行，也可以用```string.save('example.py',code)```函数保存为py文件。
+
+现在生成的code就是我们所需要的python代码，并自动保存为py文件。
 
 4. python代码
 ```python
 import tkinter as tk
 import tkinter.ttk as ttk
-   
-root = tk.Tk()
-   
-### 界面设计部分 ###
-   
-root.geometry("601x390")
-root.title("Window Title")
-button1_frame = ttk.Frame(width=127, height=32)
-button1 = ttk.Button(button1_frame, text="Button")
-button1.place(x=0, y=0)
-button1_frame.place(x=242, y=261)
-label1_frame = ttk.Frame(width=155, height=29)
-label1 = ttk.Label(label1_frame, text="Hello, Python!")
-label1.place(x=0, y=0)
-label1_frame.place(x=218, y=74)
-editVar1 = tk.StringVar(value='Text')
-edit1_frame = ttk.Frame(width=182, height=117)
-edit1 = tk.Text(edit1_frame)
-edit1.insert("end", "Text")
-edit1.place(x=0, y=0)
-edit1_frame.place(x=217, y=117)
+import tkinter.font as tkFont
+
+class SA():
+
+    ### 全局变量 ###
 
 
-### 功能逻辑部分 ###
-
-root.mainloop()
-```
-aardioGUI2Python库可以转换大部分的常用控件至Python的Tkinter中，界面可以直接运行。当然“功能逻辑部分”需要自行添加，可以实现预想的功能。
-
-## 进阶应用
-
-把界面组件化，这样可以像aardio一样把不同的界面拆成单独的组件，然后在Tabs高级选项卡（python中对应的就是Notebook）进行调用。也可以嵌入到其他Frame、Notebook、LabelFrame等容器中，当然也可以是主窗口Tk容器。
-```aardio
-import GUI2Py;
-g2t = GUI2Py.GUI2Tk(mainForm);
-code = g2t.transfer2assembly();
-```
-
-生成的python代码
-```python
-import tkinter as tk
-import tkinter.ttk as ttk
-  
-class SubAssembly():
     ### 界面设计部分 ###
-    
+
     def __init__(self, master):
-        self.mainframe = ttk.Frame(master, width=601, height=390)
-        self.label1_frame = ttk.Frame(self.mainframe, width=155, height=29)
-        self.label1 = ttk.Label(self.label1_frame, text="Hello, Python!")
-        self.label1.place(x=0, y=0)
-        self.label1_frame.place(x=218, y=74)
-        self.editVar1 = tk.StringVar(value='Text')
-        self.edit1_frame = ttk.Frame(self.mainframe, width=182, height=117)
-        self.edit1 = tk.Text(self.edit1_frame)
-        self.edit1.insert("end", "Text")
-        self.edit1.place(x=0, y=0)
-        self.edit1_frame.place(x=217, y=117)
-        self.button1_frame = ttk.Frame(self.mainframe, width=127, height=32)
-        self.button1 = ttk.Button(self.button1_frame, text="Button")
-        self.button1.place(x=0, y=0)
-        self.button1_frame.place(x=242, y=261)
+        self.mainframe = ttk.Frame(master, width=816, height=489)
+        self.GroupBox1 = ttk.Labelframe(text='GroupBox1',width=302, height=189)
+        self.GroupBox1.place(x=71, y=241, width=302, height=189)
+        self.TabControl1 = ttk.Notebook(width=307, height=276)
+        self.TabControl1.place(x=402, y=48, width=307, height=276)
+        self.Panel1 = ttk.Frame(width=286, height=152)
+        self.Panel1.place(x=78, y=56, width=286, height=152)
+        self.Button1_frame = ttk.Frame(width=213, height=61)
+        self.Button1 = ttk.Button(self.Button1_frame, text='Button1')
+        self.Button1.place(x=0, y=0, width=213, height=61)
+        self.Button1_frame.place(x=575, y=377)
         self.mainframe.pack()
 
     ### 功能逻辑部分 ###
-```
 
-在python中调用，只需要实例化即可，当然如果需要实现额外功能，需要自行添加功能代码。
-```python
+
+
 root = tk.Tk()
-sa = SubAssembly(root)
+sa = SA(root)
 root.mainloop()
+
 ```
+GUI2Py库可以转换大部分的常用控件至Python的Tkinter中，界面可以直接运行。当然“功能逻辑部分”需要自行添加，可以实现预想的功能。
+
+### 进阶使用
+- 参考aardio分支中的实例，用法基本相同。
         
 ### 应用实例
 - aardio创建界面，用matplotlib画图，实时动态显示在Tkinter中
