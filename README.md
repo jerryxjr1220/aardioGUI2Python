@@ -34,7 +34,8 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 ## 目前可以实现的功能：
 
 - 20220821更新:
-1. 改进translateName方法，解析窗体设计器代码，并自动替换对应的控件名。具体见GUI2Py_simple.aardio，下载后改名替换原有GUI2Py.aardio
+1. 改进translateName方法，解析窗体设计器代码，并自动替换对应的控件名。具体见GUI2Py.aardio
+2. 以后主要更新GUI2Py.aardio文件（原GUI2Py_simple.aardio)，GUI2Py_full.aardio文件（原GUI2Py.aardio）不再更新，pack方法和grid方法可以自行修改。
 
 - 20220815更新：
 1. 修正一处错误：GroupBox和NoteBook不支持font参数
