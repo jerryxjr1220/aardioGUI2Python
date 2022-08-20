@@ -10,6 +10,7 @@ class GUI2Tk {
     ctor( winform ){
         this = winform;
         this.pycode = "";
+        this.translateNamelist = {};
     };
     
     write = function(code, space=0, end_='\r\n'){
@@ -60,7 +61,6 @@ root = tk.Tk()
                 
         };
         for ( hwnd,ctrl in this.eachControlEx() ){
-            owner.write(..string.format('# Z=%i', ctrl.z));
             winctrol = this.getCtrl(hwnd);
             var x = winctrol.left;
             var y = winctrol.top;
@@ -86,6 +86,7 @@ root = tk.Tk()
             if winctrol.cls == "button" {
                 var id = ctrlNameList.button + 1;
                 ctrlNameList.button = id;
+                this.translateNamelist[ctrl.z] = "button"++id;
                 owner.write(..string.format('button%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
                 owner.write(..string.format('button%i = ttk.Button(button%i_frame, text="%s")', id, id, text));
                 owner.write(..string.format('button%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
@@ -98,6 +99,7 @@ root = tk.Tk()
             if winctrol.cls == "static" {
                 var id = ctrlNameList.static + 1;
                 ctrlNameList.static = id;
+                this.translateNamelist[ctrl.z] = "label"++id;
                 owner.write(..string.format('label%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
                 owner.write(..string.format('label%i = ttk.Label(label%i_frame, text="%s", %s)', id, id, text, justify));
                 owner.write(..string.format('label%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
@@ -126,6 +128,7 @@ root = tk.Tk()
             if winctrol.cls == "edit" {
                 var id = ctrlNameList.edit + 1;
                 ctrlNameList.edit = id;
+                this.translateNamelist[ctrl.z] = "edit"++id;
                 var vscroll = ctrl.vscroll;
                 var hscroll = ctrl.hscroll;
                 owner.write(..string.format('editVar%i = tk.StringVar(value="%s")', id, text));
@@ -173,6 +176,7 @@ root = tk.Tk()
             if winctrol.cls == "radiobutton" {
                 var id = ctrlNameList.radio + 1;
                 ctrlNameList.radio = id;
+                this.translateNamelist[ctrl.z] = "radio"++id;
                 owner.write(..string.format('radio%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
                 owner.write(..string.format('radio%i = ttk.Radiobutton(radio%i_frame, text="%s", value=%i)', id, id, text, id));
                 owner.write(..string.format('radio%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
@@ -185,6 +189,7 @@ root = tk.Tk()
             if winctrol.cls == "checkbox" {
                 var id = ctrlNameList.check + 1;
                 ctrlNameList.check = id;
+                this.translateNamelist[ctrl.z] = "check"++id;
                 owner.write(..string.format('check%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
                 owner.write(..string.format('check%i = ttk.Checkbutton(check%i_frame, text="%s")', id, id, text));
                 owner.write(..string.format('check%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
@@ -196,6 +201,7 @@ root = tk.Tk()
             if winctrol.cls == "picturebox" {
                 var id = ctrlNameList.pic + 1;
                 ctrlNameList.pic = id;
+                this.translateNamelist[ctrl.z] = "pic"++id;
                 owner.write(..string.format('pic%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
                 var picpath = winctrol.background;
                 if picpath {
@@ -221,6 +227,7 @@ root = tk.Tk()
             if winctrol.cls == "plus" {
                 var id = ctrlNameList.canvas + 1;
                 ctrlNameList.canvas = id;
+                this.translateNamelist[ctrl.z] = "canvas"++id;
                 var vscroll = ctrl.vscroll;
                 var hscroll = ctrl.hscroll;
                 var bgcolor = winctrol.backgroundColor;
@@ -252,6 +259,7 @@ root = tk.Tk()
             if winctrol.cls == "listbox" {
                 var id = ctrlNameList.listbox + 1;
                 ctrlNameList.listbox = id;
+                this.translateNamelist[ctrl.z] = "list"++id;
                 var vscroll = ctrl.vscroll;
                 var hscroll = ctrl.hscroll;
                 owner.write(..string.format('list%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
@@ -303,6 +311,7 @@ root = tk.Tk()
             if winctrol.cls == "combobox" {
                 var id = ctrlNameList.combobox + 1;
                 ctrlNameList.combobox = id;
+                this.translateNamelist[ctrl.z] = "combobox"++id;
                 owner.write(..string.format('combobox%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
                 var items = winctrol.items;
                 if #items>0 {
@@ -341,6 +350,7 @@ root = tk.Tk()
             if winctrol.cls == "listview" {
                 var id = ctrlNameList.treeview + 1;
                 ctrlNameList.treeview = id;
+                this.translateNamelist[ctrl.z] = "tree"++id;
                 owner.write(..string.format('tree%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
                 owner.write(..string.format('tree%i = ttk.Treeview(tree%i_frame)', id, id));
                 owner.write(..string.format('tree%i.place(x=0, y=0, width=%i, height=%i)', id, width, height));
@@ -352,6 +362,7 @@ root = tk.Tk()
             if winctrol.cls == "progress" {
                 var id = ctrlNameList.progress + 1;
                 ctrlNameList.progress = id;
+                this.translateNamelist[ctrl.z] = "progress"++id;
                 owner.write(..string.format('progress%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
                 var max = winctrol.max;
                 var value = winctrol.pos;
@@ -365,6 +376,7 @@ root = tk.Tk()
             if winctrol.cls == "trackbar" {
                 var id = ctrlNameList.trackbar + 1;
                 ctrlNameList.trackbar = id;
+                this.translateNamelist[ctrl.z] = "scale"++id;
                 owner.write(..string.format('scale%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
                 var min = winctrol.min;
                 var max = winctrol.max;
@@ -379,15 +391,25 @@ root = tk.Tk()
             if winctrol.cls == "groupbox" {
                 var id = ctrlNameList.groupbox + 1;
                 ctrlNameList.groupbox = id;
+                this.translateNamelist[ctrl.z] = "labelframe"++id;
                 owner.write(..string.format('labelframe%i = ttk.Labelframe(text="%s", width=%i, height=%i)', id, text, width, height));
                 owner.write(..string.format('labelframe%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height));
                 if hide { owner.write(..string.format('labelframe%i.place_forget()', id)); };
-                
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('labelframe%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
+                    owner.write(..string.format('labelframe%i.configure(font=labelframe%i_font)', id, id));
+                };
             };
             //Frame
             if winctrol.cls == "custom" {
                 var id = ctrlNameList.frame + 1;
                 ctrlNameList.frame = id;
+                this.translateNamelist[ctrl.z] = "frame"++id;
                 owner.write(..string.format('frame%i = ttk.Frame(width=%i, height=%i)', id, width, height));
                 owner.write(..string.format('frame%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height));
                 if hide { owner.write(..string.format('frame%i.place_forget()', id)); };
@@ -396,10 +418,19 @@ root = tk.Tk()
             if winctrol.cls == "tab" {
                 var id = ctrlNameList.tab + 1;
                 ctrlNameList.tab = id;
+                this.translateNamelist[ctrl.z] = "nb"++id;
                 owner.write(..string.format('nb%i = ttk.Notebook(width=%i, height=%i)', id, width, height));
                 owner.write(..string.format('nb%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height));
                 if hide { owner.write(..string.format('nb%i.place_forget()', id)); };
-                
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('nb%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")));
+                    owner.write(..string.format('nb%i.configure(font=nb%i_font)', id, id));
+                };
             };
         };
             
@@ -444,7 +475,6 @@ class ***/
                 
         };
         for ( hwnd,ctrl in this.eachControlEx() ){
-            owner.write(..string.format('# Z=%i', ctrl.z), 8);
             winctrol = this.getCtrl(hwnd);
             var x = winctrol.left;
             var y = winctrol.top;
@@ -470,6 +500,7 @@ class ***/
             if winctrol.cls == "button" {
                 var id = ctrlNameList.button + 1;
                 ctrlNameList.button = id;
+                this.translateNamelist[ctrl.z] = "button"++id;
                 owner.write(..string.format('self.button%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 owner.write(..string.format('self.button%i = ttk.Button(self.button%i_frame, text="%s")', id, id, text), 8);
                 owner.write(..string.format('self.button%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
@@ -482,6 +513,7 @@ class ***/
             if winctrol.cls == "static" {
                 var id = ctrlNameList.static + 1;
                 ctrlNameList.static = id;
+                this.translateNamelist[ctrl.z] = "label"++id;
                 owner.write(..string.format('self.label%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 owner.write(..string.format('self.label%i = ttk.Label(self.label%i_frame, text="%s", %s)', id, id, text, justify), 8);
                 owner.write(..string.format('self.label%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
@@ -510,6 +542,7 @@ class ***/
             if winctrol.cls == "edit" {
                 var id = ctrlNameList.edit + 1;
                 ctrlNameList.edit = id;
+                this.translateNamelist[ctrl.z] = "edit"++id;
                 var vscroll = ctrl.vscroll;
                 var hscroll = ctrl.hscroll;
                 owner.write(..string.format('self.editVar%i = tk.StringVar(value="%s")', id, text), 8);
@@ -557,6 +590,7 @@ class ***/
             if winctrol.cls == "radiobutton" {
                 var id = ctrlNameList.radio + 1;
                 ctrlNameList.radio = id;
+                this.translateNamelist[ctrl.z] = "radio"++id;
                 owner.write(..string.format('self.radio%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 owner.write(..string.format('self.radio%i = ttk.Radiobutton(self.radio%i_frame, text="%s", value=%i)', id, id, text, id), 8);
                 owner.write(..string.format('self.radio%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
@@ -568,6 +602,7 @@ class ***/
             if winctrol.cls == "checkbox" {
                 var id = ctrlNameList.check + 1;
                 ctrlNameList.check = id;
+                owner.translateNamelist[ctrl.z] = "check"++id;
                 owner.write(..string.format('self.check%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 owner.write(..string.format('self.check%i = ttk.Checkbutton(self.check%i_frame, text="%s")', id, id, text), 8);
                 owner.write(..string.format('self.check%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
@@ -579,6 +614,7 @@ class ***/
             if winctrol.cls == "picturebox" {
                 var id = ctrlNameList.pic + 1;
                 ctrlNameList.pic = id;
+                this.translateNamelist[ctrl.z] = "pic"++id;
                 owner.write(..string.format('self.pic%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 var picpath = winctrol.background;
                 if picpath {
@@ -604,6 +640,7 @@ class ***/
             if winctrol.cls == "plus" {
                 var id = ctrlNameList.canvas + 1;
                 ctrlNameList.canvas = id;
+                this.translateNamelist[ctrl.z] = "canvas"++id;
                 var vscroll = ctrl.vscroll;
                 var hscroll = ctrl.hscroll;
                 var bgcolor = winctrol.backgroundColor;
@@ -635,6 +672,7 @@ class ***/
             if winctrol.cls == "listbox" {
                 var id = ctrlNameList.listbox + 1;
                 ctrlNameList.listbox = id;
+                this.translateNamelist[ctrl.z] = "list"++id;
                 var vscroll = ctrl.vscroll;
                 var hscroll = ctrl.hscroll;
                 owner.write(..string.format('self.list%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
@@ -686,6 +724,7 @@ class ***/
             if winctrol.cls == "combobox" {
                 var id = ctrlNameList.combobox + 1;
                 ctrlNameList.combobox = id;
+                this.translateNamelist[ctrl.z] = "combobox"++id;
                 owner.write(..string.format('self.combobox%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 var items = winctrol.items;
                 if #items>0 {
@@ -724,6 +763,7 @@ class ***/
             if winctrol.cls == "listview" {
                 var id = ctrlNameList.treeview + 1;
                 ctrlNameList.treeview = id;
+                this.translateNamelist[ctrl.z] = "tree"++id;
                 owner.write(..string.format('self.tree%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 owner.write(..string.format('self.tree%i = ttk.Treeview(self.tree%i_frame)', id, id), 8);
                 owner.write(..string.format('self.tree%i.place(x=0, y=0, width=%i, height=%i)', id, width, height), 8);
@@ -735,6 +775,7 @@ class ***/
             if winctrol.cls == "progress" {
                 var id = ctrlNameList.progress + 1;
                 ctrlNameList.progress = id;
+                this.translateNamelist[ctrl.z] = "progress"++id;
                 owner.write(..string.format('self.progress%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 var max = winctrol.max;
                 var value = winctrol.pos;
@@ -748,6 +789,7 @@ class ***/
             if winctrol.cls == "trackbar" {
                 var id = ctrlNameList.trackbar + 1;
                 ctrlNameList.trackbar = id;
+                this.translateNamelist[ctrl.z] = "scale"++id;
                 owner.write(..string.format('self.scale%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 var min = winctrol.min;
                 var max = winctrol.max;
@@ -762,15 +804,25 @@ class ***/
             if winctrol.cls == "groupbox" {
                 var id = ctrlNameList.groupbox + 1;
                 ctrlNameList.groupbox = id;
+                this.translateNamelist[ctrl.z] = "labelframe"++id;
                 owner.write(..string.format('self.labelframe%i = ttk.Labelframe(text="%s", width=%i, height=%i)', id, text, width, height), 8);
                 owner.write(..string.format('self.labelframe%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height), 8);
                 if hide { owner.write(..string.format('self.labelframe%i.place_forget()', id), 8); };
-                
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('self.labelframe%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
+                    owner.write(..string.format('self.labelframe%i.configure(font=self.labelframe%i_font)', id, id), 8);
+                };
             };
             //Frame
             if winctrol.cls == "custom" {
                 var id = ctrlNameList.frame + 1;
                 ctrlNameList.frame = id;
+                this.translateNamelist[ctrl.z] = "frame"++id;
                 owner.write(..string.format('self.frame%i = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 owner.write(..string.format('self.frame%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height), 8);
                 if hide { owner.write(..string.format('self.frame%i.place_forget()', id), 8); };
@@ -779,10 +831,19 @@ class ***/
             if winctrol.cls == "tab" {
                 var id = ctrlNameList.tab + 1;
                 ctrlNameList.tab = id;
+                this.translateNamelist[ctrl.z] = "nb"++id;
                 owner.write(..string.format('self.nb%i = ttk.Notebook(width=%i, height=%i)', id, width, height), 8);
                 owner.write(..string.format('self.nb%i.place(x=%i, y=%i, width=%i, height=%i)', id, x, y, width, height), 8);
                 if hide { owner.write(..string.format('self.nb%i.place_forget()', id), 8); };
-                
+                if font {
+                    var italic = font.italic ? 'slant="italic"' : 'slant="roman"';
+                    var weight = font.weight==700 ? 'weight="bold"' : 'weight="normal"';
+                    var family = 'family="'+font.name+'"';
+                    var underline = font.underline ? 'underline=True' : 'underline=False';
+                    var size = 'size='++..math.round(font.h*(-3)/4);
+                    owner.write(..string.format('self.nb%i_font = tkFont.Font(%s)', id, ..string.join({family; size; weight; italic; underline}, ", ")), 8);
+                    owner.write(..string.format('self.nb%i.configure(font=self.nb%i_font)', id, id), 8);
+                };
             };
         };
           
@@ -799,9 +860,10 @@ class ***/
     	for i, result in results {
     		var name = result[1];
     		var z = result[2];
-    		owner.write(..string.format('# Z=%i -> %s', z, name));
+    		var theName = this.translateNamelist[tonumber(z)];
+    		this.pycode = ..string.replace(this.pycode, theName, name)
     	};
-    	return this.pycode;
+    	return owner.pycode;
     };
      
 
@@ -814,5 +876,5 @@ GUI2Py.GUI2Tk(.(winform界面窗体) = 返回解析对象
 GUI2Py.GUI2Tk() = !GUI2Py_GUI2Tk.
 !GUI2Py_GUI2Tk.transfer2root( ) = 组件按place方式布局，返回的代码用于生成主界面
 !GUI2Py_GUI2Tk.transfer2place(.( "组件名称" ) = 组件按place方式布局，返回的代码用于生成组件类
-!GUI2Py_GUI2Tk.translateName(.( winform_DSG ) = 解析窗体设计器代码，返回的Z序与对应控件名称，可用来替换python中的控件名
+!GUI2Py_GUI2Tk.translateName(.( winform_DSG ) = 解析窗体设计器代码，并替换对应的控件名
 end intellisense**/
