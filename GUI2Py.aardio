@@ -3,6 +3,7 @@ import GUI2Py;
 import color
 import string
 import math
+import ide
 
 namespace GUI2Py
     
@@ -854,7 +855,10 @@ class ***/
         return this.pycode;
     };
     
-    translateName = function(formStr){
+    translateName = function(formStr=""){
+        if !formStr {
+        	formStr = ..ide.getActiveCode();
+        }
     	var pattern = "(\w+)=\{.*?z=(\d\d?)\}";
     	var results = ..string.matches(formStr, pattern);
     	for i, result in results {
