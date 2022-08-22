@@ -33,6 +33,10 @@ GUI2Python库 - 用aardio画Tkinter界面并生成Python代码 - *As a Tkinter D
 
 ## 目前可以实现的功能：
 
+- 20220822更新：
+1. 上传GUI2Py.tar.lzma库打包文件
+2. 只需在代码页第一行插入 ```_IMPORTURL["GUI2Py"] = "https://github.com/jerryxjr1220/aardioGUI2Python/raw/aardio/GUI2Py.tar.lzma"```  程序会自动下载GUI2Py库并进行安装。
+
 - 20220821更新:
 1. 改进translateName方法，解析窗体设计器代码，并自动替换对应的控件名。具体见GUI2Py.aardio
 2. 以后主要更新GUI2Py.aardio文件（原GUI2Py_simple.aardio)，GUI2Py_full.aardio文件（原GUI2Py.aardio）不再更新，pack方法和grid方法可以自行修改。
