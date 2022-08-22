@@ -855,10 +855,8 @@ class ***/
         return this.pycode;
     };
     
-    translateName = function(formStr=""){
-        if !formStr {
-        	formStr = ..ide.getActiveCode();
-        }
+    translateName = function(){
+        var formStr = ..ide.getActiveCode();
     	var pattern = "(\w+)=\{.*?z=(\d\d?)\}";
     	var results = ..string.matches(formStr, pattern);
     	for i, result in results {
