@@ -206,7 +206,7 @@ root = tk.Tk()
                 owner.write(..string.format('pic%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height));
                 var picpath = winctrol.background;
                 if picpath {
-                    owner.write(..string.format('img%i = tk.PhotoImage(file=r"%s")', id, picpath.path));
+                    owner.write(..string.format('img%i = tk.PhotoImage(file=r"%s")', id, picpath));
                     owner.write(..string.format('pic%i = ttk.Label(pic%i_frame, image=img%i, %s)', id, id, id, justify));
                 } else {
                     owner.write(..string.format('pic%i = ttk.Label(pic%i_frame, %s)', id, id, justify));
@@ -619,7 +619,7 @@ class ***/
                 owner.write(..string.format('self.pic%i_frame = ttk.Frame(width=%i, height=%i)', id, width, height), 8);
                 var picpath = winctrol.background;
                 if picpath {
-                    owner.write(..string.format('self.img%i = tk.PhotoImage(file=r"%s")', id, picpath.path), 8);
+                    owner.write(..string.format('self.img%i = tk.PhotoImage(file=r"%s")', id, picpath), 8);
                     owner.write(..string.format('self.pic%i = ttk.Label(self.pic%i_frame, image=self.img%i, %s)', id, id, id, justify), 8);
                 } else {
                     owner.write(..string.format('self.pic%i = ttk.Label(self.pic%i_frame, %s)', id, id, justify), 8);
